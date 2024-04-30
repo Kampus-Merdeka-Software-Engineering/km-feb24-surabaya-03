@@ -8,7 +8,8 @@
 | M. Thahir Nur Ramadhan Takbir | PIC. Deployment, Data Visualization Team                           | [linkedln]( ), [github]( )           |
 | Ernawati Purnama Zebua        | PIC. Pitch Deck, Data Communication Team                           | [linkedln]( ), [github]( )           |
 | Rifa Haenun Alya              | Front End Engineer Team, Data Cleaning Team                        | [linkedln]( ), [github]( )           |
-| Ivana Aikozora Putrinugroho   | Pitch Deck Team, Data Analysis Team                                | [linkedln]( ), [github]( )           |
+| Ivana Aikozora Putrinugroho   | Pitch Deck Team, Data Analysis Team                                | [linkedln](https://id.linkedin.com/in/ivana-aikozora
+ ), [github](https://github.com/aikozoora/aikozoora.github.io)           |
 | Umi Latifah                   | Deployment Team, PIC. Data Cleaning                                | [linkedln]( ), [github]( )           |
 | Prayoga Rasyid Sudrajat       | Front End Engineer Team, Data Analysis Team                        | [linkedln]( ), [github]( )           |
 | Amelia Putri Tanjung          | Pitch Deck Team, PIC. Data Communication                           | [linkedln]( ), [github]( )           |
