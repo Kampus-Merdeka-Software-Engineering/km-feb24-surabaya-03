@@ -4,7 +4,7 @@
 |-------------------------------|--------------------------------------------------------------------|--------------------------------------|
 | Fiyanda Ma’muri               | Project Leader SE, PIC. Data Visualization                         | [linkedln](https://www.linkedin.com/in/fiyandamamuri/), [github](https://github.com/fiyandamamuri)           |
 | Niko Riant Cahyono            | Captain Team, Front End Engineer Team, Project Leader DA           | [linkedln]( ), [github]( )           |
-| Daniel Andrew Ketaren         | PIC. Front End Engineer, PIC. Data Analysis                        | [linkedln]( ), [github]( )           |
+| Daniel Andrew Ketaren         | PIC. Front End Engineer, PIC. Data Analysis                        | [linkedln](https://www.linkedin.com/in/daniel-andrew-ketaren-2b51a5223/), [github](https://github.com/Danielketaren2207)           |
 | M. Thahir Nur Ramadhan Takbir | PIC. Deployment, Data Visualization Team                           | [linkedln]( ), [github]( )           |
 | Ernawati Purnama Zebua        | PIC. Pitch Deck, Data Communication Team                           | [linkedln]( https://www.linkedin.com/in/ernawati-purnama-zebua-9a2b15254/), [github](https://github.com/Ernapz15 )           |
 | Rifa Haenun Alya              | Front End Engineer Team, Data Cleaning Team                        | [linkedln]( ), [github]( )           |
