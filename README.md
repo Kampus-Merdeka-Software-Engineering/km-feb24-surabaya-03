@@ -15,5 +15,5 @@
 | Maria Thris One Gris          | PIC. Quality Assurance, Data Cleaning Team                         | [linkedln]( ), [github]( )           |
 | Khusnul Khotimah              | Quality Assurance Team, Data Visualization Team                    | [linkedln]( ), [github]( )           |
 | Valdo Gabriel Ginting         | Quality Assurance Team, Data Communication Team                    | [linkedln]( ), [github]( )           |
-nyoba git flow
+
 
