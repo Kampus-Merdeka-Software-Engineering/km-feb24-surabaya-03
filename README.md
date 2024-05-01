@@ -17,3 +17,4 @@
 | Valdo Gabriel Ginting         | Quality Assurance Team, Data Communication Team                    | [linkedln]( ), [github]( )           |
 
 
+Putri dan dia
