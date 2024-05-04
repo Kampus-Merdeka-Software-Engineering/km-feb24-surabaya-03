@@ -82,3 +82,41 @@ main {
 h1 {
     font-size: 25px;
 }
+
+.pbalap {
+    display: flex;
+    flex-direction: column;
+    background-color: #E7E2F4;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.container-pbalap {
+    flex-grow: 1;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+}
+
+.main1 {
+    margin : 10px;
+    background-color: #ffffff;
+}
+
+label {
+    background-color: #2a2b58;
+    text-align: left; color: #E7E2F4;
+}
+
+.pbalap2 {
+    background-color: #E7E2F4; 
+    padding: 20px;
+  
+    margin-bottom: 30px;
+ 
+ }
+ 
+ .container-pbalap2 {
+     background-color: #ffffff;
+     margin-bottom: 30px;
+
+ }

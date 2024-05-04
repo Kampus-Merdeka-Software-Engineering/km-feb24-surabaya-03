@@ -36,7 +36,7 @@
     </nav>
     <main>
         <aside>
-            <section class="container-aside">
+            <section class="revenue">
                 <div class="score-card">
                     <p style="padding-top: 10px;">Revenue</p>
                     <h1>$ 19.08 K</h1>
@@ -56,7 +56,7 @@
             </section>
             <section class="products">
                 <div class="score-card">
-                    <p style="padding-top: 10px;">roducts</p>
+                    <p style="padding-top: 10px;">products</p>
                     <h1>$ 19.08 K</h1>
                 </div>
             </section>
@@ -73,47 +73,63 @@
                 </div>
             </section>
         </aside>
-        <section>
-            <label for="Total Sales By Month">Total Sales By Month</label>
+       <section class="pbalap">
+        <section class="container-pbalap">  
+            <label for="Total Sales By Month" >Total Sales By Month</label>
             <canvas id="total_sales_by_month" width="900px" height="300px">
 
             </canvas>
         </section>
-        <section>
+        <div class="container-pbalap">
             <label for="Top Fove Product Sales">Top Five Product Sales</label>
             <canvas id="top_five_product_sales" width="900px" height="300px">
 
             </canvas>
-        </section>
-        <div class="multi-section">
-            <section class="left">
-                <label for="Percentage Qty Sold Based On Machine">Percentage Qty Sold Based On Machine</label>
+        </div>
+        <section>
+         <aside>
+          <div class="pbalap">
+            <div class="container-pbalap">
+                <label for="Percentage Qty Sold Based On Machine" >Percentage Qty Sold Based On Machine</label>
                 <canvas id="percentage_qty_sold_based_on_machine">
 
                 </canvas>
-
+            </div>
+            <div class="container-pbalap">
                 <label for="Percentage Payment Type">Percentage Payment Type</label>
                 <canvas id="percentage_payment_type">
 
                 </canvas>
-            </section>
-            <section class="right">
+            </div>
+          </div>
+         </aside>
+         <section>
+          <div class="pbalap">
+            <div class="container-pbalap">
                 <label for="Sales By Location Based On Category">Sales By Location Based On Category</label>
-                <canvas id="sales_by_location_based_on_category">
+                <canvas id="sales_by_location_based_on_category"width="900px" height="410px">
 
                 </canvas>
-            </section>
-        </div>
+            </div>
+          </div>
+         </section>
+        </section>
+
         <section>
+        <div class="pbalap">
+            <div class="container-pbalap">
             <label for="Payment vs Item">Payment vs Item</label>
             <canvas id="payment_vs_item">
 
             </canvas>
-
+            </div>
+            <div class="container-pbalap">    
             <label for="Item Purchased vs Price">Item Purchased vs Price</label>
             <canvas id="item_purchased_vs_price">
 
             </canvas>
+            </div>
+        </div>
         </section>
     </main>
     <footer>
