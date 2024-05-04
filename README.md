@@ -3,7 +3,7 @@
 | Name                          | Role                                                               | Contact                              |
 |-------------------------------|--------------------------------------------------------------------|--------------------------------------|
 | Fiyanda Ma’muri               | Project Leader SE, PIC. Data Visualization                         | [linkedln](https://www.linkedin.com/in/fiyandamamuri/), [github](https://github.com/fiyandamamuri)           |
-| Niko Riant Cahyono            | Captain Team, Front End Engineer Team, Project Leader DA           | [linkedln]( ), [github]( )           |
+| Niko Riant Cahyono            | Captain Team, Front End Engineer Team, Project Leader DA           | [linkedln](https://www.linkedin.com/in/niko-riant-8b6055285/), [github](https://github.com/royalrumble3)           |
 | Daniel Andrew Ketaren         | PIC. Front End Engineer, PIC. Data Analysis                        | [linkedln]( ), [github]( )           |
 | M. Thahir Nur Ramadhan Takbir | PIC. Deployment, Data Visualization Team                           | [linkedln]( ), [github]( )           |
 | Ernawati Purnama Zebua        | PIC. Pitch Deck, Data Communication Team                           | [linkedln]( ), [github]( )           |
