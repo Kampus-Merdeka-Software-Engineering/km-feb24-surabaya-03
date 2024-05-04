@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vending Machine Sales Dashboard 2022 (KM-24 - Section Surabaya - Team 3) </title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <img src="img/revou.png" style="margin-left: 20px;" alt="Logo RevoU">
+        <h1 style="margin-left: auto; margin-right:auto;">Vending Machine Sales Dashboard 2022</h1>
+    </header>
+    <nav>
+        <section class="filter">
+            <select name="location" id="">
+                <option value="">Location</option>
+                <option value="GuttenPlans">GuttenPlans</option>
+                <option value="Earle Asphalt">Earle Asphalt</option>
+                <option value="EB Public Library">EB Public Library</option>
+                <option value="Brunswick SQ Mall">Brunswick SQ Mall</option>
+            </select>
+    
+            <select name="category" id="">
+                <option value="">Category</option>
+                <option value="Water">Water</option>
+                <option value="Non Carbonated">Non Carbonated</option>
+                <option value="Food">Food</option>
+                <option value="Carbonated">Carbonated</option>
+            </select>
+    
+            <select name="date" id="">
+                <option value="">Jan 1, 2022 - Dec 31, 2022</option>
+            </select>
+        </section>
+    </nav>
+    <main>
+        <aside>
+            <div class="revenue">
+                <p>Revenue</p>
+                <h1>$ 19.08 K</h1>
+            </div>
+            <section class="machine">
+
+            </section>
+            <section class="category_product">
+
+            </section>
+            <section class="products">
+
+            </section>
+            <section class="transaction">
+
+            </section>
+            <section class="qty_sold">
+
+            </section>
+        </aside>
+        <section>
+            <label for="Total Sales By Month">Total Sales By Month</label>
+            <canvas id="total_sales_by_month" width="900px" height="300px">
+
+            </canvas>
+        </section>
+        <section>
+            <label for="Top Fove Product Sales">Top Five Product Sales</label>
+            <canvas id="top_five_product_sales" width="900px" height="300px">
+
+            </canvas>
+        </section>
+        <div class="multi-section">
+            <section class="left">
+                <label for="Percentage Qty Sold Based On Machine">Percentage Qty Sold Based On Machine</label>
+                <canvas id="percentage_qty_sold_based_on_machine">
+
+                </canvas>
+
+                <label for="Percentage Payment Type">Percentage Payment Type</label>
+                <canvas id="percentage_payment_type">
+
+                </canvas>
+            </section>
+            <section class="right">
+                <label for="Sales By Location Based On Category">Sales By Location Based On Category</label>
+                <canvas id="sales_by_location_based_on_category">
+
+                </canvas>
+            </section>
+        </div>
+        <section>
+            <label for="Payment vs Item">Payment vs Item</label>
+            <canvas id="payment_vs_item">
+
+            </canvas>
+
+            <label for="Item Purchased vs Price">Item Purchased vs Price</label>
+            <canvas id="item_purchased_vs_price">
+
+            </canvas>
+        </section>
+    </main>
+    <footer>
+        <p style="text-align: center;">Designed By :  KM-24 - Section Surabaya - Team 3</p>
+    </footer>
+</body>
+</html>
