@@ -68,8 +68,8 @@
                     <h1>$ 19.08 K</h1>
                 </div>
             </section>
-            <section class="qty_sold">
-                <div class="score-card">
+            <section class="qty_sold" >
+                <div class="score-card" >
                     <p style="padding-top: 10px;">qty_sold</p>
                     <h1>$ 19.08 K</h1>
                 </div>
@@ -78,46 +78,46 @@
         <section class="pbalap">
             <section class="container-pbalap">
                 <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
-                <canvas id="total_sales_by_month" width="900px" height="300px">
+                <canvas id="total_sales_by_month" width="900px" height="280px">
 
                 </canvas>
             </section>
             <section class="container-pbalap">
                 <label for="Top Five Product Sales" class="label-viz">Top Five Product Sales</label>
-                <canvas id="top_five_product_sales" width="900px" height="300px">
+                <canvas id="top_five_product_sales" width="900px" height="280px">
 
                 </canvas>
             </section>
         </section>
-        <section>
-            <aside>
-                <div class="pbalap">
-                    <div class="container-pbalap">
+        <section class="bottom-viz mb-15">
+            <div class="container-pbalap3 mx-30 my-30">
+                <div class="left-viz">
+                    <div class="container-pbalap3">
+
                         <label for="Percentage Qty Sold Based On Machine" class="label-viz">Percentage Qty Sold
                             Based On Machine</label>
-                        <canvas id="percentage_qty_sold_based_on_machine">
-
+                        <canvas id="percentage_qty_sold_based_on_machine" height="200px">
+        
                         </canvas>
                     </div>
-                    <div class="container-pbalap">
+
+                    <div class="container-pbalap3">
+    
                         <label for="Percentage Payment Type" class="label-viz">Percentage Payment Type</label>
-                        <canvas id="percentage_payment_type">
-
+                        <canvas id="percentage_payment_type" height="200px">
+        
                         </canvas>
+
                     </div>
                 </div>
-            </aside>
-            <section>
-                <div class="pbalap">
-                    <div class="container-pbalap">
-                        <label for="Sales By Location Based On Category" class="label-viz">Sales By Location Based
-                            On Category</label>
-                        <canvas id="sales_by_location_based_on_category" width="900px" height="410px">
+            </div>
+            <div class="pbalap my-12">
+                <label for="Sales By Location Based On Category" class="label-viz">Sales By Location Based
+                    On Category</label>
+                <canvas id="sales_by_location_based_on_category" width="850px" height="460" style="background-color: white;">
 
-                        </canvas>
-                    </div>
-                </div>
-            </section>
+                </canvas>
+            </div>
         </section>
         <section class="bottom-viz">
             <div class="container-pbalap3 mx-30 my-30">
@@ -138,5 +138,30 @@
         <p style="text-align: center;">Designed By : KM-24 - Section Surabaya - Team 3</p>
     </footer>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('total_sales_by_month');
+  
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'Revenue',
+          data: [883.5, 908.75, 1129, 1622.5, 1655.5, 2024.75, 2280.75, 2108.25, 1752, 1691.25, 1624.75, 1403.25],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
 
 </html>

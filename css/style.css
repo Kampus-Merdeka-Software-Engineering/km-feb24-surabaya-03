@@ -128,6 +128,12 @@ label {
 
 }
 
+.middle-viz{
+    display: flex;
+    justify-content: space-between;
+    background-color: #E7E2F4;
+}
+
 .bottom-viz{
     display: flex;
     justify-content: space-between;
@@ -138,6 +144,13 @@ label {
     flex-grow: 1;
     background-color: #ffffff;
     margin-bottom: 30px;
+}
+
+.left-viz{
+    display: flex;
+    justify-content: space-between;
+    background-color: #E7E2F4;
+    flex-direction: column;
 }
 
 .ml-30{
@@ -156,4 +169,22 @@ label {
 .my-30{
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+.mb-15{
+    margin-bottom: 15px;
+}
+
+.mt-15{
+    margin-top: 15px;
+}
+
+.mx-15{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.my-12{
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
