@@ -9,7 +9,7 @@
 | Ernawati Purnama Zebua        | PIC. Pitch Deck, Data Communication Team                           | [linkedln]( ), [github]( )           |
 | Rifa Haenun Alya              | Front End Engineer Team, Data Cleaning Team                        | [linkedln]( ), [github]( )           |
 | Ivana Aikozora Putrinugroho   | Pitch Deck Team, Data Analysis Team                                | [linkedln](https://id.linkedin.com/in/ivana-aikozora), [github](https://github.com/aikozoora/aikozoora.github.io)            |
-| Umi Latifah                   | Deployment Team, PIC. Data Cleaning                                | [linkedln]( ), [github]( )           |
+| Umi Latifah                   | Deployment Team, PIC. Data Cleaning                                | [linkedln](https://www.linkedin.com/in/umilatifah21 ), [github]( https://github.com/LatifahUmi)           |
 | Prayoga Rasyid Sudrajat       | Front End Engineer Team, Data Analysis Team                        | [linkedln]( ), [github]( )           |
 | Amelia Putri Tanjung          | Pitch Deck Team, PIC. Data Communication                           | [linkedln](https://www.linkedin.com/in/putri-tanjung-8a40652b1? ), [github]( https://github.com/PutriTanjung)                |
 | Maria Thris One Gris          | PIC. Quality Assurance, Data Cleaning Team                         | [linkedln]( ), [github]( )           |
