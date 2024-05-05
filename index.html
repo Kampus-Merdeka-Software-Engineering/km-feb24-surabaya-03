@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vending Machine Sales Dashboard 2022 (KM-24 - Section Surabaya - Team 3) </title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <header>
         <img src="img/revou.png" style="margin-left: 20px;" alt="Logo RevoU">
@@ -20,7 +22,7 @@
                 <option value="EB Public Library">EB Public Library</option>
                 <option value="Brunswick SQ Mall">Brunswick SQ Mall</option>
             </select>
-    
+
             <select name="category" id="">
                 <option value="">Category</option>
                 <option value="Water">Water</option>
@@ -28,7 +30,7 @@
                 <option value="Food">Food</option>
                 <option value="Carbonated">Carbonated</option>
             </select>
-    
+
             <select name="date" id="">
                 <option value="">Jan 1, 2022 - Dec 31, 2022</option>
             </select>
@@ -73,67 +75,68 @@
                 </div>
             </section>
         </aside>
-       <section class="pbalap">
-        <section class="container-pbalap">  
-            <label for="Total Sales By Month" >Total Sales By Month</label>
-            <canvas id="total_sales_by_month" width="900px" height="300px">
+        <section class="pbalap">
+            <section class="container-pbalap">
+                <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
+                <canvas id="total_sales_by_month" width="900px" height="300px">
 
-            </canvas>
+                </canvas>
+            </section>
+            <section class="container-pbalap">
+                <label for="Top Five Product Sales" class="label-viz">Top Five Product Sales</label>
+                <canvas id="top_five_product_sales" width="900px" height="300px">
+
+                </canvas>
+            </section>
         </section>
-        <div class="container-pbalap">
-            <label for="Top Fove Product Sales">Top Five Product Sales</label>
-            <canvas id="top_five_product_sales" width="900px" height="300px">
-
-            </canvas>
-        </div>
         <section>
-         <aside>
-          <div class="pbalap">
-            <div class="container-pbalap">
-                <label for="Percentage Qty Sold Based On Machine" >Percentage Qty Sold Based On Machine</label>
-                <canvas id="percentage_qty_sold_based_on_machine">
+            <aside>
+                <div class="pbalap">
+                    <div class="container-pbalap">
+                        <label for="Percentage Qty Sold Based On Machine" class="label-viz">Percentage Qty Sold
+                            Based On Machine</label>
+                        <canvas id="percentage_qty_sold_based_on_machine">
 
-                </canvas>
-            </div>
-            <div class="container-pbalap">
-                <label for="Percentage Payment Type">Percentage Payment Type</label>
-                <canvas id="percentage_payment_type">
+                        </canvas>
+                    </div>
+                    <div class="container-pbalap">
+                        <label for="Percentage Payment Type" class="label-viz">Percentage Payment Type</label>
+                        <canvas id="percentage_payment_type">
 
-                </canvas>
-            </div>
-          </div>
-         </aside>
-         <section>
-          <div class="pbalap">
-            <div class="container-pbalap">
-                <label for="Sales By Location Based On Category">Sales By Location Based On Category</label>
-                <canvas id="sales_by_location_based_on_category"width="900px" height="410px">
+                        </canvas>
+                    </div>
+                </div>
+            </aside>
+            <section>
+                <div class="pbalap">
+                    <div class="container-pbalap">
+                        <label for="Sales By Location Based On Category" class="label-viz">Sales By Location Based
+                            On Category</label>
+                        <canvas id="sales_by_location_based_on_category" width="900px" height="410px">
 
-                </canvas>
-            </div>
-          </div>
-         </section>
+                        </canvas>
+                    </div>
+                </div>
+            </section>
         </section>
+        <section class="bottom-viz">
+            <div class="container-pbalap3 mx-30 my-30">
+                <label for="Payment vs Item" class="label-viz">Payment vs Item</label>
+                <canvas id="payment_vs_item">
 
-        <section>
-        <div class="pbalap">
-            <div class="container-pbalap">
-            <label for="Payment vs Item">Payment vs Item</label>
-            <canvas id="payment_vs_item">
-
-            </canvas>
+                </canvas>
             </div>
-            <div class="container-pbalap">    
-            <label for="Item Purchased vs Price">Item Purchased vs Price</label>
-            <canvas id="item_purchased_vs_price">
+            <div class="container-pbalap3 mx-30 my-30">
+                <label for="Item Purchased vs Price" class="label-viz">Item Purchased vs Price</label>
+                <canvas id="item_purchased_vs_price">
 
-            </canvas>
+                </canvas>
             </div>
-        </div>
         </section>
     </main>
     <footer>
-        <p style="text-align: center;">Designed By :  KM-24 - Section Surabaya - Team 3</p>
+        <p style="text-align: center;">Designed By : KM-24 - Section Surabaya - Team 3</p>
     </footer>
 </body>
+
 </html>

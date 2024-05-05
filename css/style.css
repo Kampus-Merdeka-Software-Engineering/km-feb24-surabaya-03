@@ -11,6 +11,7 @@ header {
     align-items: center;  
     justify-content: flex-start; 
     background-color: #ffffff;
+    height: 80px;
 }
 
 nav {
@@ -120,3 +121,39 @@ label {
      margin-bottom: 30px;
 
  }
+
+.label-viz{
+    width: 100%;
+    display: block;
+
+}
+
+.bottom-viz{
+    display: flex;
+    justify-content: space-between;
+    background-color: #E7E2F4;
+}
+
+.container-pbalap3 {
+    flex-grow: 1;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+}
+
+.ml-30{
+    margin-left: 30px;
+}
+
+.mr-30{
+    margin-right: 30px;
+}
+
+.mx-30{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.my-30{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
