@@ -4,12 +4,80 @@ body {
     font-family: Arial, sans-serif;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
+/* style header */
+img{
+    max-width: 80px;
+    max-height: 80px;
 }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+}
+
+
+.title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.title h1 {
+    margin: 0;
+}
+
+@media screen and (max-width: 667px) {
+    img{
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .title h1 {
+        font-size: medium;
+    }
+}
+
+/* style navbar */
+nav {
+    width: 100%;
+    background-color: #2a2b58;
+    height: auto; /* Mengubah tinggi menjadi otomatis agar sesuai dengan konten di dalamnya */
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2a2b58;
+}
+
+select {
+    width: 100%; /* Mengubah lebar menjadi 100% agar selalu mengisi lebar parentnya */
+    max-width: 250px; /* Menambahkan maksimum lebar agar tetap terlihat baik pada layar yang lebih besar */
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #2a2b58;
+    padding: 10px;
+}   
+
+/* CSS untuk navbar responsif pada perangkat mobile */
+@media screen and (max-width: 767px) {
+    .filter {
+        flex-direction: row; /* Mengubah arah fleks dari horizontal menjadi vertikal */
+        align-items: stretch; /* Memastikan elemen anak memenuhi lebar parent */
+    }
+    
+    select {
+        width: 30%; /* Mengisi lebar parent */
+
+    }
+}
+
+
+
+/* style main */
 
 main {
     display: flex;
@@ -60,3 +128,8 @@ section {
 
 .large-chart {
     flex: 2;}
+
+.charts3 {
+    display: flex;
+    flex-direction: row;
+}
