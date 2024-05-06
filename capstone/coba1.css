@@ -5,7 +5,7 @@ body {
 }
 
 /* style header */
-img{
+img {
     max-width: 80px;
     max-height: 80px;
 }
@@ -29,7 +29,7 @@ header {
 }
 
 @media screen and (max-width: 667px) {
-    img{
+    img {
         max-width: 40px;
         max-height: 40px;
     }
@@ -43,7 +43,8 @@ header {
 nav {
     width: 100%;
     background-color: #2a2b58;
-    height: auto; /* Mengubah tinggi menjadi otomatis agar sesuai dengan konten di dalamnya */
+    height: auto;
+    /* Mengubah tinggi menjadi otomatis agar sesuai dengan konten di dalamnya */
 }
 
 .filter {
@@ -54,23 +55,28 @@ nav {
 }
 
 select {
-    width: 100%; /* Mengubah lebar menjadi 100% agar selalu mengisi lebar parentnya */
-    max-width: 250px; /* Menambahkan maksimum lebar agar tetap terlihat baik pada layar yang lebih besar */
+    width: 100%;
+    /* Mengubah lebar menjadi 100% agar selalu mengisi lebar parentnya */
+    max-width: 250px;
+    /* Menambahkan maksimum lebar agar tetap terlihat baik pada layar yang lebih besar */
     height: 40px;
     border-radius: 5px;
     border: 1px solid #2a2b58;
     padding: 10px;
-}   
+}
 
 /* CSS untuk navbar responsif pada perangkat mobile */
 @media screen and (max-width: 767px) {
     .filter {
-        flex-direction: row; /* Mengubah arah fleks dari horizontal menjadi vertikal */
-        align-items: stretch; /* Memastikan elemen anak memenuhi lebar parent */
+        flex-direction: row;
+        /* Mengubah arah fleks dari horizontal menjadi vertikal */
+        align-items: stretch;
+        /* Memastikan elemen anak memenuhi lebar parent */
     }
-    
+
     select {
-        width: 30%; /* Mengisi lebar parent */
+        width: 30%;
+        /* Mengisi lebar parent */
 
     }
 }
@@ -81,27 +87,49 @@ select {
 
 main {
     display: flex;
-    align-items: flex-start; /* Agar elemen sejajar di bagian atas */
+    align-items: flex-start;
+    /* Agar elemen sejajar di bagian atas */
+    flex-direction: column;
 }
 
 .metrics {
     background-color: #ccc;
     padding: 20px;
-    height: 100%; /* Set tinggi aside agar sejajar dengan charts1 */
+    height: 100%;
+    /* Set tinggi aside agar sejajar dengan charts1 */
 }
 
 .content {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Set tinggi section agar sejajar dengan aside */ 
+    height: 100%;
+    /* Set tinggi section agar sejajar dengan aside */
 }
+
+.part1 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    /* Set tinggi section agar sejajar dengan aside */
+}
+
+.part2 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    /* Set tinggi section agar sejajar dengan aside */
+}
+
 
 .charts1 {
     background-color: #eee;
     margin-bottom: 20px;
     padding: 20px;
-    height: 100%; /* Set tinggi charts1 agar sejajar dengan aside */
+    height: 100%;
+    /* Set tinggi charts1 agar sejajar dengan aside */
 }
 
 section {
@@ -127,7 +155,8 @@ section {
 }
 
 .large-chart {
-    flex: 2;}
+    flex: 2;
+}
 
 .charts3 {
     display: flex;
