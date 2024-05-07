@@ -89,7 +89,12 @@ aside {
     background-color: rgb(167, 167, 167);
     padding: 20px;
     margin: 10px;
-    
+
+}
+
+.label-viz{
+    width: 100%;
+    display: block;
 
 }
 

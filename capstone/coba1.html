@@ -51,13 +51,13 @@
     <main>
         <div class="part1">
             <div class="part-aside">
-                    <div class="container-metric">
+                    <div class="container-metric" width="150px">
                         <p style="text-align: center;">Revenue</p>
                     <canvas id="Revenue">
                         
                     </canvas>
                     </div>
-                    <div class="container-metric">
+                    <div class="container-metric" >
                         <p style="text-align: center;">Machine</p>
                         <canvas id="top_five_product_sales">
                         
@@ -90,12 +90,14 @@
             </div>
 
             <section class="content">
-                <section class="charts1">
-                    <div>
-                        <p>Total Sales by Month</p>
+                <section>
+                    <div class="container-metric">
+                        <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
+                    <canvas id="total_sales_by_month" width="900px" height="280px">
                     </div>
-                    <div>
-                        <p>Top 5 Product Sales</p>
+                    <div class="container-metric">
+                        <label for="Total Sales By Month" class="label-viz">Top 5 Product Sales</label>
+                    <canvas id="total_sales_by_month" width="900px" height="280px">
                     </div>
                 </section>
             </section>
@@ -132,6 +134,30 @@
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('total_sales_by_month');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Revenue',
+                data: [883.5, 908.75, 1129, 1622.5, 1655.5, 2024.75, 2280.75, 2108.25, 1752, 1691.25, 1624.75, 1403.25],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
     <footer>
         <p>Designed By: KM-24 - Section Surabaya - Team 3</p>
     </footer>
