@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* style header */
+img {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+}
+
+
+.title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.title h1 {
+    margin: 0;
+}
+
+/* style navbar */
+nav {
+    width: 100%;
+    background-color: #2a2b58;
+    height: auto;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2a2b58;
+}
+
+select {
+    width: 100%;
+    max-width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #2a2b58;
+    padding: 10px;
+}
+
+/* style main */
+
+main {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+aside {
+    background-color: #ccc;
+    padding: 38.5px;
+    height: 100%;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.part1 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: stretch;
+    gap: 2rem;
+}
+
+.part2 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+
+.charts1 {
+    background-color: white margin-bottom: 20px;
+    padding: 20px;
+    height: 100%;
+}
+
+section {
+    background-color: #eee;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.charts2 {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    background-color: #eee;
+}
+
+.small {
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+
+.small-chart {
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.large-chart {
+    flex: 2;
+    background-color: blue;
+
+}
+
+.charts3 {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.part3 {
+    height: 50%;
+}
+
+footer{
+    text-align: center;
+}
+
+footer p {
+    font-size: small;
+}
+
+/* style responsive */
+@media screen and (max-width: 764px) {
+    img {
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .title h1 {
+        font-size: medium;
+    }
+
+    .filter {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    select {
+        width: 30%;
+    }
+
+    .part1 {
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    aside,
+    .content {
+        width: 80%;
+    }
+
+    .content {
+        width: 90%;
+    }
+
+    .part2 {
+        flex-direction: column;
+    }
+
+    .charts2 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 20px;
+    }
+
+    .part3 {
+        flex-direction: column;
+    }
+
+    .charts3 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 20px;
+    }
+
+    .small-chart {
+        margin-bottom: 0;
+    }
+}

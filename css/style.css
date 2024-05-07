@@ -54,9 +54,18 @@ img{
 aside {
     width: 20%;
     background-color: #E7E2F4;
-    height: auto;
-    float: left;
+    /* height: auto; */
+    /* float: left;
+    display: flex;
+    justify-content: space-between; */
+    background-color: #E7E2F4;
 
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
 .container-aside {
@@ -67,6 +76,10 @@ aside {
 main {
     margin : 10px;
     background-color: #ffffff;
+    /* width: 100%;
+    height: 100%; */
+    overflow: auto;
+
 }
 
 .score-card {
@@ -85,15 +98,17 @@ h1 {
 }
 
 .pbalap {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     background-color: #E7E2F4;
     padding: 20px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
+    width: 95%;
+
 }
 
 .container-pbalap {
-    flex-grow: 1;
+
     background-color: #ffffff;
     margin-bottom: 30px;
 }
