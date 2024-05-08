@@ -51,7 +51,7 @@
     <main>
         <div class="part1">
             <div class="part-aside">
-                    <div class="container-metric" width="150px">
+                    <div class="container-metric">
                         <p style="text-align: center;">Revenue</p>
                     <canvas id="Revenue">
                         
@@ -115,7 +115,7 @@
                         </div>
                         <div class="small-chart">
                             <label for="Top 5 Product Sales" class="label-viz">Percentage Payment Type</label>
-                            <canvas id="Percentage_Payment_Type" width="400px" height="200px">
+                            <canvas id="Percentage_Payment_Type">
                         </div>
                     </div>
                     <div class="large-chart">
@@ -127,10 +127,12 @@
         <div class="part3">
             <section class="charts3">
                 <div class="small-chart">
-                    <p>Payment Type vs. Items Purchased</p>
+                    <label for="Payment Type vs Items Purchased" class="label-viz">Payment Type vs Items Purchased</label>
+                            <canvas id="Payment_vs_Purchased">
                 </div>
                 <div class="small-chart">
-                    <p>Item Purchased vs. Price</p>
+                    <label for="Item Purchased vs Price" class="label-viz">Item Purchased vs Price</label>
+                            <canvas id="Purchased_vs_Price">
                 </div>
             </section>
         </div>
@@ -139,11 +141,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./chart/chart1.js"></script>
     <script src="./chart/chart2.js"></script>
-    <script src="./chart/chart5.js"></script>
+    <script src="./chart/chart3.js"></script>
     <footer>
         <p>Designed By: KM-24 - Section Surabaya - Team 3</p>
     </footer>
 
 </body>
-
 </html>
