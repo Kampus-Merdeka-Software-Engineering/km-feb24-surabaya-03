@@ -59,31 +59,31 @@
                     </div>
                     <div class="container-metric" >
                         <p style="text-align: center;">Machine</p>
-                        <canvas id="top_five_product_sales">
+                        <canvas id="#">
                         
                         </canvas>
                     </div>
                     <div class="container-metric">
                         <p style="text-align: center;">Category Product</p>
-                        <canvas id="top_five_product_sales">
+                        <canvas id="#">
                         
                         </canvas>
                     </div>
                     <div class="container-metric">
                         <p style="text-align: center;">Products</p>
-                        <canvas id="top_five_product_sales">
+                        <canvas id="#">
                         
                         </canvas>
                     </div>
                     <div class="container-metric">
                         <p style="text-align: center;">Transaction</p>
-                        <canvas id="top_five_product_sales">
+                        <canvas id="#">
                         
                         </canvas>
                     </div>
                     <div class="container-metric">
                         <p style="text-align: center;">Qty Sold</p>
-                        <canvas id="top_five_product_sales">
+                        <canvas id="#">
                         
                         </canvas>
                     </div>
@@ -94,10 +94,12 @@
                     <div class="container-metric">
                         <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
                     <canvas id="total_sales_by_month" width="900px" height="280px">
+                    </canvas>
                     </div>
                     <div class="container-metric">
-                        <label for="Total Sales By Month" class="label-viz">Top 5 Product Sales</label>
-                    <canvas id="total_sales_by_month" width="900px" height="280px">
+                        <label for="Top 5 Product Sales" class="label-viz">Top 5 Product Sales</label>
+                    <canvas id="top_five_product_sales" width="900px" height="280px">
+                    </canvas>
                     </div>
                 </section>
             </section>
@@ -108,10 +110,12 @@
                 <section class="charts2">
                     <div class="small">
                         <div class="small-chart">
-                            <p>Percentage Qty Sold based on Machine</p>
+                            <label for="Top 5 Product Sales" class="label-viz">Percentage Qty Sold based on Machine</label>
+                            <canvas id="Sold_based_on_Machine" width="400px" height="200px">
                         </div>
                         <div class="small-chart">
-                            <p>Percentage Payment Type</p>
+                            <label for="Top 5 Product Sales" class="label-viz">Percentage Payment Type</label>
+                            <canvas id="Percentage_Payment_Type" width="400px" height="200px">
                         </div>
                     </div>
                     <div class="large-chart">
@@ -132,32 +136,24 @@
                 </div>
             </section>
         </div>
+        <div class="part4">
+            <div class="chart4">
+                <h2>Siap abangkuh</h2>
+                <canvas id="chartcoba"></canvas>
+            </div>
+            <div class="chart4" id="chart">
+                <h2>donat bang</h2>
+                <canvas id="chartdonut" ></canvas>
+                
+            </div>
+        </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    const ctx = document.getElementById('total_sales_by_month');
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Revenue',
-                data: [883.5, 908.75, 1129, 1622.5, 1655.5, 2024.75, 2280.75, 2108.25, 1752, 1691.25, 1624.75, 1403.25],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
+    <script src="./chart/chart1.js"></script>
+    <script src="./chart/chart2.js"></script>
+    <script src="./chart/chart5.js"></script>
+    <script src="./chart/chartcoba.js"></script>
     <footer>
         <p>Designed By: KM-24 - Section Surabaya - Team 3</p>
     </footer>

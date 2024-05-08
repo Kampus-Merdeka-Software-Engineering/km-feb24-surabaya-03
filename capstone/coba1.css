@@ -78,7 +78,8 @@ aside {
     flex-direction: row;
     height: 100%;
     align-items: stretch;
-    gap: 2rem;
+    /* gap: 2rem; */
+    background-color: #b4b4b4;
 }
 
 .part-aside{
@@ -86,7 +87,7 @@ aside {
 }
 
 .container-metric{
-    background-color: rgb(167, 167, 167);
+    background-color: rgb(255, 255, 255);
     padding: 20px;
     margin: 10px;
 
@@ -128,7 +129,7 @@ section {
 .small {
     display: flex;
     flex-direction: column;
-    background-color: blue;
+    background-color: rgb(250, 250, 250);
 }
 
 .small-chart {
@@ -151,6 +152,22 @@ section {
 
 .part3 {
     height: 50%;
+}
+
+.part4{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 20px;
+    width: 100%;
+    padding: 20px;
+    padding-top: 0%;
+}
+
+.chart4{
+    background: #eee;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 7px 25px rgb(250, 0, 0);
 }
 
 footer{
