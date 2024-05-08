@@ -76,16 +76,22 @@ aside {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
+    /* display: grid; */
+    /* justify-items: center; */
     height: 100%;
     align-items: stretch;
-    /* gap: 2rem; */
-    background-color: #b4b4b4;
+    gap: 2rem;
+    background-color: #ccc;
 }
 
 .part-aside{
     margin: 20px;
 }
 
+canvas {
+    width: 100px;
+    height: 100px;
+}
 .container-metric{
     background-color: rgb(255, 255, 255);
     padding: 20px;
