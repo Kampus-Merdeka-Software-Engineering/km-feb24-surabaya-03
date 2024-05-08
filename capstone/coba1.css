@@ -130,6 +130,7 @@ section {
     display: flex;
     flex-direction: column;
     background-color: rgb(250, 250, 250);
+    padding: 20px;
 }
 
 .small-chart {
@@ -140,7 +141,7 @@ section {
 
 .large-chart {
     flex: 2;
-    background-color: blue;
+    background-color: rgb(255, 255, 255);
 
 }
 
@@ -210,6 +211,7 @@ footer p {
 
     .content {
         width: 90%;
+        background-color: #b4b4b4;
     }
 
     .part2 {
@@ -235,6 +237,8 @@ footer p {
     }
 
     .small-chart {
-        margin-bottom: 0;
+        margin: 20px;
+        background-color: #ffffff;
+        width: 400px;
     }
 }

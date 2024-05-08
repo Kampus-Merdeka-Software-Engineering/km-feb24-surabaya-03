@@ -1,6 +1,6 @@
-const ctx = document.getElementById('total_sales_by_month');
+const chart1 = document.getElementById('total_sales_by_month');
 
-    new Chart(ctx, {
+    new Chart(chart1, {
         type: 'line',
         data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
