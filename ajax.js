@@ -7,10 +7,17 @@ let revenue = 0;
 let machine = [];
 let cat_proc = [];
 let sum_proc = [];
-let transaction = 0;
+let transaction = [];
 let qty_sold = 0;
 
-xhr.open('GET', 'vending_machine.json', true);
+let guttenPlans = {
+    "Food" : 2900,
+    "Carbonated" : 3200,
+    "Non Carbonated" : 877.5,
+    "Water" : 0
+}
+
+xhr.open('GET', 'json/alldata_vm.json', true);
 
 xhr.send();
 
@@ -87,10 +94,21 @@ xhr.onreadystatechange = function() {
         let machineSum = 0;
         let categorySum = 0;
         let productSum = 0;
+        let transactionSum = 0;
 
         data.forEach(item => {
             revenue = revenue + parseFloat(item.LineTotal);
+            qty_sold = qty_sold + parseInt(item.RQty);
             
+            if(item.Transaction){
+                let extTrn = transaction.find(l => l.Transaction === item.Transaction);
+                if(extTrn){
+                    extTrn.Transaction = item.Transaction;
+                }
+                else{
+                    transaction.push({Transaction: item.Transaction});
+                }
+            }
             
             if(item.Machine){
                 let extMch = machine.find(l => l.Machine === item.Machine);
@@ -115,7 +133,7 @@ xhr.onreadystatechange = function() {
 
 
         })
-
+        transactionSum = transaction.length;
         machineSum = machine.length;
         categorySum = cat_proc.length;
         productSum = prd.length;
@@ -124,6 +142,8 @@ xhr.onreadystatechange = function() {
         totalMachine.innerHTML = 'Total Machine: '+ machineSum
         totalCategory.innerHTML = 'Total Category: '+ categorySum
         totalProduct.innerHTML = 'Total Product: '+ productSum
+        totalTransaction.innerHTML = 'Total Transaction: '+ transactionSum
+        totalQtySold.innerHTML = 'Total Qty Sold: '+ qty_sold;
         console.log(productSum);
 
 
