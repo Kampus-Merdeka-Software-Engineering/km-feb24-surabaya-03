@@ -4,15 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vending Machine Sales Dashboard 2022 (KM-24 - Section Surabaya - Team 3) </title>
     <link rel="stylesheet" href="css/style.css">
+    <title>coba</title>
 </head>
 
 <body>
     <header>
-        <img src="img/revou.png" style="margin-left: 20px;" alt="Logo RevoU">
-        <h1 style="margin-left: auto; margin-right:auto;">Vending Machine Sales Dashboard 2022</h1>
+        <div class="logo-left">
+            <img src="img/revou.png" alt="Left Logo">
+        </div>
+        <div class="logo-center">
+            <img src="img/km.png" alt="Center Logo">
+        </div>
+        <div class="title">
+            <h1>Vending Machine Sales 2022</h1>
+        </div>
+        <div class="logo-right">
+            <img src="img/vm.jpg" alt="Right Logo">
+        </div>
     </header>
+
     <nav>
         <section class="filter">
             <select name="location" id="">
@@ -36,138 +47,108 @@
             </select>
         </section>
     </nav>
+
     <main>
-        <div class="main-content">
-            <aside>
-                <section class="revenue">
-                    <div class="score-card">
-                        <p style="padding-top: 10px;">Revenue</p>
-                        <h1>$ 19.08 K</h1>
+        <div class="part1">
+            <div class="part-aside">
+                    <div class="container-metric">
+                        <p style="text-align: center;">Revenue</p>
+                    <canvas id="Revenue">
+                        
+                    </canvas>
                     </div>
-                </section>
-                <section class="machine">
-                    <div class="score-card">
-                        <p style="padding-top: 10px;">Machine</p>
-                        <h1>$ 19.08 K</h1>
+                    <div class="container-metric" >
+                        <p style="text-align: center;">Machine</p>
+                        <canvas id="#">
+                        
+                        </canvas>
                     </div>
-                </section>
-                <section class="category_product">
-                    <div class="score-card">
-                        <p style="padding-top: 10px;">Category_Product</p>
-                        <h1>$ 19.08 K</h1>
+                    <div class="container-metric">
+                        <p style="text-align: center;">Category Product</p>
+                        <canvas id="#">
+                        
+                        </canvas>
                     </div>
-                </section>
-                <section class="products">
-                    <div class="score-card">
-                        <p style="padding-top: 10px;">products</p>
-                        <h1>$ 19.08 K</h1>
+                    <div class="container-metric">
+                        <p style="text-align: center;">Products</p>
+                        <canvas id="#">
+                        
+                        </canvas>
                     </div>
-                </section>
-                <section class="transaction">
-                    <div class="score-card">
-                        <p style="padding-top: 10px;">transaction</p>
-                        <h1>$ 19.08 K</h1>
+                    <div class="container-metric">
+                        <p style="text-align: center;">Transaction</p>
+                        <canvas id="#">
+                        
+                        </canvas>
                     </div>
-                </section>
-                <section class="qty_sold">
-                    <div class="score-card">
-                        <p style="padding-top: 10px;">qty_sold</p>
-                        <h1>$ 19.08 K</h1>
+                    <div class="container-metric">
+                        <p style="text-align: center;">Qty Sold</p>
+                        <canvas id="#">
+                        
+                        </canvas>
                     </div>
-                </section>
-            </aside>
-            <section class="pbalap">
-                <section class="container-pbalap">
-                    <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
+            </div>
+
+            <section class="content">
+                <section>
+                    <div class="container-metric">
+                        <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
                     <canvas id="total_sales_by_month" width="900px" height="280px">
-
                     </canvas>
-                </section>
-                <section class="container-pbalap">
-                    <label for="Top Five Product Sales" class="label-viz">Top Five Product Sales</label>
+                    </div>
+                    <div class="container-metric">
+                        <label for="Top 5 Product Sales" class="label-viz">Top 5 Product Sales</label>
                     <canvas id="top_five_product_sales" width="900px" height="280px">
-
                     </canvas>
+                    </div>
                 </section>
             </section>
         </div>
-        <section class="bottom-viz mb-15">
-            <div class="container-pbalap3 mx-30 my-30">
-                <div class="left-viz">
-                    <div class="container-pbalap3">
 
-                        <label for="Percentage Qty Sold Based On Machine" class="label-viz">Percentage Qty Sold
-                            Based On Machine</label>
-                        <canvas id="percentage_qty_sold_based_on_machine" height="200px">
-
-                        </canvas>
+        <div class="part2">
+            <section class="content">
+                <section class="charts2">
+                    <div class="small">
+                        <div class="small-chart">
+                            <label for="Percentage Qty Sold based on Machine" class="label-viz">Percentage Qty Sold based on Machine</label>
+                            <canvas id="sold_based_on_machine">
+                        </div>
+                        <div class="small-chart">
+                            <label for="Percentage Payment Type" class="label-viz">Percentage Payment Type</label>
+                            <canvas id="Percentage_Payment_Type">
+                        </div>
                     </div>
-
-                    <div class="container-pbalap3">
-
-                        <label for="Percentage Payment Type" class="label-viz">Percentage Payment Type</label>
-                        <canvas id="percentage_payment_type" height="200px">
-
-                        </canvas>
-
+                    <div class="large-chart">
+                        <label for="Sales by Location based on Category" class="label-viz">Sales by Location based on Category</label>
+                        <canvas id="based_on_Category">
                     </div>
+                </section>
+            </section>
+        </div>
+        <div class="part3">
+            <section class="charts3">
+                <div class="small-chart">
+                    <label for="Payment Type vs Items Purchased" class="label-viz">Payment Type vs Items Purchased</label>
+                            <canvas id="Payment_vs_Purchased">
+                                
+                            </canvas>
                 </div>
-            </div>
-            <div class="pbalap my-12">
-                <label for="Sales By Location Based On Category" class="label-viz">Sales By Location Based
-                    On Category</label>
-                <canvas id="sales_by_location_based_on_category" width="1403px" height="460"
-                    style="background-color: white;">
+                <div class="small-chart">
+                    <label class="label-viz">Item Purchased vs Price</label>
+                            <canvas id="Purchased_vs_Price">
 
-                </canvas>
-            </div>
-        </section>
-        <section class="bottom-viz">
-            <div class="container-pbalap3 mx-30 my-30">
-                <label for="Payment vs Item" class="label-viz">Payment vs Item</label>
-                <canvas id="payment_vs_item">
-
-                </canvas>
-            </div>
-            <div class="container-pbalap3 mx-30 my-30">
-                <label for="Item Purchased vs Price" class="label-viz">Item Purchased vs Price</label>
-                <canvas id="item_purchased_vs_price">
-
-                </canvas>
-            </div>
-        </section>
-
+                            </canvas>
+                </div>
+            </section>
+        </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/chart/chart1.js"></script>
+    <script src="js/chart/chart2.js"></script>
+    <script src="js/chart/chart3.js"></script>
     <footer>
-        <p style="text-align: center;">Designed By : KM-24 - Section Surabaya - Team 3</p>
+        <p>Designed By: KM-24 - Section Surabaya - Team 3</p>
     </footer>
-</body> 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    const ctx = document.getElementById('total_sales_by_month');
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Revenue',
-                data: [883.5, 908.75, 1129, 1622.5, 1655.5, 2024.75, 2280.75, 2108.25, 1752, 1691.25, 1624.75, 1403.25],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-    
-    
-</script>
-
+</body>
 </html>
