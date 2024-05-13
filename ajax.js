@@ -10,6 +10,9 @@ let sum_proc = [];
 let transaction = [];
 let qty_sold = 0;
 
+let lctChoosed = '';
+let ctgChoosed = [];
+
 let guttenPlans = {
     "Food" : 2900,
     "Carbonated" : 3200,
@@ -28,38 +31,93 @@ xhr.onreadystatechange = function() {
 
         // Qty Sold based on Location
         data.forEach(item => {
-            let extLoc = lct.find(l => l.Location === item.Location);
+            
+            if(item.Location){
+                if(lctChoosed == ''){
+                    let extLoc = lct.find(l => l.Location === item.Location );
 
-            if(extLoc){
-                extLoc.Total_Qty = parseInt(extLoc.Total_Qty) + parseInt(item.RQty);
+                    if(extLoc){
+                        extLoc.Total_Qty = parseInt(extLoc.Total_Qty) + parseInt(item.RQty);
+                    }
+                    else{
+                        lct.push({Location: item.Location, Total_Qty: parseInt(item.RQty)});
+                    }
+                }
+                else{
+                    update();
+                }
             }
-            else{
-                lct.push({Location: item.Location, Total_Qty: parseInt(item.RQty)});
+
+            if(item.Type){
+                let extType = lt.find(l => l.Type === item.Type);
+
+                if(extType){
+                    extType.LineTotal = parseFloat(extType.LineTotal) + parseFloat(item.LineTotal);
+                }
+                else{
+                    lt.push({Type: item.Type, LineTotal: parseFloat(item.LineTotal)});
+                }
+            }
+
+            if(item.Product){
+                let extPrd = prd.find(l => l.Product === item.Product);
+
+                if(extPrd){
+                    extPrd.RQty = parseInt(extPrd.RQty) + parseInt(item.RQty);
+                }
+                else{
+                    prd.push({Product: item.Product, RQty: parseInt(item.RQty)});
+                }
             }
             
         })
 
+        
         var headerContentTempat = ""
+        var lctData = '<option value="">All Locations</option>'
         for(var j=0; j < lct.length; j++){
             headerContentTempat += '<tr>' + '<td>' + lct[j].Location + '</td>' + '<td>' + lct[j].Total_Qty + '</td></tr>';
+            lctData += '<option value="' + lct[j].Location + '">' + lct[j].Location + '</option>';
         }
-    
-        title.innerHTML = headerContentTempat;
-        console.log(lct);
 
-        // console.log(lct);
+        var lctList = document.getElementById('lctList');
+        lctList.innerHTML = lctData;
 
-        // Payment Type
-        data.forEach(item => {
-            let extType = lt.find(l => l.Type === item.Type);
+        // console.log(lct)
 
-            if(extType){
-                extType.LineTotal = parseFloat(extType.LineTotal) + parseFloat(item.LineTotal);
-            }
-            else{
-                lt.push({Type: item.Type, LineTotal: parseFloat(item.LineTotal)});
-            }
-        })
+        function update(){
+            data.forEach(item => {
+                let extLoc = lct.find(l => l.Location === lctChoosed);
+
+                if(extLoc){
+                    extLoc.Total_Qty = parseInt(extLoc.Total_Qty) + parseInt(item.RQty);
+                }
+                else{
+                    lct.push({Location: lctChoosed, Total_Qty: parseInt(item.RQty)});
+                }
+            })
+
+            var headerContentTempat = ""
+            var lctData = '<option value="">All Locations</option>'
+
+
+            lctList.addEventListener('change', function(){
+                for(var j=0; j < lct.length; j++){
+                    headerContentTempat += '<tr>' + '<td>' + lct[j].Location + '</td>' + '<td>' + lct[j].Total_Qty + '</td></tr>';
+                    lctData += '<option value="' + lct[j].Location + '">' + lct[j].Location + '</option>';
+                }
+        
+                var lctList = document.getElementById('lctList');
+                lctList.innerHTML = lctData;
+
+                // const selectedLct = lctList.value;
+                // lctChoosed = selectedLct;
+                // console.log(lctChoosed)
+            })
+        
+            title.innerHTML = headerContentTempat;
+            lctList.innerHTML = lctData;
+        }
 
         var headerContentPayment = "";
         for(var k=0; k < lt.length; k++){
@@ -68,27 +126,12 @@ xhr.onreadystatechange = function() {
 
         paymentType.innerHTML = headerContentPayment;
 
-        // console.log(lt);
-
-        //Product Sales
-        data.forEach(item => {
-            let extPrd = prd.find(l => l.Product === item.Product);
-
-            if(extPrd){
-                extPrd.RQty = parseInt(extPrd.RQty) + parseInt(item.RQty);
-            }
-            else{
-                prd.push({Product: item.Product, RQty: parseInt(item.RQty)});
-            }
-        })
-
         var headerContentProduct = "";
         for(var l=0; l < prd.length; l++){
             headerContentProduct += '<tr><td>' + prd[l].Product + '</td>' + '<td>' + prd[l].RQty + '</td></tr>';
         }
 
         totalSales.innerHTML = headerContentProduct;
-        // console.log(prd)
 
         //Revenue
         let machineSum = 0;
@@ -132,7 +175,23 @@ xhr.onreadystatechange = function() {
             } 
 
 
+
         })
+
+        var ctgData = '<option value="">All Category</option>'
+        for(var m = 0; m < cat_proc.length; m++){
+            ctgData += '<option value="' + cat_proc[m].Category + '">' + cat_proc[m].Category + '</option>';
+        }
+
+        var ctgList = document.getElementById('ctgList');
+        ctgList.innerHTML = ctgData;
+        ctgList.addEventListener('change', function(){
+            const selectedCtg = ctgList.value;
+            ctgChoosed.splice(0,1);
+            ctgChoosed.push(selectedCtg);
+            console.log(ctgChoosed)
+        })
+
         transactionSum = transaction.length;
         machineSum = machine.length;
         categorySum = cat_proc.length;
@@ -144,7 +203,7 @@ xhr.onreadystatechange = function() {
         totalProduct.innerHTML = 'Total Product: '+ productSum
         totalTransaction.innerHTML = 'Total Transaction: '+ transactionSum
         totalQtySold.innerHTML = 'Total Qty Sold: '+ qty_sold;
-        console.log(productSum);
+        // console.log(productSum);
 
 
 
