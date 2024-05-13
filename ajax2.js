@@ -35,6 +35,8 @@ xhr.onreadystatechange = function() {
                 }
             }
 
+            // Tambah item.Machine
+
             if(item.Category){
                 let extCtg = ctg.find(c => (c.Category === item.Category) && (c.TransDate === item.TransDate) && (c.Location === item.Location));
 
@@ -133,6 +135,7 @@ xhr.onreadystatechange = function() {
             console.log(dropdownChoose);
             console.log(lct);
 
+            // Dropdown Lokasi dan Kategori kosong
             if(lctChoosed === '' && ctgChoosed === ''){
                 let lctRequestAll = [];
                 let ctgRequestAll = [];
@@ -194,6 +197,8 @@ xhr.onreadystatechange = function() {
                 paymentType.innerHTML = headerContentPaymentAll;
         
             }
+
+            // Dropdown Lokasi Kosong, tapi Kategorinya berisi
             else if(lctChoosed === ''){
                 let lctRequest = [];
                 let typeRequest = [];
@@ -242,6 +247,8 @@ xhr.onreadystatechange = function() {
                 paymentType.innerHTML = headerContentPayment;
 
             }
+
+            // Dropdown kategorinya kosong, tapi locationnya berisi
             else if(ctgChoosed === ''){
                 let lctRequest = [];
                 let ctgRequest = [];
@@ -306,6 +313,70 @@ xhr.onreadystatechange = function() {
         
                 paymentType.innerHTML = headerContentPayment;
 
+            }
+
+            //Dropdown lokasi dan kategorinya berisi
+            else{
+                let lctRequest = [];
+                let ctgRequest = [];
+                let typeRequest = [];
+
+                lct.forEach(i => {
+                    let extLoc = lctRequest.find(l => (l.Location === i.Location));
+                    if(extLoc){
+                        if((i.Location === lctChoosed) && (i.Category === ctgChoosed)){
+                            extLoc.TotalQty += parseInt(i.Total_Qty);
+                        }
+                    }
+                    else if((i.Location === lctChoosed) && (i.Category === ctgChoosed)){
+                        lctRequest.push({Location: i.Location, TotalQty: parseInt(i.Total_Qty)})
+                    }
+                })
+
+                ctg.forEach(ct => {
+                    let extCtg = ctgRequest.find(d => (d.Category === ct.Category));
+                    if(extCtg){
+                        if((ct.Location === lctChoosed) && (ct.Category === ctgChoosed)){
+                            extCtg.Category = ct.Category;
+                        }
+                    }
+                    else if((ct.Location === lctChoosed) && (ct.Category === ctgChoosed)){
+                        ctgRequest.push({Category: ct.Category})
+                    }
+                })
+
+                lt.forEach(j => {
+                    let extType = typeRequest.find(l => (l.Type === j.Type) );
+                    if(extType){
+                        if((j.Location === lctChoosed) && (j.Category === ctgChoosed)){
+                            extType.LineTotal += parseFloat(j.LineTotal);
+                        }
+                    }
+                    else if((j.Location === lctChoosed) && (j.Category === ctgChoosed)){
+                        typeRequest.push({Type: j.Type, LineTotal: parseFloat(j.LineTotal)})
+                    }
+                })
+
+                var headerContentTempat = ""
+                lctRequest.forEach(l => {
+                    headerContentTempat += '<tr>' + '<td>' + l.Location + '</td>' + '<td>' + l.TotalQty + '</td></tr>';
+                })
+        
+                tempat.innerHTML = headerContentTempat;
+
+                var ctgData = '<option value="">All Categories</option>'
+                ctgRequest.forEach(c => {
+                    ctgData += '<option value="' + c.Category + '">' + c.Category + '</option>';
+                })
+        
+                ctgList.innerHTML = ctgData;
+        
+                var headerContentPayment = "";
+                typeRequest.forEach(k => {
+                    headerContentPayment += '<tr>' + '<td>' + k.Type + '</td>' + '<td>' + k.LineTotal + '</td></tr>';
+                })
+        
+                paymentType.innerHTML = headerContentPayment;
             }
 
         }
