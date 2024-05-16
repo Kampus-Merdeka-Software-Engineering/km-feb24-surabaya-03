@@ -7,7 +7,7 @@
 | Daniel Andrew Ketaren         | PIC. Front End Engineer, PIC. Data Analysis                        | [linkedln](https://www.linkedin.com/in/daniel-andrew-ketaren-2b51a5223/), [github](https://github.com/Danielketaren2207)     |
 | M. Thahir Nur Ramadhan Takbir | PIC. Deployment, Data Visualization Team                           | [linkedln]( ), [github]( )           |
 | Ernawati Purnama Zebua        | PIC. Pitch Deck, Data Communication Team                           | [linkedln]( ), [github]( )           |
-| Rifa Haenun Alya              | Front End Engineer Team, Data Cleaning Team                        | [linkedln]( ), [github]( )           |
+| Rifa Haenun Alya              | Front End Engineer Team, Data Cleaning Team                        | [linkedln](http://linkedin.com/in/rifahaenuna), [github](https://github.com/rifahaenunalya)           |
 | Ivana Aikozora Putrinugroho   | Pitch Deck Team, Data Analysis Team                                | [linkedln](https://id.linkedin.com/in/ivana-aikozora), [github](https://github.com/aikozoora/aikozoora.github.io)            |
 | Umi Latifah                   | Deployment Team, PIC. Data Cleaning                                | [linkedln](https://www.linkedin.com/in/umilatifah21 ), [github]( https://github.com/LatifahUmi)           |
 | Prayoga Rasyid Sudrajat       | Front End Engineer Team, Data Analysis Team                        | [linkedln]( ), [github]( )           |
