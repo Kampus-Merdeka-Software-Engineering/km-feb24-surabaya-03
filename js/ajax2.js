@@ -24,6 +24,8 @@ xhr.onreadystatechange = function() {
 
         data.forEach(item => {
 
+            revenue = revenue + parseFloat(item.LineTotal);
+
             if(item.Location){
                 let extLoc = lct.find(l => (l.Location === item.Location) && (l.Category === item.Category) && (l.TransDate === item.TransDate) );
     
@@ -34,6 +36,18 @@ xhr.onreadystatechange = function() {
                     lct.push({Location: item.Location, Total_Qty: parseInt(item.RQty), Category: item.Category, TransDate: item.TransDate});
                 }
             }
+
+            if(item.Machine){
+                let extMachine = machine.find(m => (m.Machine === item.Machine) && (m.Location === item.Location) && (m.Category === item.Category) && (m.Trans_Month === item.Trans_Month));
+
+                if(extMachine){
+                    extMachine.Machine = item.Machine;
+                }
+                else{
+                    machine.push({Machine: item.Machine, Location: item.Location, Category: item.Category, Trans_Month: item.Trans_Month});
+                }
+            }
+
 
             // Tambah item.Machine
 
@@ -57,12 +71,36 @@ xhr.onreadystatechange = function() {
                 else{
                     lt.push({Type: item.Type, LineTotal: parseFloat(item.LineTotal), Location: item.Location, Category: item.Category, TransDate: item.TransDate});
                 }
-            }        
+            }   
+            
+            if(item.Product){
+                let extPrd = prd.find(l => (l.Product === item.Product) && (l.Location === item.Location) && (l.Category === item.Category) && (l.TransDate === item.TransDate));
+
+                if(extPrd){
+                    extPrd.RQty = parseInt(extPrd.RQty) + parseInt(item.RQty);
+                }
+                else{
+                    prd.push({Product: item.Product, RQty: parseInt(item.RQty), Location: item.Location, Category: item.Category, TransDate: item.TransDate});
+                }
+            }
+
+            if(item.Transaction){
+                let extTrn = transaction.find(l => (l.Transaction === item.Transaction) && (l.Location === item.Location) && (l.Location === item.Category) && (l.TransMonth === item.TransMonth));
+                if(extTrn){
+                    extTrn.Transaction = item.Transaction;
+                }
+                else{
+                    transaction.push({Transaction: item.Transaction, Location: item.Location, Category: item.Category, Trans_Month: item.Trans_Month});
+                }
+            }
         })
 
         let lctRequestAll = [];
         let ctgRequestAll = [];
         let typeRequestAll = [];
+        let prdRequestAll = [];
+        let mchRequestAll = [];
+        let trnRequestAll = [];
 
         lct.forEach(i => {
             let extLoc = lctRequestAll.find(l => (l.Location === i.Location) );
@@ -84,6 +122,8 @@ xhr.onreadystatechange = function() {
             }
         })
 
+        totalCategory.innerHTML = `Total Kategori : ${ctgRequestAll.length}`
+
         lt.forEach(j => {
             let extType = typeRequestAll.find(l => (l.Type === j.Type) );
             if(extType){
@@ -93,6 +133,43 @@ xhr.onreadystatechange = function() {
                 typeRequestAll.push({Type: j.Type, LineTotal: parseFloat(j.LineTotal)})
             }
         })
+
+        prd.forEach(p => {
+            let extPrd = prdRequestAll.find(l => (l.Product === p.Product) );
+            if(extPrd){
+                extPrd.RQty += parseInt(p.RQty);
+            }
+            else{
+                prdRequestAll.push({Product: p.Product, RQty: parseInt(p.RQty)})
+            }
+        })
+
+        
+        machine.forEach(m => {
+            let extMachine = mchRequestAll.find(mc => (mc.Machine === m.Machine));
+            if(extMachine){
+                extMachine.Machine = m.Machine;
+            }
+            else{
+                mchRequestAll.push({Machine: m.Machine})
+            }
+        })
+
+        transaction.forEach(tr => {
+            let extTransaction = trnRequestAll.find(t => t.Transaction === tr.Transaction);
+            if(extTransaction){
+                extTransaction.Transaction = tr.Transaction;
+            }
+            else{
+                trnRequestAll.push({Transaction: tr.Transaction})
+            }
+        })
+
+        totalRevenue.innerHTML = 'Total revenue : $ ' + revenue
+        totalMachine.innerHTML = 'Total machine: ' + mchRequestAll.length;
+        totalProduct.innerHTML = `Total Product : ${prdRequestAll.length}`
+        totalTransaction.innerHTML = `Total Transaction : ${trnRequestAll.length}`
+
         
 
         var headerContentTempatAll = ""
@@ -119,6 +196,13 @@ xhr.onreadystatechange = function() {
 
         paymentType.innerHTML = headerContentPaymentAll;
 
+        var headerContentProductAll = "";
+        prdRequestAll.forEach(p => {
+            headerContentProductAll += '<tr>' + '<td>' + p.Product + '</td>' + '<td>' + p.RQty + '</td></tr>';
+        })
+
+        totalSales.innerHTML = headerContentProductAll;
+
         lctList.addEventListener('change', function () {
             dropdownChoose[0].Location = lctList.value;
             updateDataView();
@@ -132,15 +216,23 @@ xhr.onreadystatechange = function() {
             var lctChoosed = dropdownChoose[0].Location;
             var ctgChoosed = dropdownChoose[0].Category;
 
-            console.log(dropdownChoose);
-            console.log(lct);
+            // console.log(dropdownChoose);
+            // console.log(lct);
 
             // Dropdown Lokasi dan Kategori kosong
             if(lctChoosed === '' && ctgChoosed === ''){
                 let lctRequestAll = [];
                 let ctgRequestAll = [];
                 let typeRequestAll = [];
+                let prdRequestAll = [];
+                let trnRequestAll = [];
+                revenue = 0;
         
+                data.forEach(item => {
+                    revenue = revenue + parseFloat(item.LineTotal);
+                })
+                totalRevenue.innerHTML = 'Total revenue : $ ' + revenue
+
                 lct.forEach(i => {
                     let extLoc = lctRequestAll.find(l => (l.Location === i.Location) );
                     if(extLoc){
@@ -160,7 +252,9 @@ xhr.onreadystatechange = function() {
                         ctgRequestAll.push({Category: ct.Category})
                     }
                 })
-        
+
+                totalCategory.innerHTML = `Total Kategori : ${ctgRequestAll.length}`
+
                 lt.forEach(j => {
                     let extType = typeRequestAll.find(l => (l.Type === j.Type) );
                     if(extType){
@@ -170,7 +264,36 @@ xhr.onreadystatechange = function() {
                         typeRequestAll.push({Type: j.Type, LineTotal: parseFloat(j.LineTotal)})
                     }
                 })
-                
+
+                prd.forEach(p => {
+                    let extPrd = prdRequestAll.find(l => (l.Product === p.Product) );
+                    if(extPrd){
+                        extPrd.RQty += parseInt(p.RQty);
+                    }
+                    else{
+                        prdRequestAll.push({Product: p.Product, RQty: parseInt(p.RQty)})
+                    }
+                })
+
+                machine.forEach(m => {
+                    let extMachine = mchRequestAll.find(mc => (mc.Machine === m.Machine));
+                    if(extMachine){
+                        extMachine.Machine = m.Machine;
+                    }
+                    else{
+                        mchRequestAll.push({Machine: m.Machine})
+                    }
+                })
+
+                transaction.forEach(tr => {
+                    let extTransaction = trnRequestAll.find(t => t.Transaction === tr.Transaction);
+                    if(extTransaction){
+                        extTransaction.Transaction = tr.Transaction;
+                    }
+                    else{
+                        trnRequestAll.push({Transaction: tr.Transaction})
+                    }
+                })
         
                 var headerContentTempatAll = ""
                 var lctData = '<option value="">All Locations</option>'
@@ -195,13 +318,35 @@ xhr.onreadystatechange = function() {
                 })
         
                 paymentType.innerHTML = headerContentPaymentAll;
+                
+                var headerContentProductAll = "";
+                prdRequestAll.forEach(p => {
+                    headerContentProductAll += '<tr>' + '<td>' + p.Product + '</td>' + '<td>' + p.RQty + '</td></tr>';
+                })
         
+                totalSales.innerHTML = headerContentProductAll;
+                totalMachine.innerHTML = 'Total machine: ' + mchRequestAll.length;
+                totalProduct.innerHTML = `Total Product : ${prdRequestAll.length}`
+                totalTransaction.innerHTML = `Total Transaction : ${trnRequestAll.length}`
+
             }
 
             // Dropdown Lokasi Kosong, tapi Kategorinya berisi
             else if(lctChoosed === ''){
                 let lctRequest = [];
                 let typeRequest = [];
+                let prdRequest = [];
+                let mchRequest = [];
+                let ctgRequest = [];
+                let trnRequest = [];
+                revenue = 0;
+
+                data.forEach(item => {
+                    if(ctgChoosed === item.Category){
+                        revenue = revenue + parseFloat(item.LineTotal);
+                    }
+                })
+                totalRevenue.innerHTML = 'Total revenue : $ ' + revenue
 
                 lct.forEach(i => {
                     let extLoc = lctRequest.find(l => (l.Location === i.Location));
@@ -214,7 +359,6 @@ xhr.onreadystatechange = function() {
                         lctRequest.push({Location: i.Location, TotalQty: parseInt(i.Total_Qty)})
                     }
                 })
-                console.log(lctRequest)
         
                 lt.forEach(j => {
                     let extType = typeRequest.find(l => (l.Type === j.Type) );
@@ -227,6 +371,61 @@ xhr.onreadystatechange = function() {
                         typeRequest.push({Type: j.Type, LineTotal: parseFloat(j.LineTotal)})
                     }
                 })
+
+                prd.forEach(p => {
+                    let extPrd = prdRequest.find(l => (l.Product === p.Product) );
+                    if(extPrd){
+                        if(p.Category === ctgChoosed){
+                            extPrd.RQty += parseInt(p.RQty);
+                        }
+                    }
+                    else if(p.Category === ctgChoosed){
+                        prdRequest.push({Product: p.Product, RQty: parseInt(p.RQty)})
+                    }
+                })
+
+                machine.forEach(m => {
+                    let extMachine = mchRequest.find(mc => (mc.Machine === m.Machine));
+                    if(extMachine){
+                        if(m.Category === ctgChoosed){
+                            extMachine.Machine = m.Machine;
+                        }
+                    }
+                    else{
+                        if(m.Category === ctgChoosed){
+                            mchRequest.push({Machine: m.Machine})
+                        }
+                    }
+                })
+
+                ctg.forEach(ct => {
+                    let extCtg = ctgRequest.find(d => (d.Category === ct.Category));
+                    if(extCtg){
+                        if(ct.Category === ctgChoosed){
+                            extCtg.Category = ct.Category;
+                        }
+                    }
+                    else if(ct.Category === ctgChoosed){
+                        ctgRequest.push({Category: ct.Category})
+                    }
+                })
+
+                transaction.forEach(tr => {
+                    let extTransaction = trnRequest.find(t => t.Transaction === tr.Transaction);
+                    if(extTransaction){
+                        if(tr.Category === ctgChoosed){
+                            extTransaction.Transaction = tr.Transaction;
+                        }
+                    }
+                    else if(tr.Category === ctgChoosed){
+                        trnRequest.push({Transaction: tr.Transaction})
+                    }
+                })
+
+                totalCategory.innerHTML = `Total Kategori : ${ctgRequest.length}`
+                totalProduct.innerHTML = `Total Product : ${prdRequest.length}`
+                totalTransaction.innerHTML = `Total Transaction : ${trnRequest.length}`
+
                 
         
                 var headerContentTempat = ""
@@ -246,6 +445,14 @@ xhr.onreadystatechange = function() {
         
                 paymentType.innerHTML = headerContentPayment;
 
+                var headerContentProduct = "";
+                prdRequest.forEach(p => {
+                    headerContentProduct += '<tr>' + '<td>' + p.Product + '</td>' + '<td>' + p.RQty + '</td></tr>';
+                })
+
+                totalSales.innerHTML = headerContentProduct;
+                totalMachine.innerHTML = 'Total machine: ' + mchRequest.length;
+
             }
 
             // Dropdown kategorinya kosong, tapi locationnya berisi
@@ -253,6 +460,17 @@ xhr.onreadystatechange = function() {
                 let lctRequest = [];
                 let ctgRequest = [];
                 let typeRequest = [];
+                let prdRequest = [];
+                let mchRequest = [];
+                let trnRequest = [];
+                revenue = 0;
+
+                data.forEach(item => {
+                    if(lctChoosed === item.Location){
+                        revenue = revenue + parseFloat(item.LineTotal);
+                    }
+                })
+                totalRevenue.innerHTML = 'Total revenue : $ ' + revenue
 
                 lct.forEach(i => {
                     let extLoc = lctRequest.find(l => (l.Location === i.Location));
@@ -278,6 +496,8 @@ xhr.onreadystatechange = function() {
                         ctgRequest.push({Category: ct.Category})
                     }
                 })
+                totalCategory.innerHTML = `Total Kategori : ${ctgRequest.length}`
+
 
                 lt.forEach(j => {
                     let extType = typeRequest.find(l => (l.Type === j.Type) );
@@ -290,8 +510,45 @@ xhr.onreadystatechange = function() {
                         typeRequest.push({Type: j.Type, LineTotal: parseFloat(j.LineTotal)})
                     }
                 })
+
+                prd.forEach(p => {
+                    let extPrd = prdRequest.find(l => (l.Product === p.Product) );
+                    if(extPrd){
+                        if(p.Location === lctChoosed){
+                            extPrd.RQty += parseInt(p.RQty);
+                        }
+                    }
+                    else if(p.Location === lctChoosed){
+                        prdRequest.push({Product: p.Product, RQty: parseInt(p.RQty)})
+                    }
+                })
+
+                machine.forEach(m => {
+                    let extMachine = mchRequest.find(mc => (mc.Machine === m.Machine));
+                    if(extMachine){
+                        if(m.Location === lctChoosed){
+                            extMachine.Machine = m.Machine;
+                        }
+                    }
+                    else{
+                        if(m.Location === lctChoosed){
+                            mchRequest.push({Machine: m.Machine})
+                        }
+                    }
+                })
+
+                transaction.forEach(tr => {
+                    let extTransaction = trnRequest.find(t => t.Transaction === tr.Transaction);
+                    if(extTransaction){
+                        if(tr.Location === lctChoosed){
+                            extTransaction.Transaction = tr.Transaction;
+                        }
+                    }
+                    else if(tr.Location === lctChoosed){
+                        trnRequest.push({Transaction: tr.Transaction})
+                    }
+                })
                 
-        
                 var headerContentTempat = ""
                 lctRequest.forEach(l => {
                     headerContentTempat += '<tr>' + '<td>' + l.Location + '</td>' + '<td>' + l.TotalQty + '</td></tr>';
@@ -313,6 +570,15 @@ xhr.onreadystatechange = function() {
         
                 paymentType.innerHTML = headerContentPayment;
 
+                var headerContentProduct = "";
+                prdRequest.forEach(p => {
+                    headerContentProduct += '<tr>' + '<td>' + p.Product + '</td>' + '<td>' + p.RQty + '</td></tr>';
+                })
+
+                totalSales.innerHTML = headerContentProduct;
+                totalMachine.innerHTML = 'Total machine: ' + mchRequest.length;
+                totalProduct.innerHTML = `Total Product : ${prdRequest.length}`
+                totalTransaction.innerHTML = `Total Transaction : ${trnRequest.length}`
             }
 
             //Dropdown lokasi dan kategorinya berisi
@@ -320,6 +586,17 @@ xhr.onreadystatechange = function() {
                 let lctRequest = [];
                 let ctgRequest = [];
                 let typeRequest = [];
+                let prdRequest = [];
+                let mchRequest = [];
+                let trnRequest = [];
+                revenue = 0;
+
+                data.forEach(item => {
+                    if((ctgChoosed === item.Category) && (lctChoosed === item.Location)){
+                        revenue = revenue + parseFloat(item.LineTotal);
+                    }
+                })
+                totalRevenue.innerHTML = 'Total revenue : $ ' + revenue
 
                 lct.forEach(i => {
                     let extLoc = lctRequest.find(l => (l.Location === i.Location));
@@ -345,6 +622,7 @@ xhr.onreadystatechange = function() {
                     }
                 })
 
+                totalCategory.innerHTML = `Total Kategori : ${ctgRequest.length}`
                 lt.forEach(j => {
                     let extType = typeRequest.find(l => (l.Type === j.Type) );
                     if(extType){
@@ -357,6 +635,44 @@ xhr.onreadystatechange = function() {
                     }
                 })
 
+                prd.forEach(p => {
+                    let extPrd = prdRequest.find(l => (l.Product === p.Product) );
+                    if(extPrd){
+                        if((p.Location === lctChoosed) && (p.Category === ctgChoosed)){
+                            extPrd.RQty += parseInt(p.RQty);
+                        }
+                    }
+                    else if((p.Location === lctChoosed) && (p.Category === ctgChoosed)){
+                        prdRequest.push({Product: p.Product, RQty: parseInt(p.RQty)})
+                    }
+                })
+
+                machine.forEach(m => {
+                    let extMachine = mchRequest.find(mc => (mc.Machine === m.Machine));
+                    if(extMachine){
+                        if((m.Location === lctChoosed) && (m.Category === ctgChoosed)){
+                            extMachine.Machine = m.Machine;
+                        }
+                    }
+                    else{
+                        if((m.Location === lctChoosed) && (m.Category === ctgChoosed)){
+                            mchRequest.push({Machine: m.Machine})
+                        }
+                    }
+                })
+
+                transaction.forEach(tr => {
+                    let extTransaction = trnRequest.find(t => t.Transaction === tr.Transaction);
+                    if(extTransaction){
+                        if((tr.Location === lctChoosed) && (tr.Category === ctgChoosed)){
+                            extTransaction.Transaction = tr.Transaction;
+                        }
+                    }
+                    else if((tr.Location === lctChoosed) && (tr.Category === ctgChoosed)){
+                        trnRequest.push({Transaction: tr.Transaction})
+                    }
+                })
+
                 var headerContentTempat = ""
                 lctRequest.forEach(l => {
                     headerContentTempat += '<tr>' + '<td>' + l.Location + '</td>' + '<td>' + l.TotalQty + '</td></tr>';
@@ -364,12 +680,7 @@ xhr.onreadystatechange = function() {
         
                 tempat.innerHTML = headerContentTempat;
 
-                var ctgData = '<option value="">All Categories</option>'
-                ctgRequest.forEach(c => {
-                    ctgData += '<option value="' + c.Category + '">' + c.Category + '</option>';
-                })
-        
-                ctgList.innerHTML = ctgData;
+
         
                 var headerContentPayment = "";
                 typeRequest.forEach(k => {
@@ -377,6 +688,16 @@ xhr.onreadystatechange = function() {
                 })
         
                 paymentType.innerHTML = headerContentPayment;
+
+                var headerContentProduct = "";
+                prdRequest.forEach(p => {
+                    headerContentProduct += '<tr>' + '<td>' + p.Product + '</td>' + '<td>' + p.RQty + '</td></tr>';
+                })
+
+                totalSales.innerHTML = headerContentProduct;
+                totalMachine.innerHTML = 'Total machine: ' + mchRequest.length;
+                totalProduct.innerHTML = `Total Product : ${prdRequest.length}`
+                totalTransaction.innerHTML = `Total Transaction : ${trnRequest.length}`
             }
 
         }

@@ -143,15 +143,7 @@ xhr.onreadystatechange = function() {
             revenue = revenue + parseFloat(item.LineTotal);
             qty_sold = qty_sold + parseInt(item.RQty);
             
-            if(item.Transaction){
-                let extTrn = transaction.find(l => l.Transaction === item.Transaction);
-                if(extTrn){
-                    extTrn.Transaction = item.Transaction;
-                }
-                else{
-                    transaction.push({Transaction: item.Transaction});
-                }
-            }
+
             
             if(item.Machine){
                 let extMch = machine.find(l => l.Machine === item.Machine);
