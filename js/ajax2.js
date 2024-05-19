@@ -1,4 +1,3 @@
-var xhr = new XMLHttpRequest();
 var title = document.getElementById('tempat');
 let lct = [];
 let ctg = [];
@@ -14,13 +13,17 @@ let qty_sold = 0;
 var dropdownChoose = [{Location: '', Category: ''}];
 
 // let machineSum = 0;
-xhr.open('GET', 'json/alldata_vm.json', true);
+// xhr.open('GET', 'json/alldata_vm.json', true);
 
-xhr.send();
+// xhr.send();
 
-xhr.onreadystatechange = function() {
-    if(this.readyState == 4 && this.status == 200) {
-        var data = JSON.parse(this.responseText);
+// xhr.onreadystatechange = function() {
+//     if(this.readyState == 4 && this.status == 200) {
+//         var data = JSON.parse(this.responseText);
+
+fetch("../json/alldata_vm.json").then(response => response.json()).then(data => test(data));
+
+function test(data){
 
         data.forEach(item => {
 
@@ -705,4 +708,4 @@ xhr.onreadystatechange = function() {
         
 
     }
-}
+// }
