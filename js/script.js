@@ -141,7 +141,7 @@ function test(data){
             datasets: [{
                 label: 'Total Sales',
                 data: lineTotal,
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
         options: {
@@ -153,7 +153,6 @@ function test(data){
         }
     });
 
-
    
     // Top Five Product Sales - Grafik Batang
     const chart2 = document.getElementById('top_five_product_sales');
@@ -163,15 +162,16 @@ function test(data){
         data: {
             labels: prdList,
             datasets: [{
-                label: 'Total Sales',
+                label: 'RQty',
                 data: prdRQTy,
                 backgroundColor: [
-                    'rgb(255, 99, 132, 0.2)',
+                    'rgba(140,117,233)',
+
         
                 ],
                 borderColor: [
-                    'rgb(255, 99, 132, 1)',
-        
+                   
+
                 ],
                 borderWidth: 1
             }]
@@ -187,9 +187,9 @@ function test(data){
     });
    
     // Sold Based on Machine - Grafik Pie
-  const chart5 = document.getElementById('sold_based_on_machine');
+  const chart3 = document.getElementById('sold_based_on_machine');
 
-  new Chart(chart5, {
+  new Chart(chart3, {
       type: 'doughnut',
       data: {
           labels: mchList,
@@ -197,14 +197,15 @@ function test(data){
               label: 'Total Sales',
               data: mchLineTotal,
               backgroundColor: [
-                  'rgb(59, 99, 132, 0.2)',
+                  'rgb(140,117,233)',
+                  'rgb(234,162,76)',
+                  'rgb(231,133,183)',
+                  'rgb(51,83,108)',
+                  'rgba(202,131,226,255)',
       
               ],
-              borderColor: [
-                  'rgb(59, 99, 132, 1)',
-      
-              ],
-              hoverOffset: 4
+
+              hoverOffset: 0
           }]
       },
       options: {
@@ -217,9 +218,9 @@ function test(data){
   });
 
   // Percentage Payment Type - Grafik Pie
-  const chart6 = document.getElementById('Percentage_Payment_Type');
+  const chart4 = document.getElementById('Percentage_Payment_Type');
   
-  new Chart(chart6, {
+  new Chart(chart4, {
       type: 'doughnut',
       data: {
           labels: ltList,
@@ -228,13 +229,14 @@ function test(data){
               label: 'Total Sales',
               data: ltLineTotal,
               backgroundColor: [
-                  'rgb(159, 99, 132, 0.2)',
+                  'rgb(231,133,183)',
+                  'rgb(140,117,233)',
       
               ],
-              borderColor: [
-                  'rgb(159, 99, 132, 1)',
+            //   borderColor: [
+            //       'rgb(159, 99, 132, 1)',
       
-              ],
+            //   ],
               
               hoverOffset: 4
           }]
