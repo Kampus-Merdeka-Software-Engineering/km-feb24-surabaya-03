@@ -1,3 +1,20 @@
+# About
+
+A visualization dashboard of vending machine sales in 2022 that includes several metrics such as revenue, machine, category, products, transaction, and Qty Sold, as well as monthly sales charts, top 5 product sales, Percentage Qty Sold by Machine, Percentage Payment Type, Sales by Location by Category, Payment Type vs Items Purchased, and Items Purchased vs Price.
+
+
+
+# Tech Used
+
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img align="left" alt="HTML" title="HTML" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" /></a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img align="left" alt="CSS" title="CSS" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" /></a>
+  <a href="#"><img align="left" alt="JavaScript" title="JavaScript" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" /></a>
+  <a href="https://www.chartjs.org/"><img align="left" alt="Chart.js" title="Chart.js" width="21px" src="https://www.chartjs.org/media/logo-title.svg" /></a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX"><img align="left" alt="AJAX" title="AJAX" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/AJAX_logo_by_gengns.svg" /></a>
+  <br>
+  <br>
+
+
 # The Team
 
 | Name                          | Role                                                               | Contact                              |
