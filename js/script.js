@@ -19,52 +19,165 @@ const mchList = [];
 const ltList = [];
 const ltLineTotal = [];
 
+const dataGet = [];
+const dataGetFilter = [];
+
+const dataLoc = [];
+const locSalesByCategory = [];
+
+const dataCat = [];
+let sumCat;
+
+const dataTrMonth = [];
+
+const dataTp = [];
+
+const dataMch = [];
+let sumMch;
+
+const dataPrd = [];
+let sumPrd;
+
+const dataTrans = [];
+let sumTrans;
+
+let sumQty = 0;
+
+function getData(dataLoop){
+    let extData = dataGet.find(d => (d.Location === dataLoop.Location) && (d.Machine === dataLoop.Machine) && (d.Product === dataLoop.Product) && (d.Category === dataLoop.Category) && (d.Transaction === dataLoop.Transaction) && (d.Type === dataLoop.Type) && (d.RQty === dataLoop.RQty) && (d.LineTotal === dataLoop.LineTotal) && (d.TransMonth === dataLoop.TransMonth));
+
+    if(extData){
+        extData = extData;
+    }
+    else{
+        dataGet.push({Location: dataLoop.Location, Machine: dataLoop.Machine, Product: dataLoop.Product, Category: dataLoop.Category, Transaction: dataLoop.Transaction, Type: dataLoop.Type, RQty: dataLoop.RQty, LineTotal: dataLoop.LineTotal, TransMonth: dataLoop.TransMonth});
+    }
+}
+
+function getDataLocation(dataGet){
+    dataGet.forEach(i => {
+        let loc = dataLoc.find(l => l.Location === i.Location);
+        let totalSalesLocationByCategory = locSalesByCategory.find(lc => (lc.Location === i.Location) && (lc.Category === i.Category))
+    
+        if(loc){
+            loc.Location = i.Location
+        }
+        else{
+            dataLoc.push({Location: i.Location});
+        }
+    
+        if(totalSalesLocationByCategory){
+            totalSalesLocationByCategory.LineTotal = parseFloat(totalSalesLocationByCategory.LineTotal) + parseFloat(i.LineTotal);
+        }
+        else{
+            locSalesByCategory.push({Location: i.Location, Category: i.Category, LineTotal: parseFloat(i.LineTotal)});
+        }
+    })
+}
+
+function getDataCategory(dataGet){
+    dataGet.forEach(i => {
+        let cat = dataCat.find(c => c.Category === i.Category)
+
+        if(cat){
+            cat.Category = i.Category;
+        }
+        else{
+            dataCat.push({Category: i.Category});
+        }
+    })
+
+    sumCat = dataCat.length;
+}
+
+function getDataTransMonth(dataGet){
+    dataGet.forEach(i => {
+        let trm = dataTrMonth.find(t => t.TransMonth === i.TransMonth);
+
+        if(trm){
+            trm.TransMonth = i.TransMonth;
+        }
+        else{
+            dataTrMonth.push({TransMonth: i.TransMonth});
+        }
+    })
+}
+
+function getDataType(dataGet){
+    dataGet.forEach(i => {
+        let tp = dataTp.find(t => (t.Type === i.Type));
+
+        if(tp){
+            tp.LineTotal = parseFloat(tp.LineTotal) + parseFloat(i.LineTotal);
+        }
+        else{
+            dataTp.push({Type: i.Type, LineTotal: parseFloat(i.LineTotal)});
+        }
+    })
+}
+
+function getDataMachine(dataGet){
+    dataGet.forEach(i => {
+        let mch = dataMch.find(m => m.Machine === i.Machine);
+
+        if(mch){
+            mch.LineTotal = parseFloat(mch.LineTotal) + parseFloat(i.LineTotal);
+        }
+        else{
+            dataMch.push({Machine: i.Machine, LineTotal: parseFloat(i.LineTotal)});
+        }
+    })
+
+    sumMch = dataMch.length;
+}
+
+function getDataProduct(dataGet){
+    dataGet.forEach(i => {
+        let prd = dataPrd.find(p => p.Product === i.Product);
+
+        if(prd){
+            prd.RQty = parseInt(prd.RQty) + parseInt(i.RQty);
+        }
+        else{
+            dataPrd.push({Product: i.Product, RQty: parseInt(i.RQty)})
+        }
+    })
+
+    sumPrd = dataPrd.length;
+}
+
+function getDataTransaction(dataGet){
+    dataGet.forEach(i => {
+        let trs = dataTrans.find(t => t.Transaction === i.Transaction);
+
+        if(trs){
+            trs.Transaction = i.Transaction;
+        }
+        else{
+            dataTrans.push({Transaction: i.Transaction});
+        }
+    })
+
+    sumTrans = dataTrans.length;
+}
+
+function getDataRQty(dataGet){
+    dataGet.forEach(i => {
+        sumQty = sumQty + parseInt(i.RQty);
+    })
+}
+
 function test(data){
     data.forEach(item => {
-        if(item.TransMonth){
-            let extTrm = trm.find(t => (t.Category === item.Category) && (t.Location === item.Location) && (t.TransMonth === item.TransMonth));
-            if(extTrm){
-                extTrm.LineTotal = parseFloat(extTrm.LineTotal) + parseFloat(item.LineTotal);
-            }
-            else{
-                trm.push({Category: item.Category, Location: item.Location, TransMonth: item.TransMonth, LineTotal: parseInt(item.LineTotal)});
-            }
-        }
-
-        if(item.Product){
-            let extPrd = prd.find(l => (l.Product === item.Product) && (l.Location === item.Location) && (l.Category === item.Category) && (l.TransMonth === item.TransMonth));
-
-            if(extPrd){
-                extPrd.RQty = parseInt(extPrd.RQty) + parseInt(item.RQty);
-            }
-            else{
-                prd.push({Product: item.Product, RQty: parseInt(item.RQty), Location: item.Location, Category: item.Category, TransMonth: item.TransMonth});
-            }
-        }
-
-        if(item.Machine){
-            let extMachine = machine.find(m => (m.Machine === item.Machine) && (m.Location === item.Location) && (m.Category === item.Category) && (m.TransMonth === item.TransMonth));
-
-            if(extMachine){
-                extMachine.LineTotal = parseFloat(extMachine.LineTotal) + parseFloat(item.LineTotal);
-            }
-            else{
-                machine.push({Machine: item.Machine, LineTotal: item.LineTotal, Location: item.Location, Category: item.Category, TransMonth: item.TransMonth});
-            }
-        }
-
-        if(item.Type){
-            let extType = lt.find(l => (l.Type === item.Type) && (l.Location === item.Location) && (l.Category === item.Category) && (l.TransMonth === item.TransMonth) );
-
-            if(extType){
-                extType.LineTotal = parseFloat(extType.LineTotal) + parseFloat(item.LineTotal);
-            }
-            else{
-                lt.push({Type: item.Type, LineTotal: parseFloat(item.LineTotal), Location: item.Location, Category: item.Category, TransDate: item.TransDate});
-            }
-        }   
+        getData(item);
     });
 
+    for(var i = 0; i < dataGet.length; i++){
+        dataGetFilter[i] = dataGet[i];
+    }
+    getDataRQty(dataGetFilter);
+    // console.log(dataPrd);
+    console.log(sumQty);
 
     trm.forEach(i => {
         let trmCall = trmRequestAll.find(t => (t.TransMonth === i.TransMonth));
@@ -108,7 +221,7 @@ function test(data){
     })
 
     prdRequestAll.sort((a, b) => b.RQty - a.RQty);
-    console.log(mchRequestAll);
+    // console.log(mchRequestAll);
     
     for (let i = 0; i < trmRequestAll.length; i++) {
         monthList[i] = trmRequestAll[i].TransMonth;
