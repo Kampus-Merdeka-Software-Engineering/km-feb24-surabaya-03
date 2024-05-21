@@ -43,6 +43,9 @@ let sumTrans;
 
 let sumQty = 0;
 
+var dropdownChoose = [{Location: '', Category: '', TransMonth: ''}];
+
+
 function getData(dataLoop){
     let extData = dataGet.find(d => (d.Location === dataLoop.Location) && (d.Machine === dataLoop.Machine) && (d.Product === dataLoop.Product) && (d.Category === dataLoop.Category) && (d.Transaction === dataLoop.Transaction) && (d.Type === dataLoop.Type) && (d.RQty === dataLoop.RQty) && (d.LineTotal === dataLoop.LineTotal) && (d.TransMonth === dataLoop.TransMonth));
 
@@ -73,6 +76,13 @@ function getDataLocation(dataGet){
             locSalesByCategory.push({Location: i.Location, Category: i.Category, LineTotal: parseFloat(i.LineTotal)});
         }
     })
+
+    var lctData = '<option value="">All Locations</option>'
+    dataLoc.forEach(l => {
+        lctData += '<option value="' + l.Location + '">' + l.Location + '</option>';
+    })
+
+    lctList.innerHTML = lctData;
 }
 
 function getDataCategory(dataGet){
@@ -88,6 +98,13 @@ function getDataCategory(dataGet){
     })
 
     sumCat = dataCat.length;
+
+    var ctgData = '<option value="">All Categories</option>'
+    dataCat.forEach(c => {
+        ctgData += '<option value="' + c.Category + '">' + c.Category + '</option>';
+    })
+
+    ctgList.innerHTML = ctgData;
 }
 
 function getDataTransMonth(dataGet){
@@ -101,6 +118,13 @@ function getDataTransMonth(dataGet){
             dataTrMonth.push({TransMonth: i.TransMonth});
         }
     })
+
+    var mthData = '<option value="">All Months</option>'
+    dataTrMonth.forEach(m => {
+        mthData += '<option value="' + m.TransMonth + '">' + m.TransMonth + '</option>';
+    })
+
+    mthList.innerHTML = mthData;
 }
 
 function getDataType(dataGet){
@@ -174,10 +198,19 @@ function test(data){
 
     for(var i = 0; i < dataGet.length; i++){
         dataGetFilter[i] = dataGet[i];
+        revenue = revenue + parseFloat(item.LineTotal);
+
     }
+
+    getDataLocation(dataGetFilter);
+    getDataCategory(dataGetFilter);
+    getDataTransMonth(dataGetFilter);
+    getDataType(dataGetFilter);
+    getDataMachine(dataGetFilter);
+    getDataProduct(dataGetFilter);
+    getDataTransaction(dataGetFilter);
     getDataRQty(dataGetFilter);
-    // console.log(dataPrd);
-    console.log(sumQty);
+
 
     trm.forEach(i => {
         let trmCall = trmRequestAll.find(t => (t.TransMonth === i.TransMonth));
