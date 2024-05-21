@@ -9,10 +9,28 @@ A visualization dashboard of vending machine sales in 2022 that includes several
   <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img align="left" alt="HTML" title="HTML" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" /></a>
   <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img align="left" alt="CSS" title="CSS" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" /></a>
   <a href="#"><img align="left" alt="JavaScript" title="JavaScript" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" /></a>
-  <a href="https://www.chartjs.org/"><img align="left" alt="Chart.js" title="Chart.js" width="21px" src="https://www.chartjs.org/media/logo-title.svg" /></a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX"><img align="left" alt="AJAX" title="AJAX" width="21px" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/AJAX_logo_by_gengns.svg" /></a>
+  <a href="https://www.chartjs.org/"><img align="left" alt="Chart.js" title="Chart.js" width="30px" src="https://www.chartjs.org/media/logo-title.svg" /></a>
   <br>
   <br>
+
+
+
+# Mockup Design
+
+## Looker Studio
+For the visualization and analysis of vending machine sales data, you can view the dashboard created with Looker Studio at the following link:
+[Looker Studio Dashboard](https://lookerstudio.google.com/reporting/a3973641-027e-4819-8b16-26ecbae6351b/page/46IyD)
+
+## Wireframe
+The wireframe design of the dashboard is available for review and can be accessed through the following Google Drive link:
+[Wireframe Designs](https://drive.google.com/drive/folders/1rGe9lwwZYaf5kTnflxxH0BOI30YVphpu)
+
+
+
+# Datasets
+The dataset used for this project can be found on Kaggle:
+[Vending Machine Sales Dataset](https://www.kaggle.com/datasets/awesomeasingh/vending-machine-sales)
+
 
 
 # The Team
@@ -32,5 +50,7 @@ A visualization dashboard of vending machine sales in 2022 that includes several
 | Maria Thris One Gris          | PIC. Quality Assurance, Data Cleaning Team                         | [linkedln]( ), [github]( )           |
 | Khusnul Khotimah              | Quality Assurance Team, Data Visualization Team                    | [linkedln]( ), [github]( )           |
 | Valdo Gabriel Ginting         | Quality Assurance Team, Data Communication Team                    | [linkedln]( ), [github]( )           |
+
+
 
 
