@@ -23,7 +23,7 @@ For the visualization and analysis of vending machine sales data, you can view t
 
 ## Wireframe
 The wireframe design of the dashboard is available for review and can be accessed through the following Google Drive link:
-[Wireframe Designs](https://drive.google.com/drive/folders/1rGe9lwwZYaf5kTnflxxH0BOI30YVphpu)
+[Wireframe Designs](https://drive.google.com/file/d/1zo4zRnuUZQlZF3vkeo2HlIwe0AWno382/view?usp=sharing)
 
 
 
