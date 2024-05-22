@@ -6,21 +6,14 @@ let trm = [];
 let prd = [];
 let machine = [];
 let lt = [];
-let trmRequestAll = [];
-let prdRequestAll = [];
-let mchRequestAll = [];
-let typeRequestAll = [];
-const monthList = [];
-const lineTotal = [];
-const prdList = [];
-const prdRQTy = [];
-const mchLineTotal = [];
-const mchList = [];
-const ltList = [];
-const ltLineTotal = [];
 
-const dataGet = [];
-const dataGetFilter = [];
+let lctList = document.getElementById("lctList");
+let ctgList = document.getElementById("ctgList");
+let mthList = document.getElementById("mthList");
+
+
+let dataGet = [];
+let dataGetFilter = [];
 
 const dataLoc = [];
 const locSalesByCategory = [];
@@ -43,7 +36,9 @@ let sumTrans;
 
 let sumQty = 0;
 
-var dropdownChoose = [{Location: '', Category: '', TransMonth: ''}];
+let revenue = 0;
+
+let dropdownChoose = [{Location: '', Category: '', TransMonth: ''}];
 
 
 function getData(dataLoop){
@@ -105,6 +100,7 @@ function getDataCategory(dataGet){
     })
 
     ctgList.innerHTML = ctgData;
+    categoryValue.innerHTML = sumCat;
 }
 
 function getDataTransMonth(dataGet){
@@ -112,10 +108,10 @@ function getDataTransMonth(dataGet){
         let trm = dataTrMonth.find(t => t.TransMonth === i.TransMonth);
 
         if(trm){
-            trm.TransMonth = i.TransMonth;
+            trm.LineTotal = parseFloat(trm.LineTotal) + parseFloat(i.LineTotal);
         }
         else{
-            dataTrMonth.push({TransMonth: i.TransMonth});
+            dataTrMonth.push({TransMonth: i.TransMonth, LineTotal: parseFloat(i.LineTotal)});
         }
     })
 
@@ -153,6 +149,7 @@ function getDataMachine(dataGet){
     })
 
     sumMch = dataMch.length;
+    machineValue.innerHTML = sumMch;
 }
 
 function getDataProduct(dataGet){
@@ -167,7 +164,10 @@ function getDataProduct(dataGet){
         }
     })
 
+    dataPrd.sort((a, b) => b.RQty - a.RQty);
+
     sumPrd = dataPrd.length;
+    productValue.innerHTML = sumPrd;
 }
 
 function getDataTransaction(dataGet){
@@ -183,13 +183,147 @@ function getDataTransaction(dataGet){
     })
 
     sumTrans = dataTrans.length;
+    transactionValue.innerHTML = sumTrans;
 }
 
 function getDataRQty(dataGet){
     dataGet.forEach(i => {
         sumQty = sumQty + parseInt(i.RQty);
     })
+
+    qtySoldValue.innerHTML = sumQty;
 }
+
+function getDataLineTotal(dataGet){
+    dataGet.forEach(i => {
+        revenue = revenue + parseFloat(i.LineTotal);
+    })
+
+    revenueValue.innerHTML = `$ ${revenue}`;
+}
+
+function visualization() {
+    // Total Sales by Month - Grafik Line
+    let chart1 = document.getElementById('total_sales_by_month');
+    if (chart1) {
+        // Clear existing chart instance
+        if (chart1.chartInstance) {
+            chart1.chartInstance.destroy();
+        }
+        chart1.chartInstance = new Chart(chart1, {
+            type: 'line',
+            data: {
+                labels: dataTrMonth.map(row => row.TransMonth),
+                datasets: [{
+                    label: 'Total Sales',
+                    data: dataTrMonth.map(row => row.LineTotal),
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Top Five Product Sales - Grafik Batang
+    let chart2 = document.getElementById('top_five_product_sales');
+    if (chart2) {
+        if (chart2.chartInstance) {
+            chart2.chartInstance.destroy();
+        }
+        chart2.chartInstance = new Chart(chart2, {
+            type: 'bar',
+            data: {
+                labels: dataPrd.slice(0, 5).map(row => row.Product),
+                datasets: [{
+                    label: 'RQty',
+                    data: dataPrd.slice(0, 5).map(row => row.RQty),
+                    backgroundColor: [
+                        'rgba(140,117,233)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Sold Based on Machine - Grafik Pie
+    let chart3 = document.getElementById('sold_based_on_machine');
+    if (chart3) {
+        if (chart3.chartInstance) {
+            chart3.chartInstance.destroy();
+        }
+        chart3.chartInstance = new Chart(chart3, {
+            type: 'doughnut',
+            data: {
+                labels: dataMch.map(row => row.Machine),
+                datasets: [{
+                    label: 'Total Sales',
+                    data: dataMch.map(row => row.LineTotal),
+                    backgroundColor: [
+                        'rgb(140,117,233)',
+                        'rgb(234,162,76)',
+                        'rgb(231,133,183)',
+                        'rgb(51,83,108)',
+                        'rgba(202,131,226,255)',
+                    ],
+                    hoverOffset: 0
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Percentage Payment Type - Grafik Pie
+    let chart4 = document.getElementById('Percentage_Payment_Type');
+    if (chart4) {
+        if (chart4.chartInstance) {
+            chart4.chartInstance.destroy();
+        }
+        chart4.chartInstance = new Chart(chart4, {
+            type: 'doughnut',
+            data: {
+                labels: dataTp.map(row => row.Type),
+                datasets: [{
+                    label: 'Total Sales',
+                    data: dataTp.map(row => row.LineTotal),
+                    backgroundColor: [
+                        'rgb(231,133,183)',
+                        'rgb(140,117,233)',
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+}
+
 
 function test(data){
     data.forEach(item => {
@@ -198,8 +332,6 @@ function test(data){
 
     for(var i = 0; i < dataGet.length; i++){
         dataGetFilter[i] = dataGet[i];
-        revenue = revenue + parseFloat(item.LineTotal);
-
     }
 
     getDataLocation(dataGetFilter);
@@ -210,190 +342,155 @@ function test(data){
     getDataProduct(dataGetFilter);
     getDataTransaction(dataGetFilter);
     getDataRQty(dataGetFilter);
+    getDataLineTotal(dataGetFilter);
+    visualization();
 
-
-    trm.forEach(i => {
-        let trmCall = trmRequestAll.find(t => (t.TransMonth === i.TransMonth));
-    
-        if(trmCall){
-            trmCall.LineTotal = parseFloat(trmCall.LineTotal) + parseFloat(i.LineTotal);
-        }
-        else{
-            trmRequestAll.push({TransMonth: i.TransMonth, LineTotal: i.LineTotal});
-        }
-    });
-
-    prd.forEach(p => {
-        let extPrd = prdRequestAll.find(l => (l.Product === p.Product) );
-        if(extPrd){
-            extPrd.RQty += parseInt(p.RQty);
-        }
-        else{
-            prdRequestAll.push({Product: p.Product, RQty: parseInt(p.RQty)});
-        }
-    });
-
-    machine.forEach(m => {
-        let extMachine = mchRequestAll.find(mc => (mc.Machine === m.Machine));
-        if(extMachine){
-            extMachine.LineTotal += parseInt(m.LineTotal)
-        }
-        else{
-            mchRequestAll.push({Machine: m.Machine, LineTotal: m.LineTotal})
-        }
+    lctList.addEventListener('change', function () {
+        dropdownChoose[0].Location = lctList.value;
+        updateDataView();
     })
-
-    lt.forEach(j => {
-        let extType = typeRequestAll.find(l => (l.Type === j.Type) );
-        if(extType){
-            extType.LineTotal += parseFloat(j.LineTotal);
-        }
-        else{
-            typeRequestAll.push({Type: j.Type, LineTotal: parseFloat(j.LineTotal)})
-        }
+    ctgList.addEventListener('change', function () {
+        dropdownChoose[0].Category = ctgList.value;
+        updateDataView();
     })
-
-    prdRequestAll.sort((a, b) => b.RQty - a.RQty);
-    // console.log(mchRequestAll);
     
-    for (let i = 0; i < trmRequestAll.length; i++) {
-        monthList[i] = trmRequestAll[i].TransMonth;
-        lineTotal[i] = trmRequestAll[i].LineTotal;
+    mthList.addEventListener('change', function () {
+        dropdownChoose[0].TransMonth = mthList.value;
+        updateDataView();
+    })
+    console.log(dropdownChoose);
+}
+
+
+
+function updateDataView(){
+    let lctChoosed = dropdownChoose[0].Location;
+    let ctgChoosed = dropdownChoose[0].Category;
+    let mthChoosed = dropdownChoose[0].TransMonth;
+
+    revenue = 0;
+    sumQty = 0;
+
+    if(lctChoosed === '' && ctgChoosed === '' && mthChoosed === ''){
+        dataGetFilter = dataGet;
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
+
     }
+    else if(lctChoosed !== '' && ctgChoosed === '' && mthChoosed === ''){
+        dataGetFilter = dataGet.filter(item => item.Location === lctChoosed);
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
 
-    for (let i = 0; i < 5; i++){
-        prdList[i] = prdRequestAll[i].Product;
-        prdRQTy[i] = prdRequestAll[i].RQty;
     }
+    else if(lctChoosed === '' && ctgChoosed !== '' && mthChoosed === ''){
+        dataGetFilter = dataGet.filter(item => item.Category === ctgChoosed);
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
 
-    for(let i = 0; i < mchRequestAll.length; i++){
-        mchList[i] = mchRequestAll[i].Machine;
-        mchLineTotal[i] = mchRequestAll[i].LineTotal;
     }
+    else if(lctChoosed === '' && ctgChoosed === '' && mthChoosed !== ''){
+        dataGetFilter = dataGet.filter(item => item.TransMonth === mthChoosed);
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
 
-    for(let i = 0; i < typeRequestAll.length; i++){
-        ltList[i] = typeRequestAll[i].Type;
-        ltLineTotal[i] = typeRequestAll[i].LineTotal;
     }
+    else if(lctChoosed !== '' && ctgChoosed !== '' && mthChoosed === ''){
+        dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.Category === ctgChoosed);
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
 
+    }
+    else if(lctChoosed !== '' && ctgChoosed === '' && mthChoosed !== ''){
+        dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.TransMonth === mthChoosed);
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
 
-    // Total Sales by Month - Grafik Line
-    const chart1 = document.getElementById('total_sales_by_month');
+    }
+    else if(lctChoosed === '' && ctgChoosed !== '' && mthChoosed !== ''){
+        dataGetFilter = dataGet.filter(item => item.Category === ctgChoosed && item.TransMonth === mthChoosed);
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
 
-    new Chart(chart1, {
-        type: 'line',
-        data: {
-            labels: monthList,
-            datasets: [{
-                label: 'Total Sales',
-                data: lineTotal,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    }
+    else{
+        dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.Category === ctgChoosed && item.TransMonth === mthChoosed);
+        getDataLocation(dataGetFilter);
+        getDataCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
+        getDataType(dataGetFilter);
+        getDataMachine(dataGetFilter);
+        getDataProduct(dataGetFilter);
+        getDataTransaction(dataGetFilter);
+        getDataRQty(dataGetFilter);
+        getDataLineTotal(dataGetFilter);
+        visualization();
+        console.log(dropdownChoose);
 
-   
-    // Top Five Product Sales - Grafik Batang
-    const chart2 = document.getElementById('top_five_product_sales');
-
-    new Chart(chart2, {
-        type: 'bar',
-        data: {
-            labels: prdList,
-            datasets: [{
-                label: 'RQty',
-                data: prdRQTy,
-                backgroundColor: [
-                    'rgba(140,117,233)',
-
-        
-                ],
-                borderColor: [
-                   
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-   
-    // Sold Based on Machine - Grafik Pie
-  const chart3 = document.getElementById('sold_based_on_machine');
-
-  new Chart(chart3, {
-      type: 'doughnut',
-      data: {
-          labels: mchList,
-          datasets: [{
-              label: 'Total Sales',
-              data: mchLineTotal,
-              backgroundColor: [
-                  'rgb(140,117,233)',
-                  'rgb(234,162,76)',
-                  'rgb(231,133,183)',
-                  'rgb(51,83,108)',
-                  'rgba(202,131,226,255)',
-      
-              ],
-
-              hoverOffset: 0
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
-  });
-
-  // Percentage Payment Type - Grafik Pie
-  const chart4 = document.getElementById('Percentage_Payment_Type');
-  
-  new Chart(chart4, {
-      type: 'doughnut',
-      data: {
-          labels: ltList,
-          datasets: 
-          [{
-              label: 'Total Sales',
-              data: ltLineTotal,
-              backgroundColor: [
-                  'rgb(231,133,183)',
-                  'rgb(140,117,233)',
-      
-              ],
-            //   borderColor: [
-            //       'rgb(159, 99, 132, 1)',
-      
-            //   ],
-              
-              hoverOffset: 4
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
-  });
+    }
 
 }
+
