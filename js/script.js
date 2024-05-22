@@ -492,5 +492,62 @@ function updateDataView(){
 
     }
 
+
+
 }
 
+// const chart5 = document.getElementById('sales_based_on_Category');
+
+// new Chart(chart5, {
+//     type: 'bar',
+//     data: {
+//         labels: prdList,
+//         datasets: [
+//             {
+//                 label: 'RQty',
+//                 data: prdRQTy,
+//                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
+//                 borderColor: 'rgba(140, 117, 233, 1)',
+//                 borderWidth: 1
+//             },
+//             {
+//                 label: 'ltLineTotal',
+//                 data: ltLineTotal,
+//                 backgroundColor: 'rgb(140,117,233)',
+//                 borderColor: 'rgba(117, 233, 140, 1)',
+//                 borderWidth: 1
+//             },
+//             {
+//                 label: 'lmchLineTotal',
+//                 data: mchLineTotal,
+//                 backgroundColor: 'rgb(234,162,76)',
+//                 borderColor: 'rgba(117, 233, 140, 1)',
+//                 borderWidth: 1
+//             },
+//             {
+//                 label: 'lmchLineTotal',
+//                 data: mchLineTotal,
+//                 backgroundColor: 'rgb(159, 99, 132, 1)',
+//                 borderColor: 'rgba(117, 233, 140, 1)',
+//                 borderWidth: 1
+//             },
+//         ]
+//     },
+//     options: {
+//         indexAxis: 'y',
+//         scales: {
+//             y: {
+//                 stacked: true
+//             },
+//             x: {
+//                 stacked: true
+//             }
+//         },
+//             plugins: {
+//                 Tooltip: {
+//                     enabled : false
+//                 }
+//             }
+//     },
+//     plugins: [ChartDataLabels]
+// });
