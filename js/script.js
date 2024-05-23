@@ -555,7 +555,6 @@ function updateDataView(){
     else{
         dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.Category === ctgChoosed && item.TransMonth === mthChoosed);
         getDataLocation(dataGetFilter);
-        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
