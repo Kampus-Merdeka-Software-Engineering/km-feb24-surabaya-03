@@ -340,37 +340,78 @@ function visualization() {
         });
     }
 
-    // const chart5 = document.getElementById('based_on_Category');
+    // let chart5 = document.getElementById('sales_based_on_Category');
+    // if (chart5) {
+    //     if (chart5.chartInstance) {
+    //         chart5.chartInstance.destroy();
+    //     }
+        
+    //     // Aggregate data by location and category
+    //     const categoryColors = {
+    //         'Food': 'rgba(75, 192, 192, 0.6)',
+    //         'Carbonated': 'rgba(153, 102, 255, 0.6)',
+    //         'Non Carbonated': 'rgba(255, 159, 64, 0.6)',
+    //         'Water': 'rgba(255, 205, 86, 0.6)',
+    //     };
 
+    //     const categoryData = {};
+    //     const locations = new Set();
+
+    //     dataGet.forEach(item => {
+    //         if (!categoryData[item.Category]) {
+    //             categoryData[item.Category] = {};
+    //         }
+    //         if (!categoryData[item.Category][item.Location]) {
+    //             categoryData[item.Category][item.Location] = 0;
+    //         }
+    //         categoryData[item.Category][item.Location] += parseFloat(item.LineTotal);
+    //         locations.add(item.Location);
+    //     });
+
+    //     const datasets = Object.keys(categoryColors).map(category => {
+    //         return {
+    //             label: category,
+    //             data: Array.from(locations).map(location => categoryData[category][location] || 0),
+    //             backgroundColor: categoryColors[category],
+    //             borderWidth: 1
+    //         };
+    //     });
+    // }
+
+    // let chart5 = document.getElementById('based_on_Category');
+
+    // let data = [];
+
+    // data
     // new Chart(chart5, {
     //     type: 'bar',
     //     data: {
-    //         labels: prdList,
+    //         labels: locSalesByCategory.map(row => row.Location),
     //         datasets: [
     //             {
     //                 label: 'RQty',
-    //                 data: prdRQTy,
+    //                 data:  dataTp.map(row => row.LineTotal),
     //                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
     //                 borderColor: 'rgba(140, 117, 233, 1)',
     //                 borderWidth: 1
     //             },
     //             {
     //                 label: 'ltLineTotal',
-    //                 data: ltLineTotal,
+    //                 data:  dataTp.map(row => row.LineTotal),
     //                 backgroundColor: 'rgb(140,117,233)',
     //                 borderColor: 'rgba(117, 233, 140, 1)',
     //                 borderWidth: 1
     //             },
     //             {
     //                 label: 'lmchLineTotal',
-    //                 data: mchLineTotal,
+    //                 data:  dataTp.map(row => row.LineTotal),
     //                 backgroundColor: 'rgb(234,162,76)',
     //                 borderColor: 'rgba(117, 233, 140, 1)',
     //                 borderWidth: 1
     //             },
     //             {
     //                 label: 'lmchLineTotal',
-    //                 data: mchLineTotal,
+    //                 data:  dataTp.map(row => row.LineTotal),
     //                 backgroundColor: 'rgb(159, 99, 132, 1)',
     //                 borderColor: 'rgba(117, 233, 140, 1)',
     //                 borderWidth: 1
@@ -395,6 +436,7 @@ function visualization() {
     //     },
     //     plugins: [ChartDataLabels]
     // });
+
 }
 
 
@@ -433,6 +475,9 @@ function test(data){
         updateDataView();
     })
     console.log(dropdownChoose);
+    console.log(locSalesByCategory);
+
+
 }
 
 
@@ -497,7 +542,6 @@ function updateDataView(){
         getDataLocation(dataGetFilter);
         getDataDropdownLocation(dataGetFilter);
         getDataDropdownCategory(dataGetFilter);
-        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -526,7 +570,6 @@ function updateDataView(){
         dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.TransMonth === mthChoosed);
         getDataLocation(dataGetFilter);
         getDataDropdownCategory(dataGetFilter);
-        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -541,7 +584,6 @@ function updateDataView(){
         dataGetFilter = dataGet.filter(item => item.Category === ctgChoosed && item.TransMonth === mthChoosed);
         getDataLocation(dataGetFilter);
         getDataDropdownLocation(dataGetFilter);
-        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
