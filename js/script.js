@@ -15,23 +15,23 @@ let mthList = document.getElementById("mthList");
 let dataGet = [];
 let dataGetFilter = [];
 
-const dataLoc = [];
-const locSalesByCategory = [];
+let dataLoc = [];
+let locSalesByCategory = [];
 
-const dataCat = [];
+let dataCat = [];
 let sumCat;
 
-const dataTrMonth = [];
+let dataTrMonth = [];
 
-const dataTp = [];
+let dataTp = [];
 
-const dataMch = [];
+let dataMch = [];
 let sumMch;
 
-const dataPrd = [];
+let dataPrd = [];
 let sumPrd;
 
-const dataTrans = [];
+let dataTrans = [];
 let sumTrans;
 
 let sumQty = 0;
@@ -53,16 +53,9 @@ function getData(dataLoop){
 }
 
 function getDataLocation(dataGet){
+    locSalesByCategory = [];
     dataGet.forEach(i => {
-        let loc = dataLoc.find(l => l.Location === i.Location);
         let totalSalesLocationByCategory = locSalesByCategory.find(lc => (lc.Location === i.Location) && (lc.Category === i.Category))
-    
-        if(loc){
-            loc.Location = i.Location
-        }
-        else{
-            dataLoc.push({Location: i.Location});
-        }
     
         if(totalSalesLocationByCategory){
             totalSalesLocationByCategory.LineTotal = parseFloat(totalSalesLocationByCategory.LineTotal) + parseFloat(i.LineTotal);
@@ -72,15 +65,33 @@ function getDataLocation(dataGet){
         }
     })
 
-    var lctData = '<option value="">All Locations</option>'
-    dataLoc.forEach(l => {
-        lctData += '<option value="' + l.Location + '">' + l.Location + '</option>';
-    })
-
-    lctList.innerHTML = lctData;
 }
 
-function getDataCategory(dataGet){
+function getDataDropdownLocation(dataGet){
+    dataLoc = [];
+    dataGet.forEach(i => {
+        let loc = dataLoc.find(l => l.Location === i.Location);
+
+        if(loc){
+            loc.Location = i.Location
+        }
+        else{
+            dataLoc.push({Location: i.Location});
+        }
+    
+        var lctData = '<option value="">All Locations</option>'
+        dataLoc.forEach(l => {
+            lctData += '<option value="' + l.Location + '">' + l.Location + '</option>';
+        })
+    
+        lctList.innerHTML = lctData;
+    })
+
+}
+
+
+function getDataDropdownCategory(dataGet){
+    dataCat = [];
     dataGet.forEach(i => {
         let cat = dataCat.find(c => c.Category === i.Category)
 
@@ -90,20 +101,22 @@ function getDataCategory(dataGet){
         else{
             dataCat.push({Category: i.Category});
         }
+
+        var ctgData = '<option value="">All Categories</option>'
+        dataCat.forEach(c => {
+            ctgData += '<option value="' + c.Category + '">' + c.Category + '</option>';
+        })
+    
+        ctgList.innerHTML = ctgData;
     })
 
     sumCat = dataCat.length;
 
-    var ctgData = '<option value="">All Categories</option>'
-    dataCat.forEach(c => {
-        ctgData += '<option value="' + c.Category + '">' + c.Category + '</option>';
-    })
-
-    ctgList.innerHTML = ctgData;
     categoryValue.innerHTML = sumCat;
 }
 
-function getDataTransMonth(dataGet){
+function getDataDropdownTransMonth(dataGet){
+    dataTrMonth = [];
     dataGet.forEach(i => {
         let trm = dataTrMonth.find(t => t.TransMonth === i.TransMonth);
 
@@ -124,6 +137,7 @@ function getDataTransMonth(dataGet){
 }
 
 function getDataType(dataGet){
+    dataTp = [];
     dataGet.forEach(i => {
         let tp = dataTp.find(t => (t.Type === i.Type));
 
@@ -137,6 +151,7 @@ function getDataType(dataGet){
 }
 
 function getDataMachine(dataGet){
+    dataMch = [];
     dataGet.forEach(i => {
         let mch = dataMch.find(m => m.Machine === i.Machine);
 
@@ -153,6 +168,7 @@ function getDataMachine(dataGet){
 }
 
 function getDataProduct(dataGet){
+    dataPrd = [];
     dataGet.forEach(i => {
         let prd = dataPrd.find(p => p.Product === i.Product);
 
@@ -171,6 +187,7 @@ function getDataProduct(dataGet){
 }
 
 function getDataTransaction(dataGet){
+    dataTrans = [];
     dataGet.forEach(i => {
         let trs = dataTrans.find(t => t.Transaction === i.Transaction);
 
@@ -322,6 +339,62 @@ function visualization() {
             }
         });
     }
+
+    // const chart5 = document.getElementById('based_on_Category');
+
+    // new Chart(chart5, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: prdList,
+    //         datasets: [
+    //             {
+    //                 label: 'RQty',
+    //                 data: prdRQTy,
+    //                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
+    //                 borderColor: 'rgba(140, 117, 233, 1)',
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'ltLineTotal',
+    //                 data: ltLineTotal,
+    //                 backgroundColor: 'rgb(140,117,233)',
+    //                 borderColor: 'rgba(117, 233, 140, 1)',
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'lmchLineTotal',
+    //                 data: mchLineTotal,
+    //                 backgroundColor: 'rgb(234,162,76)',
+    //                 borderColor: 'rgba(117, 233, 140, 1)',
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'lmchLineTotal',
+    //                 data: mchLineTotal,
+    //                 backgroundColor: 'rgb(159, 99, 132, 1)',
+    //                 borderColor: 'rgba(117, 233, 140, 1)',
+    //                 borderWidth: 1
+    //             },
+    //         ]
+    //     },
+    //     options: {
+    //         indexAxis: 'y',
+    //         scales: {
+    //             y: {
+    //                 stacked: true
+    //             },
+    //             x: {
+    //                 stacked: true
+    //             }
+    //         },
+    //             plugins: {
+    //                 Tooltip: {
+    //                     enabled : false
+    //                 }
+    //             }
+    //     },
+    //     plugins: [ChartDataLabels]
+    // });
 }
 
 
@@ -335,8 +408,9 @@ function test(data){
     }
 
     getDataLocation(dataGetFilter);
-    getDataCategory(dataGetFilter);
-    getDataTransMonth(dataGetFilter);
+    getDataDropdownLocation(dataGetFilter);
+    getDataDropdownCategory(dataGetFilter);
+    getDataDropdownTransMonth(dataGetFilter);
     getDataType(dataGetFilter);
     getDataMachine(dataGetFilter);
     getDataProduct(dataGetFilter);
@@ -374,8 +448,9 @@ function updateDataView(){
     if(lctChoosed === '' && ctgChoosed === '' && mthChoosed === ''){
         dataGetFilter = dataGet;
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownLocation(dataGetFilter);
+        getDataDropdownCategory(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -389,8 +464,8 @@ function updateDataView(){
     else if(lctChoosed !== '' && ctgChoosed === '' && mthChoosed === ''){
         dataGetFilter = dataGet.filter(item => item.Location === lctChoosed);
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownCategory(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -399,13 +474,14 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
+        console.log(dataMch);
 
     }
     else if(lctChoosed === '' && ctgChoosed !== '' && mthChoosed === ''){
         dataGetFilter = dataGet.filter(item => item.Category === ctgChoosed);
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownLocation(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -419,8 +495,9 @@ function updateDataView(){
     else if(lctChoosed === '' && ctgChoosed === '' && mthChoosed !== ''){
         dataGetFilter = dataGet.filter(item => item.TransMonth === mthChoosed);
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownLocation(dataGetFilter);
+        getDataDropdownCategory(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -434,8 +511,7 @@ function updateDataView(){
     else if(lctChoosed !== '' && ctgChoosed !== '' && mthChoosed === ''){
         dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.Category === ctgChoosed);
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -449,8 +525,8 @@ function updateDataView(){
     else if(lctChoosed !== '' && ctgChoosed === '' && mthChoosed !== ''){
         dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.TransMonth === mthChoosed);
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownCategory(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -464,8 +540,8 @@ function updateDataView(){
     else if(lctChoosed === '' && ctgChoosed !== '' && mthChoosed !== ''){
         dataGetFilter = dataGet.filter(item => item.Category === ctgChoosed && item.TransMonth === mthChoosed);
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownLocation(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -479,8 +555,7 @@ function updateDataView(){
     else{
         dataGetFilter = dataGet.filter(item => item.Location === lctChoosed && item.Category === ctgChoosed && item.TransMonth === mthChoosed);
         getDataLocation(dataGetFilter);
-        getDataCategory(dataGetFilter);
-        getDataTransMonth(dataGetFilter);
+        getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -496,58 +571,3 @@ function updateDataView(){
 
 }
 
-// const chart5 = document.getElementById('sales_based_on_Category');
-
-// new Chart(chart5, {
-//     type: 'bar',
-//     data: {
-//         labels: prdList,
-//         datasets: [
-//             {
-//                 label: 'RQty',
-//                 data: prdRQTy,
-//                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
-//                 borderColor: 'rgba(140, 117, 233, 1)',
-//                 borderWidth: 1
-//             },
-//             {
-//                 label: 'ltLineTotal',
-//                 data: ltLineTotal,
-//                 backgroundColor: 'rgb(140,117,233)',
-//                 borderColor: 'rgba(117, 233, 140, 1)',
-//                 borderWidth: 1
-//             },
-//             {
-//                 label: 'lmchLineTotal',
-//                 data: mchLineTotal,
-//                 backgroundColor: 'rgb(234,162,76)',
-//                 borderColor: 'rgba(117, 233, 140, 1)',
-//                 borderWidth: 1
-//             },
-//             {
-//                 label: 'lmchLineTotal',
-//                 data: mchLineTotal,
-//                 backgroundColor: 'rgb(159, 99, 132, 1)',
-//                 borderColor: 'rgba(117, 233, 140, 1)',
-//                 borderWidth: 1
-//             },
-//         ]
-//     },
-//     options: {
-//         indexAxis: 'y',
-//         scales: {
-//             y: {
-//                 stacked: true
-//             },
-//             x: {
-//                 stacked: true
-//             }
-//         },
-//             plugins: {
-//                 Tooltip: {
-//                     enabled : false
-//                 }
-//             }
-//     },
-//     plugins: [ChartDataLabels]
-// });
