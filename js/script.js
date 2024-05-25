@@ -22,6 +22,7 @@ let dataCat = [];
 let sumCat;
 
 let dataTrMonth = [];
+let dataLnTtlMonth = [];
 
 let dataTp = [];
 
@@ -115,16 +116,31 @@ function getDataDropdownCategory(dataGet){
     categoryValue.innerHTML = sumCat;
 }
 
+function getDataTransMonth(dataGet){
+    dataLnTtlMonth = [];
+
+    dataGet.forEach(i => {
+        let ltm = dataLnTtlMonth.find(t => t.TransMonth === i.TransMonth);
+
+        if(ltm){
+            ltm.LineTotal = parseFloat(ltm.LineTotal) + parseFloat(i.LineTotal);
+        }
+        else{
+            dataLnTtlMonth.push({TransMonth: i.TransMonth, LineTotal: parseFloat(i.LineTotal)});
+        }
+    });
+}
+
 function getDataDropdownTransMonth(dataGet){
     dataTrMonth = [];
     dataGet.forEach(i => {
         let trm = dataTrMonth.find(t => t.TransMonth === i.TransMonth);
 
         if(trm){
-            trm.LineTotal = parseFloat(trm.LineTotal) + parseFloat(i.LineTotal);
+            trm.TransMonth = i.TransMonth;
         }
         else{
-            dataTrMonth.push({TransMonth: i.TransMonth, LineTotal: parseFloat(i.LineTotal)});
+            dataTrMonth.push({TransMonth: i.TransMonth});
         }
     })
 
@@ -230,10 +246,10 @@ function visualization() {
         chart1.chartInstance = new Chart(chart1, {
             type: 'line',
             data: {
-                labels: dataTrMonth.map(row => row.TransMonth),
+                labels: dataLnTtlMonth.map(row => row.TransMonth),
                 datasets: [{
                     label: 'Total Sales',
-                    data: dataTrMonth.map(row => row.LineTotal),
+                    data: dataLnTtlMonth.map(row => row.LineTotal),
                     borderWidth: 2
                 }]
             },
@@ -340,78 +356,37 @@ function visualization() {
         });
     }
 
-    // let chart5 = document.getElementById('sales_based_on_Category');
-    // if (chart5) {
-    //     if (chart5.chartInstance) {
-    //         chart5.chartInstance.destroy();
-    //     }
-        
-    //     // Aggregate data by location and category
-    //     const categoryColors = {
-    //         'Food': 'rgba(75, 192, 192, 0.6)',
-    //         'Carbonated': 'rgba(153, 102, 255, 0.6)',
-    //         'Non Carbonated': 'rgba(255, 159, 64, 0.6)',
-    //         'Water': 'rgba(255, 205, 86, 0.6)',
-    //     };
+    // const chart5 = document.getElementById('based_on_Category');
 
-    //     const categoryData = {};
-    //     const locations = new Set();
-
-    //     dataGet.forEach(item => {
-    //         if (!categoryData[item.Category]) {
-    //             categoryData[item.Category] = {};
-    //         }
-    //         if (!categoryData[item.Category][item.Location]) {
-    //             categoryData[item.Category][item.Location] = 0;
-    //         }
-    //         categoryData[item.Category][item.Location] += parseFloat(item.LineTotal);
-    //         locations.add(item.Location);
-    //     });
-
-    //     const datasets = Object.keys(categoryColors).map(category => {
-    //         return {
-    //             label: category,
-    //             data: Array.from(locations).map(location => categoryData[category][location] || 0),
-    //             backgroundColor: categoryColors[category],
-    //             borderWidth: 1
-    //         };
-    //     });
-    // }
-
-    // let chart5 = document.getElementById('based_on_Category');
-
-    // let data = [];
-
-    // data
     // new Chart(chart5, {
     //     type: 'bar',
     //     data: {
-    //         labels: locSalesByCategory.map(row => row.Location),
+    //         labels: prdList,
     //         datasets: [
     //             {
     //                 label: 'RQty',
-    //                 data:  dataTp.map(row => row.LineTotal),
+    //                 data: prdRQTy,
     //                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
     //                 borderColor: 'rgba(140, 117, 233, 1)',
     //                 borderWidth: 1
     //             },
     //             {
     //                 label: 'ltLineTotal',
-    //                 data:  dataTp.map(row => row.LineTotal),
+    //                 data: ltLineTotal,
     //                 backgroundColor: 'rgb(140,117,233)',
     //                 borderColor: 'rgba(117, 233, 140, 1)',
     //                 borderWidth: 1
     //             },
     //             {
     //                 label: 'lmchLineTotal',
-    //                 data:  dataTp.map(row => row.LineTotal),
+    //                 data: mchLineTotal,
     //                 backgroundColor: 'rgb(234,162,76)',
     //                 borderColor: 'rgba(117, 233, 140, 1)',
     //                 borderWidth: 1
     //             },
     //             {
     //                 label: 'lmchLineTotal',
-    //                 data:  dataTp.map(row => row.LineTotal),
+    //                 data: mchLineTotal,
     //                 backgroundColor: 'rgb(159, 99, 132, 1)',
     //                 borderColor: 'rgba(117, 233, 140, 1)',
     //                 borderWidth: 1
@@ -436,7 +411,6 @@ function visualization() {
     //     },
     //     plugins: [ChartDataLabels]
     // });
-
 }
 
 
@@ -453,6 +427,7 @@ function test(data){
     getDataDropdownLocation(dataGetFilter);
     getDataDropdownCategory(dataGetFilter);
     getDataDropdownTransMonth(dataGetFilter);
+    getDataTransMonth(dataGetFilter);
     getDataType(dataGetFilter);
     getDataMachine(dataGetFilter);
     getDataProduct(dataGetFilter);
@@ -475,9 +450,6 @@ function test(data){
         updateDataView();
     })
     console.log(dropdownChoose);
-    console.log(locSalesByCategory);
-
-
 }
 
 
@@ -502,6 +474,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
@@ -511,6 +484,7 @@ function updateDataView(){
         getDataLocation(dataGetFilter);
         getDataDropdownCategory(dataGetFilter);
         getDataDropdownTransMonth(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -527,6 +501,7 @@ function updateDataView(){
         getDataLocation(dataGetFilter);
         getDataDropdownLocation(dataGetFilter);
         getDataDropdownTransMonth(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -542,6 +517,7 @@ function updateDataView(){
         getDataLocation(dataGetFilter);
         getDataDropdownLocation(dataGetFilter);
         getDataDropdownCategory(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
@@ -557,6 +533,7 @@ function updateDataView(){
         getDataLocation(dataGetFilter);
         getDataDropdownTransMonth(dataGetFilter);
         getDataType(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
         getDataTransaction(dataGetFilter);
@@ -573,6 +550,7 @@ function updateDataView(){
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
@@ -586,6 +564,7 @@ function updateDataView(){
         getDataDropdownLocation(dataGetFilter);
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         getDataProduct(dataGetFilter);
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
@@ -600,6 +579,7 @@ function updateDataView(){
         getDataType(dataGetFilter);
         getDataMachine(dataGetFilter);
         getDataProduct(dataGetFilter);
+        getDataTransMonth(dataGetFilter);
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
