@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <title>Vending Machine Sales</title>
 </head>
 
@@ -26,57 +27,71 @@
 
     <nav>
         <section class="filter">
-            <select name="location" id="lctList">
-            </select>
+            <div class="tooltip-container">
+                <select name="location" id="lctList" data-tooltip="select a Location" onchange="checkDropdowns()">
+                </select>
+                <span class="tooltip-text">select a Location</span>
+            </div>
 
-            <select name="category" id="ctgList">
-            </select>
+            <div class="tooltip-container">
+                <select name="category" id="ctgList" data-tooltip="Select a category" onchange="checkDropdowns()">
+                </select>
+                <span class="tooltip-text">Select a category</span>
+            </div>
 
-            <select name="date" id="mthList">
-            </select>
+            <div class="tooltip-container">
+                <select name="date" id="mthList" data-tooltip="Select a date" onchange="checkDropdowns()">
+                </select>
+                <span class="tooltip-text">Select a date</span>
+            </div>
         </section>
     </nav>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Harap isi dropdown terlebih dahulu</p>
+        </div>
+    </div>
 
     <main>
         <div class="part1">
             <div class="part-aside">
-                    <div class="container-metric">
-                        <p style="text-align: center;">Revenue</p>
-                        <h2 style="text-align: center;" id="revenueValue"></h2>
-                    </div>
-                    <div class="container-metric" >
-                        <p style="text-align: center;">Machine</p>
-                        <h2 style="text-align: center;" id="machineValue"></h2>
-                    </div>
-                    <div class="container-metric">
-                        <p style="text-align: center;">Category Product</p>
-                        <h2 style="text-align: center;" id="categoryValue"></h2>
-                    </div>
-                    <div class="container-metric">
-                        <p style="text-align: center;">Products</p>
-                        <h2 style="text-align: center;" id="productValue"></h2>
-                    </div>
-                    <div class="container-metric">
-                        <p style="text-align: center;">Transaction</p>
-                        <h2 style="text-align: center;" id="transactionValue"></h2>
-                    </div>
-                    <div class="container-metric">
-                        <p style="text-align: center;">Qty Sold</p>
-                        <h2 style="text-align: center;" id="qtySoldValue"></h2>
-                    </div>
+                <div class="container-metric">
+                    <p style="text-align: center;">Revenue</p>
+                    <h2 style="text-align: center;" id="revenueValue"></h2>
+                </div>
+                <div class="container-metric">
+                    <p style="text-align: center;">Machine</p>
+                    <h2 style="text-align: center;" id="machineValue"></h2>
+                </div>
+                <div class="container-metric">
+                    <p style="text-align: center;">Category Product</p>
+                    <h2 style="text-align: center;" id="categoryValue"></h2>
+                </div>
+                <div class="container-metric">
+                    <p style="text-align: center;">Products</p>
+                    <h2 style="text-align: center;" id="productValue"></h2>
+                </div>
+                <div class="container-metric">
+                    <p style="text-align: center;">Transaction</p>
+                    <h2 style="text-align: center;" id="transactionValue"></h2>
+                </div>
+                <div class="container-metric">
+                    <p style="text-align: center;">Qty Sold</p>
+                    <h2 style="text-align: center;" id="qtySoldValue"></h2>
+                </div>
             </div>
 
             <section class="content">
                 <section>
                     <div class="container-metric">
                         <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
-                    <canvas id="total_sales_by_month" >
-                    </canvas>
+                        <canvas id="total_sales_by_month"></canvas>
                     </div>
                     <div class="container-metric">
                         <label for="Top 5 Product Sales" class="label-viz">Top 5 Product Sales</label>
-                    <canvas id="top_five_product_sales" >
-                    </canvas>
+                        <canvas id="top_five_product_sales"></canvas>
                     </div>
                 </section>
             </section>
@@ -88,16 +103,16 @@
                     <div class="small">
                         <div class="small-chart">
                             <label for="Percentage Qty Sold based on Machine" class="label-viz">Percentage Qty Sold based on Machine</label>
-                            <canvas id="sold_based_on_machine">
+                            <canvas id="sold_based_on_machine"></canvas>
                         </div>
                         <div class="small-chart">
                             <label for="Percentage Payment Type" class="label-viz">Percentage Payment Type</label>
-                            <canvas id="Percentage_Payment_Type">
+                            <canvas id="Percentage_Payment_Type"></canvas>
                         </div>
                     </div>
                     <div class="large-chart">
                         <label for="Sales by Location based on Category" class="label-viz">Sales by Location based on Category</label>
-                        <canvas id="based_on_Category">
+                        <canvas id="based_on_Category"></canvas>
                     </div>
                 </section>
             </section>
@@ -106,25 +121,72 @@
             <section class="charts3">
                 <div class="small-chart">
                     <label for="Payment Type vs Items Purchased" class="label-viz">Payment Type vs Items Purchased</label>
-                            <canvas id="Payment_vs_Purchased">
-                                
-                            </canvas>
+                    <canvas id="Payment_vs_Purchased" width="400px" height="300px"></canvas>
                 </div>
                 <div class="small-chart">
                     <label class="label-viz">Item Purchased vs Price</label>
-                            <canvas id="Purchased_vs_Price">
-
-                            </canvas>
+                    <canvas id="Purchased_vs_Price" width="400px" height="300px"></canvas>
                 </div>
+            </section>
+        </div>
+        <div class="part4">
+            <section class="datatable-section">
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Transaction</th>
+                            <th>Product</th>
+                            <th>Machine</th>
+                            <th>Location</th>
+                            <th>Category</th>
+                            <th>RQty</th>
+                            <th>LineTotal</th>
+                            <th>Type</th>
+                            <th>TransDate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataPlace">
+                    </tbody>
+                </table>
             </section>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <footer>
         <p>Designed By: KM-24 - Section Surabaya - Team 3</p>
     </footer>
+    <script>
+        function checkDropdowns() {
+            var location = document.getElementById('lctList').value;
+            var category = document.getElementById('ctgList').value;
+            var date = document.getElementById('mthList').value;
 
+            if (!location || !category || !date) {
+                showModal();
+            }
+        }
+
+        function showModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
+
 </html>

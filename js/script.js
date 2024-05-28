@@ -326,7 +326,7 @@ function visualization() {
         });
     }
 
-    // Percentage Payment Type - Grafik Pie
+    // Percentage Payment Type - Grafik Doughnut
     let chart4 = document.getElementById('Percentage_Payment_Type');
     if (chart4) {
         if (chart4.chartInstance) {
@@ -356,61 +356,139 @@ function visualization() {
         });
     }
 
-    // const chart5 = document.getElementById('based_on_Category');
+    let chart5 = document.getElementById('based_on_Category');
+    if (chart5) {
+        if(chart5.chartInstance) {
+            chart5.chartInstance.destroy();
+        }
+        chart5.chartInstance = new Chart(chart5, {
+            type: 'bar',
+        data: {
+            labels: dataLoc.map(row => row.Location),
+            datasets: [
+                {
+                    label: 'food',
+                    data: dataTp.map(row => row.Type),
+                    backgroundColor: 'rgba(140, 117, 233, 0.5)',
+                    borderColor: 'rgba(140, 117, 233, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Carbonated',
+                    data: dataMch.map(row => row.Machine),
+                    backgroundColor: 'rgb(140,117,233)',
+                    borderColor: 'rgba(117, 233, 140, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Non Carbonated',
+                    data: dataTrMonth.map(row => row.TransMonth),
+                    backgroundColor: 'rgb(234,162,76)',
+                    borderColor: 'rgba(117, 233, 140, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Water',
+                    data: dataTrMonth.map(row => row.TransMonth),
+                    backgroundColor: 'rgb(159, 99, 132, 1)',
+                    borderColor: 'rgba(117, 233, 140, 1)',
+                    borderWidth: 1
+                },
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    stacked: true
+                },
+                x: {
+                    stacked: true
+                }
+            },
+                plugins: {
+                    Tooltip: {
+                        enabled : false
+                    }
+                }
+        },
+        plugins: [ChartDataLabels]
+        });
+    }
 
-    // new Chart(chart5, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: prdList,
-    //         datasets: [
-    //             {
-    //                 label: 'RQty',
-    //                 data: prdRQTy,
-    //                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
-    //                 borderColor: 'rgba(140, 117, 233, 1)',
-    //                 borderWidth: 1
-    //             },
-    //             {
-    //                 label: 'ltLineTotal',
-    //                 data: ltLineTotal,
-    //                 backgroundColor: 'rgb(140,117,233)',
-    //                 borderColor: 'rgba(117, 233, 140, 1)',
-    //                 borderWidth: 1
-    //             },
-    //             {
-    //                 label: 'lmchLineTotal',
-    //                 data: mchLineTotal,
-    //                 backgroundColor: 'rgb(234,162,76)',
-    //                 borderColor: 'rgba(117, 233, 140, 1)',
-    //                 borderWidth: 1
-    //             },
-    //             {
-    //                 label: 'lmchLineTotal',
-    //                 data: mchLineTotal,
-    //                 backgroundColor: 'rgb(159, 99, 132, 1)',
-    //                 borderColor: 'rgba(117, 233, 140, 1)',
-    //                 borderWidth: 1
-    //             },
-    //         ]
-    //     },
-    //     options: {
-    //         indexAxis: 'y',
-    //         scales: {
-    //             y: {
-    //                 stacked: true
-    //             },
-    //             x: {
-    //                 stacked: true
-    //             }
-    //         },
-    //             plugins: {
-    //                 Tooltip: {
-    //                     enabled : false
-    //                 }
-    //             }
-    //     },
-    //     plugins: [ChartDataLabels]
-    // });
+    let chart6 = document.getElementById('Payment_vs_Purchased');
+    if (chart6) {
+        if (chart6.chartInstance) {
+            chart6.chartInstance.destroy();
+        }
+        chart6.chartInstance = new Chart(chart6, {
+            type: 'bar',
+            data: {
+                labels: dataTp.map(row => row.Type),
+                datasets: [{
+                    label: 'Cash',
+                    data: dataTp.map(row => row.LineTotal),
+                    backgroundColor: [
+                        'rgba(140,117,233)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Credit',
+                    data: dataTp.map(row => row.LineTotal),
+                    backgroundColor: [
+                        'rgba(140,117,233)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'x',
+                scales: {
+                    y: {
+                        stacked: true
+                    },
+                    x: {
+                        stacked: true
+                    }
+                },
+                    plugins: {
+                        Tooltip: {
+                            enabled : false
+                        }
+                    }
+            },
+            plugins: [ChartDataLabels]
+            });
+    }
+    let chart7 = document.getElementById('Purchased_vs_Price');
+    if (chart7) {
+        if (chart7.chartInstance) {
+            chart7.chartInstance.destroy();
+        }
+        chart7.chartInstance = new Chart(chart7, {
+            type: 'bar',
+            data: {
+                labels: dataPrd.slice(0, 5).map(row => row.Product),
+                datasets: [{
+                    label: 'RQty',
+                    data: dataPrd.slice(0, 5).map(row => row.RQty),
+                    backgroundColor: [
+                        'rgba(140,117,233)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
 }
 
 
