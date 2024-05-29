@@ -1,6 +1,9 @@
 fetch("../json/alldata_vm.json")
     .then(response => response.json())
-    .then(data => test(data));
+    .then(data => {
+            test(data);
+            $('#example').DataTable(); // Inisialisasi DataTables setelah data dimuat
+        });
 
 let trm = [];
 let prd = [];
@@ -52,6 +55,27 @@ function getData(dataLoop){
         dataGet.push({Location: dataLoop.Location, Machine: dataLoop.Machine, Product: dataLoop.Product, Category: dataLoop.Category, Transaction: dataLoop.Transaction, Type: dataLoop.Type, RQty: dataLoop.RQty, LineTotal: dataLoop.LineTotal, TransMonth: dataLoop.TransMonth});
     }
 }
+
+function dataTable(dataGet) {
+    let dataList = '';
+
+    for (let i = 0; i < dataGet.length; i++) {
+        dataList += `<tr>
+            <td>${dataGet[i].Transaction}</td>
+            <td>${dataGet[i].Product}</td>
+            <td>${dataGet[i].Machine}</td>
+            <td>${dataGet[i].Location}</td>
+            <td>${dataGet[i].Category}</td>
+            <td>${dataGet[i].RQty}</td>
+            <td>${dataGet[i].LineTotal}</td>
+            <td>${dataGet[i].Type}</td>
+            <td>${dataGet[i].TransMonth}</td>
+        </tr>`;
+    }
+
+    document.getElementById('dataPlace').innerHTML = dataList;
+}
+
 
 function getDataLocation(dataGet){
     locSalesByCategory = [];
@@ -356,111 +380,111 @@ function visualization() {
         });
     }
 
-    let chart5 = document.getElementById('based_on_Category');
-    if (chart5) {
-        if(chart5.chartInstance) {
-            chart5.chartInstance.destroy();
-        }
-        chart5.chartInstance = new Chart(chart5, {
-            type: 'bar',
-        data: {
-            labels: dataLoc.map(row => row.Location),
-            datasets: [
-                {
-                    label: 'food',
-                    data: dataTp.map(row => row.Type),
-                    backgroundColor: 'rgba(140, 117, 233, 0.5)',
-                    borderColor: 'rgba(140, 117, 233, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Carbonated',
-                    data: dataMch.map(row => row.Machine),
-                    backgroundColor: 'rgb(140,117,233)',
-                    borderColor: 'rgba(117, 233, 140, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Non Carbonated',
-                    data: dataTrMonth.map(row => row.TransMonth),
-                    backgroundColor: 'rgb(234,162,76)',
-                    borderColor: 'rgba(117, 233, 140, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Water',
-                    data: dataTrMonth.map(row => row.TransMonth),
-                    backgroundColor: 'rgb(159, 99, 132, 1)',
-                    borderColor: 'rgba(117, 233, 140, 1)',
-                    borderWidth: 1
-                },
-            ]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    stacked: true
-                },
-                x: {
-                    stacked: true
-                }
-            },
-                plugins: {
-                    Tooltip: {
-                        enabled : false
-                    }
-                }
-        },
-        plugins: [ChartDataLabels]
-        });
-    }
+    // let chart5 = document.getElementById('based_on_Category');
+    // if (chart5) {
+    //     if(chart5.chartInstance) {
+    //         chart5.chartInstance.destroy();
+    //     }
+    //     chart5.chartInstance = new Chart(chart5, {
+    //         type: 'bar',
+    //     data: {
+    //         labels: dataLoc.map(row => row.Location),
+    //         datasets: [
+    //             {
+    //                 label: 'food',
+    //                 data: dataTp.map(row => row.Type),
+    //                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
+    //                 borderColor: 'rgba(140, 117, 233, 1)',
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'Carbonated',
+    //                 data: dataMch.map(row => row.Machine),
+    //                 backgroundColor: 'rgb(140,117,233)',
+    //                 borderColor: 'rgba(117, 233, 140, 1)',
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'Non Carbonated',
+    //                 data: dataTrMonth.map(row => row.TransMonth),
+    //                 backgroundColor: 'rgb(234,162,76)',
+    //                 borderColor: 'rgba(117, 233, 140, 1)',
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'Water',
+    //                 data: dataTrMonth.map(row => row.TransMonth),
+    //                 backgroundColor: 'rgb(159, 99, 132, 1)',
+    //                 borderColor: 'rgba(117, 233, 140, 1)',
+    //                 borderWidth: 1
+    //             },
+    //         ]
+    //     },
+    //     options: {
+    //         indexAxis: 'y',
+    //         scales: {
+    //             y: {
+    //                 stacked: true
+    //             },
+    //             x: {
+    //                 stacked: true
+    //             }
+    //         },
+    //             plugins: {
+    //                 Tooltip: {
+    //                     enabled : false
+    //                 }
+    //             }
+    //     },
+    //     plugins: [ChartDataLabels]
+    //     });
+    // }
 
-    let chart6 = document.getElementById('Payment_vs_Purchased');
-    if (chart6) {
-        if (chart6.chartInstance) {
-            chart6.chartInstance.destroy();
-        }
-        chart6.chartInstance = new Chart(chart6, {
-            type: 'bar',
-            data: {
-                labels: dataTp.map(row => row.Type),
-                datasets: [{
-                    label: 'Cash',
-                    data: dataTp.map(row => row.LineTotal),
-                    backgroundColor: [
-                        'rgba(140,117,233)',
-                    ],
-                    borderWidth: 1
-                },
-                {
-                    label: 'Credit',
-                    data: dataTp.map(row => row.LineTotal),
-                    backgroundColor: [
-                        'rgba(140,117,233)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'x',
-                scales: {
-                    y: {
-                        stacked: true
-                    },
-                    x: {
-                        stacked: true
-                    }
-                },
-                    plugins: {
-                        Tooltip: {
-                            enabled : false
-                        }
-                    }
-            },
-            plugins: [ChartDataLabels]
-            });
-    }
+    // let chart6 = document.getElementById('Payment_vs_Purchased');
+    // if (chart6) {
+    //     if (chart6.chartInstance) {
+    //         chart6.chartInstance.destroy();
+    //     }
+    //     chart6.chartInstance = new Chart(chart6, {
+    //         type: 'bar',
+    //         data: {
+    //             labels: dataTp.map(row => row.Type),
+    //             datasets: [{
+    //                 label: 'Cash',
+    //                 data: dataTp.map(row => row.LineTotal),
+    //                 backgroundColor: [
+    //                     'rgba(140,117,233)',
+    //                 ],
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'Credit',
+    //                 data: dataTp.map(row => row.LineTotal),
+    //                 backgroundColor: [
+    //                     'rgba(140,117,233)',
+    //                 ],
+    //                 borderWidth: 1
+    //             }]
+    //         },
+    //         options: {
+    //             indexAxis: 'x',
+    //             scales: {
+    //                 y: {
+    //                     stacked: true
+    //                 },
+    //                 x: {
+    //                     stacked: true
+    //                 }
+    //             },
+    //                 plugins: {
+    //                     Tooltip: {
+    //                         enabled : false
+    //                     }
+    //                 }
+    //         },
+    //         plugins: [ChartDataLabels]
+    //         });
+    // }
     let chart7 = document.getElementById('Purchased_vs_Price');
     if (chart7) {
         if (chart7.chartInstance) {
@@ -500,6 +524,8 @@ function test(data){
     for(var i = 0; i < dataGet.length; i++){
         dataGetFilter[i] = dataGet[i];
     }
+
+    dataTable(dataGet);
 
     getDataLocation(dataGetFilter);
     getDataDropdownLocation(dataGetFilter);
