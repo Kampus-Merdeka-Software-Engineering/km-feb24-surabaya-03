@@ -28,19 +28,19 @@
     <nav>
         <section class="filter">
             <div class="tooltip-container">
-                <select name="location" id="lctList" data-tooltip="select a Location" onchange="checkDropdowns()">
+                <select name="location" id="lctList" data-tooltip="select a Location">
                 </select>
                 <span class="tooltip-text">select a Location</span>
             </div>
 
             <div class="tooltip-container">
-                <select name="category" id="ctgList" data-tooltip="Select a category" onchange="checkDropdowns()">
+                <select name="category" id="ctgList" data-tooltip="Select a category">
                 </select>
                 <span class="tooltip-text">Select a category</span>
             </div>
 
             <div class="tooltip-container">
-                <select name="date" id="mthList" data-tooltip="Select a date" onchange="checkDropdowns()">
+                <select name="date" id="mthList" data-tooltip="Select a date">
                 </select>
                 <span class="tooltip-text">Select a date</span>
             </div>
@@ -50,7 +50,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <p>Harap isi dropdown terlebih dahulu</p>
+            <p>Welcome to the Vending Machine Sales Dashboard. Please fill out the dropdowns to get started.</p>
         </div>
     </div>
 
@@ -84,16 +84,14 @@
             </div>
 
             <section class="content">
-                <section>
                     <div class="container-metric">
                         <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
-                        <canvas id="total_sales_by_month"></canvas>
+                        <canvas id="total_sales_by_month" width="900" height="450"></canvas>
                     </div>
                     <div class="container-metric">
                         <label for="Top 5 Product Sales" class="label-viz">Top 5 Product Sales</label>
-                        <canvas id="top_five_product_sales"></canvas>
+                        <canvas id="top_five_product_sales" width="900" height="450"></canvas>
                     </div>
-                </section>
             </section>
         </div>
 
@@ -159,15 +157,15 @@
     <script type="text/javascript" charset="utf8" src="js/jquery.js"></script>
     <script type="text/javascript" charset="utf8" src="js/dataTable.js"></script>
     <script>
-        function checkDropdowns() {
-            var location = document.getElementById('lctList').value;
-            var category = document.getElementById('ctgList').value;
-            var date = document.getElementById('mthList').value;
+        // function checkDropdowns() {
+        //     var location = document.getElementById('lctList').value;
+        //     var category = document.getElementById('ctgList').value;
+        //     var date = document.getElementById('mthList').value;
 
-            if (!location || !category || !date) {
-                showModal();
-            }
-        }
+        //     if (!location || !category || !date) {
+        //         showModal();
+        //     }
+        // }
 
         function showModal() {
             var modal = document.getElementById("myModal");
@@ -184,6 +182,11 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
+
+
+        window.onload = function() {
+            showModal();
         }
     </script>
 </body>
