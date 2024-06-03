@@ -88,7 +88,9 @@ function getDataLocation(dataGet){
         else{
             locSalesByCategory.push({Location: i.Location, Category: i.Category, LineTotal: parseFloat(i.LineTotal)});
         }
+
     })
+    console.log(locSalesByCategory);
 
 }
 
@@ -380,65 +382,82 @@ function visualization() {
         });
     }
 
-    // let chart5 = document.getElementById('based_on_Category');
-    // if (chart5) {
-    //     if(chart5.chartInstance) {
-    //         chart5.chartInstance.destroy();
-    //     }
-    //     chart5.chartInstance = new Chart(chart5, {
-    //         type: 'bar',
-    //     data: {
-    //         labels: dataLoc.map(row => row.Location),
-    //         datasets: [
-    //             {
-    //                 label: 'food',
-    //                 data: dataTp.map(row => row.Type),
-    //                 backgroundColor: 'rgba(140, 117, 233, 0.5)',
-    //                 borderColor: 'rgba(140, 117, 233, 1)',
-    //                 borderWidth: 1
-    //             },
-    //             {
-    //                 label: 'Carbonated',
-    //                 data: dataMch.map(row => row.Machine),
-    //                 backgroundColor: 'rgb(140,117,233)',
-    //                 borderColor: 'rgba(117, 233, 140, 1)',
-    //                 borderWidth: 1
-    //             },
-    //             {
-    //                 label: 'Non Carbonated',
-    //                 data: dataTrMonth.map(row => row.TransMonth),
-    //                 backgroundColor: 'rgb(234,162,76)',
-    //                 borderColor: 'rgba(117, 233, 140, 1)',
-    //                 borderWidth: 1
-    //             },
-    //             {
-    //                 label: 'Water',
-    //                 data: dataTrMonth.map(row => row.TransMonth),
-    //                 backgroundColor: 'rgb(159, 99, 132, 1)',
-    //                 borderColor: 'rgba(117, 233, 140, 1)',
-    //                 borderWidth: 1
-    //             },
-    //         ]
-    //     },
-    //     options: {
-    //         indexAxis: 'y',
-    //         scales: {
-    //             y: {
-    //                 stacked: true
-    //             },
-    //             x: {
-    //                 stacked: true
-    //             }
-    //         },
-    //             plugins: {
-    //                 Tooltip: {
-    //                     enabled : false
-    //                 }
-    //             }
-    //     },
-    //     plugins: [ChartDataLabels]
-    //     });
-    // }
+    const locations = [...new Set(locSalesByCategory.map(item => item.Location))];
+    const categories = [...new Set(locSalesByCategory.map(item => item.Category))];
+
+    const structuredData = {};
+    locations.forEach(location => {
+        structuredData[location] = { 'Food': 0, 'Carbonated': 0, 'Non Carbonated': 0, 'Water': 0 };
+    });
+
+    locSalesByCategory.forEach(item => {
+        structuredData[item.Location][item.Category] = item.LineTotal;
+    });
+
+    const dataFood = locations.map(location => structuredData[location]['Food']);
+    const dataCarbonated = locations.map(location => structuredData[location]['Carbonated']);
+    const dataNonCarbonated = locations.map(location => structuredData[location]['Non Carbonated']);
+    const dataWater = locations.map(location => structuredData[location]['Water']);
+
+    let chart5 = document.getElementById('based_on_Category');
+    if (chart5) {
+        if(chart5.chartInstance) {
+            chart5.chartInstance.destroy();
+        }
+        chart5.chartInstance = new Chart(chart5, {
+            type: 'bar',
+        data: {
+            labels: locations,
+            datasets: [
+                {
+                    label: 'Food',
+                    data: dataFood,
+                    backgroundColor: 'rgba(140, 117, 233, 0.5)',
+                    borderColor: 'rgba(140, 117, 233, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Carbonated',
+                    data: dataCarbonated,
+                    backgroundColor: 'rgb(140,117,233)',
+                    borderColor: 'rgba(117, 233, 140, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Non Carbonated',
+                    data: dataNonCarbonated,
+                    backgroundColor: 'rgb(234,162,76)',
+                    borderColor: 'rgba(117, 233, 140, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Water',
+                    data: dataWater,
+                    backgroundColor: 'rgb(159, 99, 132, 1)',
+                    borderColor: 'rgba(117, 233, 140, 1)',
+                    borderWidth: 1
+                },
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    stacked: true
+                },
+                x: {
+                    stacked: true
+                }
+            },
+                plugins: {
+                    Tooltip: {
+                        enabled : false
+                    }
+                }
+        },
+        plugins: [ChartDataLabels]
+        });
+    }
 
     // let chart6 = document.getElementById('Payment_vs_Purchased');
     // if (chart6) {
