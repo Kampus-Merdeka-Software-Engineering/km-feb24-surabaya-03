@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dataTable.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     <title>Vending Machine Sales</title>
 </head>
 
@@ -56,47 +57,46 @@
 
     <main>
         <div class="part1">
-            <div class="part-aside">
-                <div class="container-metric">
+            <section class="part-aside">
+                <div class="container-aside">
                     <p style="text-align: center;">Revenue</p>
                     <h2 style="text-align: center;" id="revenueValue"></h2>
                 </div>
-                <div class="container-metric">
+                <div class="container-aside">
                     <p style="text-align: center;">Machine</p>
                     <h2 style="text-align: center;" id="machineValue"></h2>
                 </div>
-                <div class="container-metric">
+                <div class="container-aside">
                     <p style="text-align: center;">Category Product</p>
                     <h2 style="text-align: center;" id="categoryValue"></h2>
                 </div>
-                <div class="container-metric">
+                <div class="container-aside">
                     <p style="text-align: center;">Products</p>
                     <h2 style="text-align: center;" id="productValue"></h2>
                 </div>
-                <div class="container-metric">
+                <div class="container-aside">
                     <p style="text-align: center;">Transaction</p>
                     <h2 style="text-align: center;" id="transactionValue"></h2>
                 </div>
-                <div class="container-metric">
+                <div class="container-aside">
                     <p style="text-align: center;">Qty Sold</p>
                     <h2 style="text-align: center;" id="qtySoldValue"></h2>
                 </div>
-            </div>
+            </section>
 
             <section class="content">
                     <div class="container-metric">
                         <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
-                        <canvas id="total_sales_by_month" width="900" height="450"></canvas>
+                        <canvas id="total_sales_by_month"></canvas>
                     </div>
                     <div class="container-metric">
                         <label for="Top 5 Product Sales" class="label-viz">Top 5 Product Sales</label>
-                        <canvas id="top_five_product_sales" width="900" height="450"></canvas>
+                        <canvas id="top_five_product_sales"></canvas>
                     </div>
             </section>
         </div>
 
         <div class="part2">
-            <section class="content">
                 <section class="charts2">
                     <div class="small">
                         <div class="small-chart">
@@ -113,7 +113,6 @@
                         <canvas id="based_on_Category"></canvas>
                     </div>
                 </section>
-            </section>
         </div>
         <div class="part3">
             <section class="charts3">
@@ -127,8 +126,7 @@
                 </div>
             </section>
         </div>
-        <div class="part4">
-            <section class="datatable-section">
+            <div class="datatable-div">
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>
@@ -146,41 +144,25 @@
                     <tbody id="dataPlace">
                     </tbody>
                 </table>
-            </section>
-        </div>
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <p>Welcome to the Vending Machine Sales Dashboard. Please fill out the dropdowns to get started.</p>
+                </div>
+            </div>
     </main>
     <footer>
         <p>Designed By: KM-24 - Section Surabaya - Team 3</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/script.js"></script>
-    <script type="text/javascript" charset="utf8" src="js/jquery.js"></script>
-    <script type="text/javascript" charset="utf8" src="js/dataTable.js"></script>
+    <script src="script.js"></script>
+    <!-- <script type="text/javascript" charset="utf8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/dataTable.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2" type="text/javascript"></script>
-    <script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
 
-        function showModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-        }
-
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-
-        window.onload = function() {
-            showModal();
-        }
-    </script>
 </body>
 
 </html>
