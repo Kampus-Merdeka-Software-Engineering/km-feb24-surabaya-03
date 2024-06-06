@@ -38,6 +38,10 @@ let sumPrd;
 let dataTrans = [];
 let sumTrans;
 
+let dataRPrice = [];
+let dataTypeRQty = [];
+let dataTypeRQtyWithRQTySum = []; 
+
 let sumQty = 0;
 
 let revenue = 0;
@@ -46,13 +50,13 @@ let dropdownChoose = [{Location: '', Category: '', TransMonth: ''}];
 
 
 function getData(dataLoop){
-    let extData = dataGet.find(d => (d.Location === dataLoop.Location) && (d.Machine === dataLoop.Machine) && (d.Product === dataLoop.Product) && (d.Category === dataLoop.Category) && (d.Transaction === dataLoop.Transaction) && (d.Type === dataLoop.Type) && (d.RQty === dataLoop.RQty) && (d.LineTotal === dataLoop.LineTotal) && (d.TransMonth === dataLoop.TransMonth));
+    let extData = dataGet.find(d => (d.Location === dataLoop.Location) && (d.Machine === dataLoop.Machine) && (d.Product === dataLoop.Product) && (d.Category === dataLoop.Category) && (d.Transaction === dataLoop.Transaction) && (d.Type === dataLoop.Type) && (d.RQty === dataLoop.RQty) && (d.LineTotal === dataLoop.LineTotal) && (d.TransMonth === dataLoop.TransMonth) && (d.RPrice === dataLoop.RPrice));
 
     if(extData){
         extData = extData;
     }
     else{
-        dataGet.push({Location: dataLoop.Location, Machine: dataLoop.Machine, Product: dataLoop.Product, Category: dataLoop.Category, Transaction: dataLoop.Transaction, Type: dataLoop.Type, RQty: dataLoop.RQty, LineTotal: dataLoop.LineTotal, TransMonth: dataLoop.TransMonth});
+        dataGet.push({Location: dataLoop.Location, Machine: dataLoop.Machine, Product: dataLoop.Product, Category: dataLoop.Category, Transaction: dataLoop.Transaction, Type: dataLoop.Type, RQty: dataLoop.RQty, LineTotal: dataLoop.LineTotal, TransMonth: dataLoop.TransMonth, RPrice: dataLoop.RPrice});
     }
 }
 
@@ -180,8 +184,13 @@ function getDataDropdownTransMonth(dataGet){
 
 function getDataType(dataGet){
     dataTp = [];
+    dataTypeRQty = [];
+    dataTypeRQtyWithRQTySum = [];
+    let rQtySumMap = {};
+
     dataGet.forEach(i => {
         let tp = dataTp.find(t => (t.Type === i.Type));
+        let tr = dataTypeRQty.find(tt => (tt.Type === i.Type) && (tt.RQty === i.RQty));
 
         if(tp){
             tp.LineTotal = parseFloat(tp.LineTotal) + parseFloat(i.LineTotal);
@@ -189,7 +198,34 @@ function getDataType(dataGet){
         else{
             dataTp.push({Type: i.Type, LineTotal: parseFloat(i.LineTotal)});
         }
+
+        if(tr){
+            tr.Sum += 1;
+        }
+        else{
+            dataTypeRQty.push({Type: i.Type, RQty: i.RQty, Sum: 1, SumRQty: 0});
+        }
     })
+    
+    dataTypeRQty.forEach(i => {
+        if (rQtySumMap[i.RQty]) {
+            rQtySumMap[i.RQty] += i.Sum;
+        } else {
+            rQtySumMap[i.RQty] = i.Sum;
+        }
+    });
+
+    dataTypeRQty.forEach(i => {
+        dataTypeRQtyWithRQTySum.push({
+            Type: i.Type,
+            RQty: i.RQty,
+            Sum: i.Sum,
+            SumRQTy: rQtySumMap[i.RQty]
+        });
+    });
+
+    console.log(dataTypeRQtyWithRQTySum);
+
 }
 
 function getDataMachine(dataGet){
@@ -243,6 +279,20 @@ function getDataTransaction(dataGet){
 
     sumTrans = dataTrans.length;
     transactionValue.innerHTML = sumTrans;
+}
+
+function getDataRPrice(dataGet){
+    dataRPrice = [];
+    dataGet.forEach(i => {
+        let rp = dataRPrice.find(r => (r.RPrice === i.RPrice));
+
+        if(rp){
+            rp.RQty = parseInt(rp.RQty) + parseInt(i.RQty);
+        }
+        else{
+            dataRPrice.push({RPrice: i.RPrice, RQty: parseInt(i.RQty)});
+        }
+    });
 }
 
 function getDataRQty(dataGet){
@@ -459,51 +509,64 @@ function visualization() {
         });
     }
 
-    // let chart6 = document.getElementById('Payment_vs_Purchased');
-    // if (chart6) {
-    //     if (chart6.chartInstance) {
-    //         chart6.chartInstance.destroy();
-    //     }
-    //     chart6.chartInstance = new Chart(chart6, {
-    //         type: 'bar',
-    //         data: {
-    //             labels: dataTp.map(row => row.Type),
-    //             datasets: [{
-    //                 label: 'Cash',
-    //                 data: dataTp.map(row => row.LineTotal),
-    //                 backgroundColor: [
-    //                     'rgba(140,117,233)',
-    //                 ],
-    //                 borderWidth: 1
-    //             },
-    //             {
-    //                 label: 'Credit',
-    //                 data: dataTp.map(row => row.LineTotal),
-    //                 backgroundColor: [
-    //                     'rgba(140,117,233)',
-    //                 ],
-    //                 borderWidth: 1
-    //             }]
-    //         },
-    //         options: {
-    //             indexAxis: 'x',
-    //             scales: {
-    //                 y: {
-    //                     stacked: true
-    //                 },
-    //                 x: {
-    //                     stacked: true
-    //                 }
-    //             },
-    //                 plugins: {
-    //                     Tooltip: {
-    //                         enabled : false
-    //                     }
-    //                 }
-    //         },
-    //         plugins: [ChartDataLabels]
-    //         });
-    // }
+    let cashData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Cash');
+    let creditData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Credit');
+
+    let cashLineTotal = cashData.map(row => row.Sum);
+    let creditLineTotal = creditData.map(row => row.Sum);
+
+    let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))];
+
+    let chart6 = document.getElementById('Payment_vs_Purchased');
+    if (chart6) {
+        if (chart6.chartInstance) {
+            chart6.chartInstance.destroy();
+        }
+        chart6.chartInstance = new Chart(chart6, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Cash',
+                        data: labels.map(label => {
+                            let entry = cashData.find(row => row.RQty === label);
+                            return entry ? entry.Sum : 0;
+                        }),
+                        backgroundColor: 'rgba(140,117,233, 0.5)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Credit',
+                        data: labels.map(label => {
+                            let entry = creditData.find(row => row.RQty === label);
+                            return entry ? entry.Sum : 0;
+                        }),
+                        backgroundColor: 'rgba(233,117,140, 0.5)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'x',
+                scales: {
+                    y: {
+                        stacked: true
+                    },
+                    x: {
+                        stacked: true
+                    }
+                },
+                plugins: {
+                    Tooltip: {
+                        enabled: false
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
     let chart7 = document.getElementById('Purchased_vs_Price');
     if (chart7) {
         if (chart7.chartInstance) {
@@ -512,10 +575,10 @@ function visualization() {
         chart7.chartInstance = new Chart(chart7, {
             type: 'bar',
             data: {
-                labels: dataPrd.slice(0, 5).map(row => row.Product),
+                labels: dataRPrice.map(row => row.RPrice),
                 datasets: [{
                     label: 'RQty',
-                    data: dataPrd.slice(0, 5).map(row => row.RQty),
+                    data: dataRPrice.map(row => row.RQty),
                     backgroundColor: [
                         'rgba(140,117,233)',
                     ],
@@ -557,7 +620,10 @@ function test(data){
     getDataTransaction(dataGetFilter);
     getDataRQty(dataGetFilter);
     getDataLineTotal(dataGetFilter);
+    getDataRPrice(dataGetFilter);
     visualization();
+
+    console.log(dataTypeRQty);
 
     lctList.addEventListener('change', function () {
         dropdownChoose[0].Location = lctList.value;
@@ -598,6 +664,7 @@ function updateDataView(){
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
         getDataTransMonth(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
@@ -614,6 +681,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
         console.log(dataMch);
@@ -631,6 +699,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
@@ -647,6 +716,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
@@ -662,6 +732,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
@@ -677,6 +748,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
@@ -692,6 +764,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
@@ -706,6 +779,7 @@ function updateDataView(){
         getDataTransaction(dataGetFilter);
         getDataRQty(dataGetFilter);
         getDataLineTotal(dataGetFilter);
+        getDataRPrice(dataGetFilter);
         visualization();
         console.log(dropdownChoose);
 
