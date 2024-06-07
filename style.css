@@ -18,6 +18,11 @@ header {
     background-color: white;
 }
 
+canvas{
+    width: 100%;
+    height: 100%;
+}
+
 
 .title {
     flex-grow: 1;
@@ -151,7 +156,7 @@ main {
 }
 
 
-.container-metric{
+.container-metric {
     background-color: rgb(255, 255, 255);
     padding: 20px;
     margin: 10px;
@@ -159,8 +164,16 @@ main {
     flex-direction: column;
     justify-content: space-between;
     border-radius: 10px;
-
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
 }
+
+.container-metric canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
 
 label {
     background-color: #2a2b58;
@@ -211,14 +224,34 @@ section {
     flex: 1;
     margin-bottom: 10px;
     background-color: #ffffff;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
 }
 
 .large-chart {
     flex: 2;
     background-color: rgb(255, 255, 255);
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
 }
+
+.small-chart canvas, .large-chart canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
 
 .charts3 {
     display: flex;
