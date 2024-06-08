@@ -423,36 +423,43 @@ function visualization() {
         });
     }
 
-    // Percentage Payment Type - Grafik Doughnut
-    let chart4 = document.getElementById('Percentage_Payment_Type');
-    if (chart4) {
-        if (chart4.chartInstance) {
-            chart4.chartInstance.destroy();
-        }
-        chart4.chartInstance = new Chart(chart4, {
-            type: 'doughnut',
-            data: {
-                labels: dataTp.map(row => row.Type),
-                datasets: [{
-                    label: 'Total Sales',
-                    data: dataTp.map(row => row.LineTotal),
-                    backgroundColor: [
-                        'rgb(231,133,183)',
-                        'rgb(140,117,233)',
-                    ],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+let chart4 = document.getElementById('Percentage_Payment_Type');
+if (chart4) {
+    if (chart4.chartInstance) {
+        chart4.chartInstance.destroy();
+    }
+    chart4.chartInstance = new Chart(chart4, {
+        type: 'doughnut',
+        data: {
+            labels: dataTp.map(row => row.Type),
+            datasets: [{
+                label: 'Total Sales',
+                data: dataTp.map(row => row.LineTotal),
+                backgroundColor: [
+                    'rgb(231,133,183)',
+                    'rgb(140,117,233)',
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let datasets = ctx.chart.data.datasets;
+                        let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+                        let percentage = Math.round((value / sum) * 100) + '%';
+                        return percentage;
+                    },
+                    color: '#fff',
                 }
             }
-        });
-    }
+        },
+        plugins: [ChartDataLabels]
+    });
+}
 
+    
     const locations = [...new Set(locSalesByCategory.map(item => item.Location))];
     const categories = [...new Set(locSalesByCategory.map(item => item.Category))];
 
@@ -531,62 +538,83 @@ function visualization() {
     }
 
     let cashData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Cash');
-    let creditData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Credit');
+let creditData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Credit');
 
-    let cashLineTotal = cashData.map(row => row.Sum);
-    let creditLineTotal = creditData.map(row => row.Sum);
+let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))];
 
-    let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))];
-
-    let chart6 = document.getElementById('Payment_vs_Purchased');
-    if (chart6) {
-        if (chart6.chartInstance) {
-            chart6.chartInstance.destroy();
-        }
-        chart6.chartInstance = new Chart(chart6, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Cash',
-                        data: labels.map(label => {
-                            let entry = cashData.find(row => row.RQty === label);
-                            return entry ? entry.Sum : 0;
-                        }),
-                        backgroundColor: 'rgba(140,117,233, 0.5)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Credit',
-                        data: labels.map(label => {
-                            let entry = creditData.find(row => row.RQty === label);
-                            return entry ? entry.Sum : 0;
-                        }),
-                        backgroundColor: 'rgba(233,117,140, 0.5)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                indexAxis: 'x',
-                scales: {
-                    y: {
-                        stacked: true
-                    },
-                    x: {
-                        stacked: true
+let chart6 = document.getElementById('Payment_vs_Purchased');
+if (chart6) {
+    if (chart6.chartInstance) {
+        chart6.chartInstance.destroy();
+    }
+    chart6.chartInstance = new Chart(chart6, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Cash',
+                    data: labels.map(label => {
+                        let entry = cashData.find(row => row.RQty === label);
+                        return entry ? entry.Sum : 0;
+                    }),
+                    backgroundColor: 'rgba(140,117,233, 0.5)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Credit',
+                    data: labels.map(label => {
+                        let entry = creditData.find(row => row.RQty === label);
+                        return entry ? entry.Sum : 0;
+                    }),
+                    backgroundColor: 'rgba(233,117,140, 0.5)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'x',
+            scales: {
+                y: {
+                    stacked: true,
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value + '%';
+                        }
                     }
                 },
-                plugins: {
-                    Tooltip: {
-                        enabled: false
-                    }
+                x: {
+                    stacked: true
                 }
             },
-            plugins: [ChartDataLabels]
-        });
-    }
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        footer: (tooltipItems) => {
+                            let total = tooltipItems.reduce((acc, tooltipItem) => {
+                                return acc + tooltipItem.raw;
+                            }, 0);
+                            return 'Total: ' + total;
+                        }
+                    }
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let datasets = ctx.chart.data.datasets;
+                        let sum = datasets.map(dataset => dataset.data[ctx.dataIndex]).reduce((a, b) => a + b, 0);
+                        let percentage = (value * 100 / sum).toFixed(2) + '%';
+                        return percentage;
+                    },
+                    color: '#fff',
+                    display: 'auto'
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+}
+
 
     let chart7 = document.getElementById('Purchased_vs_Price');
     if (chart7) {
