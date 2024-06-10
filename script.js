@@ -390,38 +390,53 @@ function visualization() {
         });
     }
 
-    // Sold Based on Machine - Grafik Pie
-    let chart3 = document.getElementById('sold_based_on_machine');
-    if (chart3) {
-        if (chart3.chartInstance) {
-            chart3.chartInstance.destroy();
-        }
-        chart3.chartInstance = new Chart(chart3, {
-            type: 'doughnut',
-            data: {
-                labels: dataMch.map(row => row.Machine),
-                datasets: [{
-                    label: 'Total Sales',
-                    data: dataMch.map(row => row.LineTotal),
-                    backgroundColor: [
-                        'rgb(140,117,233)',
-                        'rgb(234,162,76)',
-                        'rgb(231,133,183)',
-                        'rgb(51,83,108)',
-                        'rgba(202,131,226,255)',
-                    ],
-                    hoverOffset: 0
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+
+let chart3 = document.getElementById('sold_based_on_machine');
+if (chart3) {
+    if (chart3.chartInstance) {
+        chart3.chartInstance.destroy();
+    }
+    chart3.chartInstance = new Chart(chart3, {
+        type: 'pie',
+        data: {
+            labels: dataMch.map(row => row.Machine),
+            datasets: [{
+                label: 'Total Sales',
+                data: dataMch.map(row => row.LineTotal),
+                backgroundColor: [
+                    'rgb(140,117,233)',
+                    'rgb(234,162,76)',
+                    'rgb(231,133,183)',
+                    'rgb(51,83,108)',
+                    'rgba(202,131,226,255)',
+                ],
+                hoverOffset: 0
+            }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let datasets = ctx.chart.data.datasets;
+                        let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+                        let percentage = Math.round((value / sum) * 100) + '%';
+                        return percentage;
+                    },
+                    color: '#fff', // Warna font
+                    font: {
+                        size: 14, // Ukuran font
+                        weight: 'bold' // Berat font
+                    },
+                    padding: 6, // Jarak antara label dan elemen
+                    anchor: 'end', // Menyandarkan label di ujung
+                    align: 'start', // Mengatur perataan label
+                    offset: 10 // Jarak label dari pusat pie
                 }
             }
-        });
-    }
+        },
+        plugins: [ChartDataLabels]
+    });
+}
 
 let chart4 = document.getElementById('Percentage_Payment_Type');
 if (chart4) {
@@ -538,83 +553,83 @@ if (chart4) {
     }
 
     let cashData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Cash');
-let creditData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Credit');
-
-let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))];
-
-let chart6 = document.getElementById('Payment_vs_Purchased');
-if (chart6) {
-    if (chart6.chartInstance) {
-        chart6.chartInstance.destroy();
-    }
-    chart6.chartInstance = new Chart(chart6, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Cash',
-                    data: labels.map(label => {
-                        let entry = cashData.find(row => row.RQty === label);
-                        return entry ? entry.Sum : 0;
-                    }),
-                    backgroundColor: 'rgba(140,117,233, 0.5)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Credit',
-                    data: labels.map(label => {
-                        let entry = creditData.find(row => row.RQty === label);
-                        return entry ? entry.Sum : 0;
-                    }),
-                    backgroundColor: 'rgba(233,117,140, 0.5)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            indexAxis: 'x',
-            scales: {
-                y: {
-                    stacked: true,
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function (value) {
-                            return value + '%';
+    let creditData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Credit');
+    
+    let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))];
+    
+    let chart6 = document.getElementById('Payment_vs_Purchased');
+    if (chart6) {
+        if (chart6.chartInstance) {
+            chart6.chartInstance.destroy();
+        }
+        chart6.chartInstance = new Chart(chart6, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Cash',
+                        data: labels.map(label => {
+                            let entry = cashData.find(row => row.RQty === label);
+                            return entry ? entry.Sum : 0;
+                        }),
+                        backgroundColor: 'rgba(140,117,233, 0.5)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Credit',
+                        data: labels.map(label => {
+                            let entry = creditData.find(row => row.RQty === label);
+                            return entry ? entry.Sum : 0;
+                        }),
+                        backgroundColor: 'rgba(233,117,140, 0.5)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'x',
+                scales: {
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            }
                         }
+                    },
+                    x: {
+                        stacked: true
                     }
                 },
-                x: {
-                    stacked: true
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            footer: (tooltipItems) => {
+                                let total = tooltipItems.reduce((acc, tooltipItem) => {
+                                    return acc + tooltipItem.raw;
+                                }, 0);
+                                return 'Total: ' + total;
+                            }
+                        }
+                    },
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            let datasets = ctx.chart.data.datasets;
+                            let total = datasets.map(dataset => dataset.data[ctx.dataIndex]).reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / total).toFixed(2) + '%';
+                            return percentage;
+                        },
+                        color: '#fff',
+                        display: 'auto'
+                    }
                 }
             },
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        footer: (tooltipItems) => {
-                            let total = tooltipItems.reduce((acc, tooltipItem) => {
-                                return acc + tooltipItem.raw;
-                            }, 0);
-                            return 'Total: ' + total;
-                        }
-                    }
-                },
-                datalabels: {
-                    formatter: (value, ctx) => {
-                        let datasets = ctx.chart.data.datasets;
-                        let sum = datasets.map(dataset => dataset.data[ctx.dataIndex]).reduce((a, b) => a + b, 0);
-                        let percentage = (value * 100 / sum).toFixed(2) + '%';
-                        return percentage;
-                    },
-                    color: '#fff',
-                    display: 'auto'
-                }
-            }
-        },
-        plugins: [ChartDataLabels]
-    });
-}
-
+            plugins: [ChartDataLabels]
+        });
+    }
+    
 
     let chart7 = document.getElementById('Purchased_vs_Price');
     if (chart7) {

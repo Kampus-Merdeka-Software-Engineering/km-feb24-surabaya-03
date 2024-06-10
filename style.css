@@ -18,11 +18,10 @@ header {
     background-color: white;
 }
 
-canvas{
+canvas {
     width: 100%;
     height: 100%;
 }
-
 
 .title {
     flex-grow: 1;
@@ -45,6 +44,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     background-color: #2a2b58;
+    flex-wrap: wrap;
 }
 
 select {
@@ -54,9 +54,10 @@ select {
     border-radius: 5px;
     border: 1px solid #2a2b58;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
- /*tooltip*/
+/* tooltip */
 .tooltip-container {
     position: relative;
     display: inline-block;
@@ -72,9 +73,9 @@ select {
     padding: 5px;
     position: absolute;
     z-index: 1;
-    bottom: -135%; 
+    bottom: -135%;
     left: 50%;
-    margin-left: -70px; 
+    margin-left: -70px;
     opacity: 0.5;
     transition: opacity 0.3s;
 }
@@ -82,6 +83,7 @@ select {
 .tooltip-container:hover .tooltip-text {
     visibility: visible;
 }
+
 .modal {
     display: none;
     position: fixed;
@@ -120,7 +122,6 @@ select {
 }
 
 /* style main */
-
 main {
     display: flex;
     align-items: stretch;
@@ -128,17 +129,18 @@ main {
 }
 
 .part1 {
- display: grid;
-  gap: 20px;
-  width: 100%;
-  height: 50%;
-  grid-template-columns: 1fr 2fr;
-  
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    height: 50%;
+    grid-template-columns: 1fr 2fr;
 }
 
 .part-aside {
     background-color: #ccc;
-    padding: 38.5px;
+    padding: 20px;
+    display: grid;
+    gap: 10px;
 }
 
 .container-aside {
@@ -146,20 +148,18 @@ main {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.3);
-    margin: 20px;
 }
 
 .content {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
-
 
 .container-metric {
     background-color: rgb(255, 255, 255);
     padding: 20px;
-    margin: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -174,17 +174,17 @@ main {
     height: auto !important;
 }
 
-
 label {
     background-color: #2a2b58;
-    text-align: left; color: #E7E2F4;
+    text-align: left;
+    color: #E7E2F4;
 }
 
-.label-viz{
-  margin: 0px 20px 20px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.label-viz {
+    margin: 0px 20px 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .charts1 {
@@ -252,7 +252,6 @@ section {
     height: auto !important;
 }
 
-
 .charts3 {
     display: flex;
     flex-direction: row;
@@ -267,34 +266,32 @@ section {
     padding: 20px;
 }
 
-.part4{
+.part4 {
     display: grid;
     grid-gap: 20px;
     width: 100%;
     padding: 20px;
-    
 }
 
-.chart4{
+.chart4 {
     background: #eee;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 7px 25px rgb(250, 0, 0);
 }
 
-
-.datatable-div{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 8px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-  overflow: auto;
-  color: #2c2556;
-  padding: 20px;
+.datatable-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    color: #2c2556;
+    padding: 20px;
 }
 
-footer{
+footer {
     text-align: center;
 }
 
@@ -302,11 +299,9 @@ footer p {
     font-size: small;
 }
 
-.mt-10{
-   margin-top: 10px; 
+.mt-10 {
+    margin-top: 10px;
 }
-
-
 
 /* style responsive */
 @media screen and (max-width: 764px) {
@@ -320,53 +315,71 @@ footer p {
     }
 
     .filter {
-        flex-direction: row;
+        flex-direction: column;
         align-items: stretch;
     }
 
     select {
-        width: 30%;
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .part1 {
+        grid-template-columns: 1fr;
+    }
+
+    .part-aside {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .content {
+        display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        gap: 20px;
     }
 
-    aside,
-    .content {
-        width: 80%;
+    .container-metric {
+        flex: 1;
     }
 
-    .content {
-        width: 90%;
-        background-color: #b4b4b4;
+    .charts2 {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .small-chart,
+    .large-chart {
+        margin-bottom: 20px;
     }
 
     .part2 {
         flex-direction: column;
     }
 
-    .charts2 {
-        display: flex;
+    .charts3 {
         flex-direction: column;
-        gap: 2rem;
-        padding: 20px;
+        padding: 0;
     }
 
     .part3 {
         flex-direction: column;
     }
 
-    .charts3 {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        padding: 20px;
+    .datatable-div {
+        padding: 10px;
+        overflow-x: auto;
     }
 
-    .small-chart {
-        margin: 20px;
-        background-color: #ffffff;
+    .datatable-div table {
+        width: 100%;
+        min-width: 600px; /* Ensure table does not shrink too much */
+    }
+
+    .datatable-div th, .datatable-div td {
+        padding: 8px;
+        text-align: left;
+        white-space: nowrap; /* Prevent text from wrapping */
     }
 }

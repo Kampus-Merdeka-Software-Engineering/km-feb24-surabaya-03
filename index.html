@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css"> -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     <title>Vending Machine Sales</title>
 </head>
@@ -85,34 +84,34 @@
             </section>
 
             <section class="content">
-                    <div class="container-metric">
-                        <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
-                        <canvas id="total_sales_by_month"></canvas>
-                    </div>
-                    <div class="container-metric">
-                        <label for="Top 5 Product Sales" class="label-viz">Top 5 Product Sales</label>
-                        <canvas id="top_five_product_sales"></canvas>
-                    </div>
+                <div class="container-metric">
+                    <label for="Total Sales By Month" class="label-viz">Total Sales By Month</label>
+                    <canvas id="total_sales_by_month"></canvas>
+                </div>
+                <div class="container-metric">
+                    <label for="Top 5 Product Sales" class="label-viz">Top 5 Product Sales</label>
+                    <canvas id="top_five_product_sales"></canvas>
+                </div>
             </section>
         </div>
 
         <div class="part2">
-                <section class="charts2">
-                    <div class="small">
-                        <div class="small-chart">
-                            <label for="Percentage Qty Sold based on Machine" class="label-viz">Percentage Qty Sold based on Machine</label>
-                            <canvas id="sold_based_on_machine"></canvas>
-                        </div>
-                        <div class="small-chart">
-                            <label for="Percentage Payment Type" class="label-viz">Percentage Payment Type</label>
-                            <canvas id="Percentage_Payment_Type"></canvas>
-                        </div>
+            <section class="charts2">
+                <div class="small">
+                    <div class="small-chart">
+                        <label for="Percentage Qty Sold based on Machine" class="label-viz">Percentage Qty Sold based on Machine</label>
+                        <canvas id="sold_based_on_machine"></canvas>
                     </div>
-                    <div class="large-chart">
-                        <label for="Sales by Location based on Category" class="label-viz">Sales by Location based on Category</label>
-                        <canvas id="based_on_Category"></canvas>
+                    <div class="small-chart">
+                        <label for="Percentage Payment Type" class="label-viz">Percentage Payment Type</label>
+                        <canvas id="Percentage_Payment_Type"></canvas>
                     </div>
-                </section>
+                </div>
+                <div class="large-chart">
+                    <label for="Sales by Location based on Category" class="label-viz">Sales by Location based on Category</label>
+                    <canvas id="based_on_Category"></canvas>
+                </div>
+            </section>
         </div>
         <div class="part3">
             <section class="charts3">
@@ -126,43 +125,34 @@
                 </div>
             </section>
         </div>
-            <div class="datatable-div">
-                <table id="example" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Transaction</th>
-                            <th>Product</th>
-                            <th>Machine</th>
-                            <th>Location</th>
-                            <th>Category</th>
-                            <th>RQty</th>
-                            <th>LineTotal</th>
-                            <th>Type</th>
-                            <th>TransDate</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dataPlace">
-                    </tbody>
-                </table>
-            </div>
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <p>Welcome to the Vending Machine Sales Dashboard. Please fill out the dropdowns to get started.</p>
-                </div>
-            </div>
+        <div class="datatable-div">
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Transaction</th>
+                        <th>Product</th>
+                        <th>Machine</th>
+                        <th>Location</th>
+                        <th>Category</th>
+                        <th>RQty</th>
+                        <th>LineTotal</th>
+                        <th>Type</th>
+                        <th>TransDate</th>
+                    </tr>
+                </thead>
+                <tbody id="dataPlace">
+                </tbody>
+            </table>
+        </div>
     </main>
     <footer>
         <p>Designed By: KM-24 - Section Surabaya - Team 3</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
-    <!-- <script type="text/javascript" charset="utf8" src="js/jquery.js"></script>
-    <script type="text/javascript" charset="utf8" src="js/dataTable.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-
 </body>
 
 </html>
