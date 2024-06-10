@@ -555,7 +555,7 @@ if (chart4) {
     let cashData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Cash');
     let creditData = dataTypeRQtyWithRQTySum.filter(row => row.Type === 'Credit');
     
-    let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))];
+    let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))].sort((a, b) => a - b);
     
     let chart6 = document.getElementById('Payment_vs_Purchased');
     if (chart6) {
@@ -593,11 +593,6 @@ if (chart4) {
                     y: {
                         stacked: true,
                         beginAtZero: true,
-                        ticks: {
-                            callback: function (value) {
-                                return value + '%';
-                            }
-                        }
                     },
                     x: {
                         stacked: true

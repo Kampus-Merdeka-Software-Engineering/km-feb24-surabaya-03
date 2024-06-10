@@ -4,7 +4,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* style header */
 img {
     max-width: 80px;
     max-height: 80px;
@@ -32,7 +31,6 @@ canvas {
     margin: 0;
 }
 
-/* style navbar */
 nav {
     width: 100%;
     background-color: #2a2b58;
@@ -57,7 +55,6 @@ select {
     margin-bottom: 10px;
 }
 
-/* tooltip */
 .tooltip-container {
     position: relative;
     display: inline-block;
@@ -121,7 +118,6 @@ select {
     cursor: pointer;
 }
 
-/* style main */
 main {
     display: flex;
     align-items: stretch;
@@ -195,7 +191,7 @@ label {
 }
 
 section {
-    background-color: #eee;
+    background-color: #e0e0e0; /* Change this to your desired color */
     margin-bottom: 20px;
     padding: 20px;
 }
@@ -263,21 +259,6 @@ section {
     display: grid;
     grid-gap: 20px;
     width: 100%;
-    padding: 20px;
-}
-
-.part4 {
-    display: grid;
-    grid-gap: 20px;
-    width: 100%;
-    padding: 20px;
-}
-
-.chart4 {
-    background: #eee;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 7px 25px rgb(250, 0, 0);
 }
 
 .datatable-div {
@@ -289,6 +270,20 @@ section {
     overflow: auto;
     color: #2c2556;
     padding: 20px;
+}
+
+.datatable-div table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.datatable-div table th, .datatable-div table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.datatable-div table th {
+    background-color: #f2f2f2;
 }
 
 footer {
@@ -303,7 +298,7 @@ footer p {
     margin-top: 10px;
 }
 
-/* style responsive */
+/* Responsive Styles */
 @media screen and (max-width: 764px) {
     img {
         max-width: 40px;
@@ -321,65 +316,41 @@ footer p {
 
     select {
         width: 100%;
-        margin-bottom: 10px;
     }
 
     .part1 {
-        grid-template-columns: 1fr;
-    }
-
-    .part-aside {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .content {
-        display: flex;
         flex-direction: column;
-        gap: 20px;
-    }
-
-    .container-metric {
-        flex: 1;
-    }
-
-    .charts2 {
-        flex-direction: column;
-        padding: 0;
-    }
-
-    .small-chart,
-    .large-chart {
-        margin-bottom: 20px;
+        justify-content: space-between;
+        height: auto;
     }
 
     .part2 {
         flex-direction: column;
     }
 
-    .charts3 {
+    .charts2 {
         flex-direction: column;
-        padding: 0;
     }
 
     .part3 {
         flex-direction: column;
     }
 
+    .charts3 {
+        flex-direction: column;
+    }
+
     .datatable-div {
-        padding: 10px;
         overflow-x: auto;
+        padding: 10px;
     }
 
     .datatable-div table {
+        min-width: 600px;
         width: 100%;
-        min-width: 600px; /* Ensure table does not shrink too much */
     }
 
-    .datatable-div th, .datatable-div td {
-        padding: 8px;
-        text-align: left;
-        white-space: nowrap; /* Prevent text from wrapping */
+    .datatable-div table th, .datatable-div table td {
+        white-space: nowrap;
     }
 }
