@@ -4,6 +4,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* style header */
 img {
     max-width: 80px;
     max-height: 80px;
@@ -31,6 +32,7 @@ canvas {
     margin: 0;
 }
 
+/* style navbar */
 nav {
     width: 100%;
     background-color: #2a2b58;
@@ -55,6 +57,7 @@ select {
     margin-bottom: 10px;
 }
 
+/* tooltip */
 .tooltip-container {
     position: relative;
     display: inline-block;
@@ -118,17 +121,24 @@ select {
     cursor: pointer;
 }
 
+/* style main */
 main {
     display: flex;
     align-items: stretch;
     flex-direction: column;
 }
 
-.part1 {
+.part1, .part2, .part3, .part4 {
     display: grid;
     gap: 20px;
     width: 100%;
-    height: 50%;
+    background-color: #eee; /* Background color gray for all parts */
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.part1 {
     grid-template-columns: 1fr 2fr;
 }
 
@@ -191,18 +201,12 @@ label {
 }
 
 section {
-    background-color: #e0e0e0; /* Change this to your desired color */
+    background-color: #eee;
     margin-bottom: 20px;
     padding: 20px;
 }
 
-.part2 {
-    display: grid;
-    gap: 20px;
-    width: 100%;
-}
-
-.charts2 {
+.charts2, .charts3 {
     display: flex;
     flex-direction: row;
     gap: 2rem;
@@ -248,19 +252,6 @@ section {
     height: auto !important;
 }
 
-.charts3 {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-}
-
-.part3 {
-    height: 50%;
-    display: grid;
-    grid-gap: 20px;
-    width: 100%;
-}
-
 .datatable-div {
     display: flex;
     flex-direction: column;
@@ -298,7 +289,7 @@ footer p {
     margin-top: 10px;
 }
 
-/* Responsive Styles */
+/* style responsive untuk layar kecil */
 @media screen and (max-width: 764px) {
     img {
         max-width: 40px;
@@ -311,46 +302,119 @@ footer p {
 
     .filter {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center; /* Center the filter on mobile */
     }
 
     select {
         width: 100%;
+        margin-bottom: 10px;
     }
 
     .part1 {
+        grid-template-columns: 1fr;
+    }
+
+    .part-aside {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .content {
+        display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        height: auto;
+        gap: 20px;
+    }
+
+    .container-metric {
+        flex: 1;
+    }
+
+    .charts2 {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .small-chart,
+    .large-chart {
+        margin-bottom: 20px;
     }
 
     .part2 {
         flex-direction: column;
     }
 
-    .charts2 {
-        flex-direction: column;
-    }
-
-    .part3 {
-        flex-direction: column;
-    }
-
     .charts3 {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .part3, .part4 {
         flex-direction: column;
     }
 
     .datatable-div {
-        overflow-x: auto;
         padding: 10px;
+        overflow-x: auto;
     }
 
     .datatable-div table {
-        min-width: 600px;
         width: 100%;
+        min-width: 600px; /* Ensure table does not shrink too much */
     }
 
+    .datatable-div th, .datatable-div td {
+        padding: 8px;
+        text-align: left;
+        white-space: nowrap; /* Prevent text from wrapping */
+    }
     .datatable-div table th, .datatable-div table td {
         white-space: nowrap;
+    }
+}
+
+/* style responsive untuk layar besar (seperti iPad) */
+@media screen and (min-width: 765px) and (max-width: 1024px) {
+    img {
+        max-width: 60px;
+        max-height: 60px;
+    }
+
+    .title h1 {
+        font-size: large;
+    }
+
+    .filter {
+        justify-content: center; 
+    }
+
+    select {
+        max-width: 300px;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px solid #2a2b58;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .part1 {
+        grid-template-columns: 1fr;
+    }
+
+    .part-aside {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .charts2, .charts3 {
+        flex-direction: column;
+        gap: 20px;
     }
 }
