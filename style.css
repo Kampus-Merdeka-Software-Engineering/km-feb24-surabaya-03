@@ -239,7 +239,6 @@ section {
 }
 
 .large-chart {
-    flex: 2;
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
