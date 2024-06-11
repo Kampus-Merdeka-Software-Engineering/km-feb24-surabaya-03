@@ -150,7 +150,7 @@ main {
 }
 
 .container-aside {
-    background-color: #eee;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.3);
@@ -161,6 +161,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background-color: #ccc;
 }
 
 .container-metric {
@@ -173,6 +174,7 @@ main {
     box-sizing: border-box;
     width: 100%;
     height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
 
 .container-metric canvas {
@@ -194,10 +196,11 @@ label {
 }
 
 .charts1 {
-    background-color: white;
+    background-color: #ccc;
     margin-bottom: 20px;
     padding: 20px;
     height: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
 
 section {
@@ -210,7 +213,7 @@ section {
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    background-color: #eee;
+    background-color: #ccc;
 }
 
 .small {
@@ -232,6 +235,7 @@ section {
     box-sizing: border-box;
     width: 100%;
     height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
 
 .large-chart {
@@ -245,6 +249,7 @@ section {
     box-sizing: border-box;
     width: 100%;
     height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
 
 .small-chart canvas, .large-chart canvas {
@@ -411,6 +416,15 @@ footer p {
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+
+    .small-chart,
+    .large-chart {
+        margin-bottom: 20px;
+    }
+
+    .part2 {
+        flex-direction: column;
     }
 
     .charts2, .charts3 {
