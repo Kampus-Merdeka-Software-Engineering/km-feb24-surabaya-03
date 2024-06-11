@@ -94,7 +94,6 @@ function getDataLocation(dataGet){
         }
 
     })
-    console.log(locSalesByCategory);
 
 }
 
@@ -224,7 +223,6 @@ function getDataType(dataGet){
         });
     });
 
-    console.log(dataTypeRQtyWithRQTySum);
 
 }
 
@@ -682,7 +680,6 @@ function test(data){
     getDataRPrice(dataGetFilter);
     visualization();
 
-    console.log(dataTypeRQty);
 
     lctList.addEventListener('change', function () {
         dropdownChoose[0].Location = lctList.value;
@@ -697,7 +694,6 @@ function test(data){
         dropdownChoose[0].TransMonth = mthList.value;
         updateDataView();
     })
-    console.log(dropdownChoose);
 }
 
 
@@ -725,7 +721,6 @@ function updateDataView(){
         getDataTransMonth(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
 
     }
     else if(lctChoosed !== '' && ctgChoosed === '' && mthChoosed === ''){
@@ -742,8 +737,6 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
-        console.log(dataMch);
 
     }
     else if(lctChoosed === '' && ctgChoosed !== '' && mthChoosed === ''){
@@ -760,7 +753,6 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
 
     }
     else if(lctChoosed === '' && ctgChoosed === '' && mthChoosed !== ''){
@@ -777,7 +769,6 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
 
     }
     else if(lctChoosed !== '' && ctgChoosed !== '' && mthChoosed === ''){
@@ -793,7 +784,6 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
 
     }
     else if(lctChoosed !== '' && ctgChoosed === '' && mthChoosed !== ''){
@@ -809,7 +799,6 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
 
     }
     else if(lctChoosed === '' && ctgChoosed !== '' && mthChoosed !== ''){
@@ -825,7 +814,6 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
 
     }
     else{
@@ -840,7 +828,6 @@ function updateDataView(){
         getDataLineTotal(dataGetFilter);
         getDataRPrice(dataGetFilter);
         visualization();
-        console.log(dropdownChoose);
 
     }
 
