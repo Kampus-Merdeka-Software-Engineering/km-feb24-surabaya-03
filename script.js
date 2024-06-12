@@ -291,6 +291,9 @@ function getDataRPrice(dataGet){
             dataRPrice.push({RPrice: i.RPrice, RQty: parseInt(i.RQty)});
         }
     });
+
+    dataRPrice.sort((a, b) => b.RQty - a.RQty);
+
 }
 
 function getDataRQty(dataGet){
@@ -555,6 +558,26 @@ if (chart4) {
     
     let labels = [...new Set(dataTypeRQtyWithRQTySum.map(row => row.RQty))].sort((a, b) => a - b);
     
+    // Hitung total untuk setiap RQty
+    let totalSums = labels.map(label => {
+        let cashEntry = cashData.find(row => row.RQty === label);
+        let creditEntry = creditData.find(row => row.RQty === label);
+        let cashSum = cashEntry ? cashEntry.Sum : 0;
+        let creditSum = creditEntry ? creditEntry.Sum : 0;
+        return cashSum + creditSum;
+    });
+    
+    // Konversi nilai ke persentase
+    let cashPercentages = labels.map((label, index) => {
+        let cashEntry = cashData.find(row => row.RQty === label);
+        return cashEntry ? (cashEntry.Sum / totalSums[index]) * 100 : 0;
+    });
+    
+    let creditPercentages = labels.map((label, index) => {
+        let creditEntry = creditData.find(row => row.RQty === label);
+        return creditEntry ? (creditEntry.Sum / totalSums[index]) * 100 : 0;
+    });
+    
     let chart6 = document.getElementById('Payment_vs_Purchased');
     if (chart6) {
         if (chart6.chartInstance) {
@@ -567,19 +590,13 @@ if (chart4) {
                 datasets: [
                     {
                         label: 'Cash',
-                        data: labels.map(label => {
-                            let entry = cashData.find(row => row.RQty === label);
-                            return entry ? entry.Sum : 0;
-                        }),
+                        data: cashPercentages,
                         backgroundColor: 'rgba(140,117,233, 0.5)',
                         borderWidth: 1
                     },
                     {
                         label: 'Credit',
-                        data: labels.map(label => {
-                            let entry = creditData.find(row => row.RQty === label);
-                            return entry ? entry.Sum : 0;
-                        }),
+                        data: creditPercentages,
                         backgroundColor: 'rgba(233,117,140, 0.5)',
                         borderWidth: 1
                     }
@@ -591,6 +608,11 @@ if (chart4) {
                     y: {
                         stacked: true,
                         beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
                     },
                     x: {
                         stacked: true
@@ -603,16 +625,13 @@ if (chart4) {
                                 let total = tooltipItems.reduce((acc, tooltipItem) => {
                                     return acc + tooltipItem.raw;
                                 }, 0);
-                                return 'Total: ' + total;
+                                return 'Total: ' + total.toFixed(2) + '%';
                             }
                         }
                     },
                     datalabels: {
                         formatter: (value, ctx) => {
-                            let datasets = ctx.chart.data.datasets;
-                            let total = datasets.map(dataset => dataset.data[ctx.dataIndex]).reduce((a, b) => a + b, 0);
-                            let percentage = (value * 100 / total).toFixed(2) + '%';
-                            return percentage;
+                            return value.toFixed(2) + '%';
                         },
                         color: '#fff',
                         display: 'auto'
@@ -622,6 +641,7 @@ if (chart4) {
             plugins: [ChartDataLabels]
         });
     }
+        
     
 
     let chart7 = document.getElementById('Purchased_vs_Price');
