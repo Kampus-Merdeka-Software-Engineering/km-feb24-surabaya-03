@@ -32,6 +32,11 @@ The dataset used for this project can be found on Kaggle:
 [Vending Machine Sales Dataset](https://www.kaggle.com/datasets/awesomeasingh/vending-machine-sales)
 
 
+# Draft Capstone
+For All progress capstone Team 3 can access in this link :
+[Draft Capstone]([https://www.kaggle.com/datasets/awesomeasingh/vending-machine-sales](https://drive.google.com/drive/folders/18OFdTkI_FwQ7I32UidSIGut_wl_F115C?usp=sharing))
+
+
 
 # The Team
 
